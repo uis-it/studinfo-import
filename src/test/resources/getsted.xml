@@ -1,0 +1,700 @@
+<steder xmlns="http://fsws.usit.no/schemas/basdata">
+	<sted kode="217_0_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>0</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Universitetet i Stavanger</navn>
+		<navn lang="nn">Universitetet i Stavanger</navn>
+		<navn lang="en">University of Stavanger</navn>
+	</sted>
+	<sted kode="217_1_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>1</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Styresekretariat</navn>
+		<navn lang="nn">Styresekretariat</navn>
+	</sted>
+	<sted kode="217_2_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>2</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Forskningssekretariat</navn>
+		<navn lang="nn">Forskningssekretariat</navn>
+	</sted>
+	<sted kode="217_3_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>3</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Stab</navn>
+		<navn lang="nn">Stab</navn>
+	</sted>
+	<sted kode="217_3_2_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>3</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Strategi- og kommunikasjonsavdelingen</navn>
+		<navn lang="nn">Strategi- og kommunikasjonsavdelingen</navn>
+	</sted>
+	<sted kode="217_3_3_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>3</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Avdeling for økonomi- og virksomhetsstyring</navn>
+		<navn lang="nn">Avdeling for økonomi- og virksomheitsstyring</navn>
+	</sted>
+	<sted kode="217_3_3_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>3</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Regnskapskontoret</navn>
+		<navn lang="nn">Regnskapskontoret</navn>
+	</sted>
+	<sted kode="217_3_3_2">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>3</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>2</gruppenr>
+		<navn lang="nb">Lønningskontoret</navn>
+		<navn lang="nn">Lønningskontoret</navn>
+	</sted>
+	<sted kode="217_3_3_3">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>3</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>3</gruppenr>
+		<navn lang="nb">Lønningskontoret</navn>
+		<navn lang="nn">Lønningskontoret</navn>
+	</sted>
+	<sted kode="217_3_4_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>3</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Personalavdelingen</navn>
+		<navn lang="nn">Personalavdelingen</navn>
+	</sted>
+	<sted kode="217_3_5_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>3</faknr>
+		<instituttnr>5</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Utdanningsavdelingen</navn>
+		<navn lang="nn">Utdanningsavdelingen</navn>
+	</sted>
+	<sted kode="217_3_6_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>3</faknr>
+		<instituttnr>6</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">UiS Pluss: Etter- og videreutdanning</navn>
+		<navn lang="nn">UiS Pluss: Etter- og vidareutdanning</navn>
+		<navn lang="en">Department of Further Education and Flexible Learning</navn>
+	</sted>
+	<sted kode="217_3_6_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>3</faknr>
+		<instituttnr>6</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">UiS Pluss - oppdrag</navn>
+	</sted>
+	<sted kode="217_4_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Felles ressurssenter</navn>
+		<navn lang="nn">Felles ressurssenter</navn>
+	</sted>
+	<sted kode="217_4_1_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>1</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Dokumentsenter</navn>
+		<navn lang="nn">Dokumentsenter</navn>
+	</sted>
+	<sted kode="217_4_2_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">IT-avdelingen</navn>
+		<navn lang="nn">IT-avdelingen</navn>
+		<navn lang="en">IT-Department</navn>
+	</sted>
+	<sted kode="217_4_2_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Seksjon for IKT-opplæring</navn>
+		<navn lang="nn">Seksjon for IKT-opplæring</navn>
+	</sted>
+	<sted kode="217_4_2_2">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>2</gruppenr>
+		<navn lang="nb">Seksjon for drift og infrastruktur</navn>
+		<navn lang="nn">Seksjon for drift og infrastruktur</navn>
+	</sted>
+	<sted kode="217_4_2_3">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>3</gruppenr>
+		<navn lang="nb">Seksjon for prosjekt og utvikling</navn>
+		<navn lang="nn">Seksjon for prosjekt og utvikling</navn>
+	</sted>
+	<sted kode="217_4_2_4">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>4</gruppenr>
+		<navn lang="nb">Seksjon for service og brukerstøtte</navn>
+		<navn lang="nn">Seksjon for service og brukerstøtte</navn>
+	</sted>
+	<sted kode="217_4_3_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Driftsavdelingen</navn>
+		<navn lang="nn">Drift / sikring</navn>
+	</sted>
+	<sted kode="217_4_3_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Driftskontoret</navn>
+		<navn lang="nn">Driftskontoret</navn>
+	</sted>
+	<sted kode="217_4_3_2">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>2</gruppenr>
+		<navn lang="nb">Renholdsgruppe 1</navn>
+		<navn lang="nn">Renholdsgruppe 1</navn>
+	</sted>
+	<sted kode="217_4_3_3">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>3</gruppenr>
+		<navn lang="nb">Renholdsgruppe 2</navn>
+		<navn lang="nn">Renholdsgruppe 2</navn>
+	</sted>
+	<sted kode="217_4_4_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>4</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Enhet for studentservice</navn>
+		<navn lang="nn">Eining for studentservice</navn>
+		<navn lang="en">Department of Student Services</navn>
+	</sted>
+	<sted kode="217_5_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>5</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Universitetsbiblioteket</navn>
+		<navn lang="nn">Universitetsbiblioteket</navn>
+	</sted>
+	<sted kode="217_5_1_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>5</faknr>
+		<instituttnr>1</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Avdeling Bjergsted</navn>
+		<navn lang="nn">Avdeling Bjergsted</navn>
+	</sted>
+	<sted kode="217_5_2_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>5</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Avdeling Våland</navn>
+		<navn lang="nn">Avdeling Våland</navn>
+	</sted>
+	<sted kode="217_5_3_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>5</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Web- og markedsføringsavdelingen</navn>
+		<navn lang="nn">Web- og markedsføringsavdelingen</navn>
+	</sted>
+	<sted kode="217_5_4_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>5</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Brukerserviceavdelingen</navn>
+		<navn lang="nn">Brukerserviceavdelingen</navn>
+	</sted>
+	<sted kode="217_5_5_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>5</faknr>
+		<instituttnr>5</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Fag- og formidlingsavdelingen</navn>
+		<navn lang="nn">Fag- og formidlingsavdelingen</navn>
+	</sted>
+	<sted kode="217_5_6_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>5</faknr>
+		<instituttnr>6</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Samlingsavdelingen</navn>
+		<navn lang="nn">Samlingsavdelingen</navn>
+	</sted>
+	<sted kode="217_5_7_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>5</faknr>
+		<instituttnr>7</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Avdeling koordinering og utvikling</navn>
+		<navn lang="nn">Avdeling koordinering og utvikling</navn>
+	</sted>
+	<sted kode="217_6_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Det humanistiske fakultet</navn>
+		<navn lang="nn">Det humanistiske fakultet</navn>
+		<navn lang="en">Faculty of Arts and Education</navn>
+	</sted>
+	<sted kode="217_6_1_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>1</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for musikk og dans</navn>
+		<navn lang="nn">Institutt for musikk og dans</navn>
+		<navn lang="en">Department of Music and Dance</navn>
+	</sted>
+	<sted kode="217_6_2_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for kultur- og språkvitenskap</navn>
+		<navn lang="nn">Institutt for kultur- og språkvitenskap</navn>
+		<navn lang="en">Department of Cultural Studies and Languages</navn>
+	</sted>
+	<sted kode="217_6_2_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Administrasjon IKS</navn>
+		<navn lang="nn">Administrasjon IKS</navn>
+	</sted>
+	<sted kode="217_6_3_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for allmennlærerutdanning og spesialpedagogikk</navn>
+		<navn lang="nn">Institutt for allmennlærerutdanning og spesialpedagogikk</navn>
+		<navn lang="en">Department of Education</navn>
+	</sted>
+	<sted kode="217_6_3_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Administrasjon IAS</navn>
+		<navn lang="nn">Administrasjon IAS</navn>
+	</sted>
+	<sted kode="217_6_4_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for førskolelærerutdanning</navn>
+		<navn lang="nn">Institutt for førskolelærerutdanning</navn>
+		<navn lang="en">Department of Early Childhood Education</navn>
+	</sted>
+	<sted kode="217_6_4_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Administrasjon IFU</navn>
+		<navn lang="nn">Administrasjon IFU</navn>
+	</sted>
+	<sted kode="217_6_5_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>5</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Senter for atferdsforskning</navn>
+		<navn lang="nn">Senter for atferdsforskning</navn>
+		<navn lang="en">Centre for Behavioural Research</navn>
+	</sted>
+	<sted kode="217_6_6_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>6</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Nasjonalt senter for leseopplæring og leseforsking - Lesesenteret</navn>
+		<navn lang="nn">Nasjonalt senter for leseopplæring og leseforsking - Lesesenteret</navn>
+		<navn lang="en">National Centre for Reading Education and Research</navn>
+	</sted>
+	<sted kode="217_6_9_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>9</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Fakultetsadministrasjonen HF</navn>
+		<navn lang="nn">Det humanistiske fakultet</navn>
+		<navn lang="en">Faculty of Arts and Education</navn>
+	</sted>
+	<sted kode="217_6_9_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>9</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Kontor for fag- og studiesaker</navn>
+		<navn lang="nn">Kontor for fag- og studiesaker</navn>
+	</sted>
+	<sted kode="217_6_9_2">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>6</faknr>
+		<instituttnr>9</instituttnr>
+		<gruppenr>2</gruppenr>
+		<navn lang="nb">Kontor for fag- og studiesaker</navn>
+		<navn lang="nn">Kontor for fag- og studiesaker</navn>
+	</sted>
+	<sted kode="217_7_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Det samfunnsvitenskapelige fakultet</navn>
+		<navn lang="nn">Det samfunnsvitenskapelige fakultet</navn>
+		<navn lang="en">Faculty of Social Sciences</navn>
+	</sted>
+	<sted kode="217_7_2_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for helsefag</navn>
+		<navn lang="nn">Institutt for helsefag</navn>
+		<navn lang="en">Department of Health Studies</navn>
+	</sted>
+	<sted kode="217_7_3_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for sosialfag</navn>
+		<navn lang="nn">Institutt for sosialfag</navn>
+		<navn lang="en">Department of Social Studies</navn>
+	</sted>
+	<sted kode="217_7_4_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for økonomi og ledelse</navn>
+		<navn lang="nn">Institutt for økonomi og leiing</navn>
+		<navn lang="en">Department of Business Administration</navn>
+	</sted>
+	<sted kode="217_7_4_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Norsk hotellhøgskole - Institutt for økonomi og ledelse</navn>
+		<navn lang="nn">Norsk hotellhøgskole - Institutt for økonomi og leiing</navn>
+		<navn lang="en">Norwegian School of Hotel Management - Department of Business Administration</navn>
+	</sted>
+	<sted kode="217_7_4_2">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>2</gruppenr>
+		<navn lang="nb">Norsk hotellhøgskole - Institutt for økonomi og ledelse</navn>
+		<navn lang="nn">Norsk hotellhøgskole - Institutt for økonomi og leiing</navn>
+		<navn lang="en">Norwegian School of Hotel Management - Department of Business Administration</navn>
+	</sted>
+	<sted kode="217_7_5_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>5</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for medie-, kultur- og samfunnsfag</navn>
+		<navn lang="nn">Institutt for medie-, kultur- og samfunnsfag</navn>
+		<navn lang="en">Department of Media, Culture and Social Sciences</navn>
+	</sted>
+	<sted kode="217_7_6_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>6</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Norsk hotellhøgskole</navn>
+		<navn lang="nn">Norsk hotellhøgskole</navn>
+		<navn lang="en">Norwegian School of Hotel Management</navn>
+	</sted>
+	<sted kode="217_7_9_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>9</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Fakultetsadministrasjonen SV</navn>
+		<navn lang="nn">Fakultetsadministrasjonen SV</navn>
+	</sted>
+	<sted kode="217_7_9_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>9</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Administrasjon NHS og IØL</navn>
+		<navn lang="nn">Administrasjon NHS og IØL</navn>
+	</sted>
+	<sted kode="217_7_9_2">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>7</faknr>
+		<instituttnr>9</instituttnr>
+		<gruppenr>2</gruppenr>
+		<navn lang="nb">Administrasjonen IH og IS</navn>
+		<navn lang="nn">Administrasjonen IH og IS</navn>
+	</sted>
+	<sted kode="217_8_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Det teknisk-naturvitenskapelige fakultet</navn>
+		<navn lang="nn">Det teknisk-naturvitskapelege fakultet</navn>
+		<navn lang="en">Faculty of Science and Technology</navn>
+	</sted>
+	<sted kode="217_8_1_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>1</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Fakultetsadministrasjonen TN</navn>
+		<navn lang="nn">Fakultetsadministrasjonen TN</navn>
+	</sted>
+	<sted kode="217_8_2_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for matematikk og naturvitenskap</navn>
+		<navn lang="nn">Institutt for matematikk og naturvitenskap</navn>
+		<navn lang="en">Department of Mathematics and Natural Science</navn>
+	</sted>
+	<sted kode="217_8_2_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Laboratorium IMN</navn>
+		<navn lang="nn">Laboratorium IMN</navn>
+	</sted>
+	<sted kode="217_8_3_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for industriell økonomi, risikostyring og planlegging</navn>
+		<navn lang="nn">Institutt for industriell økonomi, risikostyring og planlegging</navn>
+		<navn lang="en">Department of Industrial Economics, Risk Management and Planning</navn>
+	</sted>
+	<sted kode="217_8_4_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for data- og elektroteknikk</navn>
+		<navn lang="nn">Institutt for data- og elektroteknikk</navn>
+		<navn lang="en">Department of Electrical and Computer Engineering</navn>
+	</sted>
+	<sted kode="217_8_4_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Laboratorium IDE</navn>
+		<navn lang="nn">Laboratorium IDE</navn>
+	</sted>
+	<sted kode="217_8_5_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>5</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for konstruksjonsteknikk og materialteknologi</navn>
+		<navn lang="nn">Institutt for konstruksjonsteknikk og materialteknologi</navn>
+		<navn lang="en">Department of Mechanical and Structural Engineering and Materials Science</navn>
+	</sted>
+	<sted kode="217_8_5_1">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>5</instituttnr>
+		<gruppenr>1</gruppenr>
+		<navn lang="nb">Laboratorium IKM</navn>
+		<navn lang="nn">Laboratorium IKM</navn>
+	</sted>
+	<sted kode="217_8_6_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>6</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Institutt for petroleumsteknologi</navn>
+		<navn lang="nn">Institutt for petroleumsteknologi</navn>
+		<navn lang="en">Department of Petroleum Engineering</navn>
+	</sted>
+	<sted kode="217_8_6_2">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>6</instituttnr>
+		<gruppenr>2</gruppenr>
+		<navn lang="nb">Administrasjonen IPT</navn>
+		<navn lang="nn">Administrasjonen IPT</navn>
+	</sted>
+	<sted kode="217_8_6_50">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>6</instituttnr>
+		<gruppenr>50</gruppenr>
+		<navn lang="nb">Laboratorium IPT</navn>
+		<navn lang="nn">Laboratorium IPT</navn>
+	</sted>
+	<sted kode="217_8_7_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>7</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">CORE - Centre for Organelle Research</navn>
+		<navn lang="nn">CORE - Centre for Organelle Research</navn>
+		<navn lang="en">CORE - Centre for Organelle Research</navn>
+	</sted>
+	<sted kode="217_8_8_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>8</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">CIAM - Center for industrial asset management</navn>
+		<navn lang="nn">CIAM - Center for industrial asset management</navn>
+		<navn lang="en">CIAM - Center for industrial asset management</navn>
+	</sted>
+	<sted kode="217_8_9_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>8</faknr>
+		<instituttnr>9</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Senter for risikostyring og samfunnssikkerhet - TN</navn>
+		<navn lang="nn">Senter for risikostyring og samfunnssikkerhet - TN</navn>
+		<navn lang="en">Centre for Risk Management and Societal Safety</navn>
+	</sted>
+	<sted kode="217_9_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>9</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Arkeologisk museum Stavanger</navn>
+		<navn lang="nn">Arkeologisk museum Stavanger</navn>
+		<navn lang="en">Archeological Museum of Stavanger</navn>
+	</sted>
+	<sted kode="217_9_1_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>9</faknr>
+		<instituttnr>1</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Museumsadministrasjonen</navn>
+		<navn lang="nn">Museumsadministrasjonen</navn>
+		<navn lang="en">Museum administration</navn>
+	</sted>
+	<sted kode="217_9_2_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>9</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Avdeling samlinger</navn>
+		<navn lang="nn">Avdeling samlinger</navn>
+		<navn lang="en">Collections</navn>
+	</sted>
+	<sted kode="217_9_3_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>9</faknr>
+		<instituttnr>3</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Avdeling konservering</navn>
+		<navn lang="nn">Avdeling konservering</navn>
+		<navn lang="en">Conservation</navn>
+	</sted>
+	<sted kode="217_9_4_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>9</faknr>
+		<instituttnr>4</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Avdeling formidling</navn>
+		<navn lang="nn">Avdeling formidling</navn>
+		<navn lang="en">Communications</navn>
+	</sted>
+	<sted kode="217_9_5_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>9</faknr>
+		<instituttnr>5</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Avdeling fornminner</navn>
+		<navn lang="nn">Avdeling fornminner</navn>
+		<navn lang="en">Artefacts</navn>
+	</sted>
+	<sted kode="217_11_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>11</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">NettOpp UiS</navn>
+		<navn lang="nn">NettOpp UiS</navn>
+	</sted>
+	<sted kode="217_20_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>20</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Studentorganisasjoner</navn>
+		<navn lang="nn">Studentorganisasjonar</navn>
+	</sted>
+	<sted kode="217_20_1_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>20</faknr>
+		<instituttnr>1</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">StudentOrganisasjonen</navn>
+		<navn lang="nn">StudentOrganisasjonen</navn>
+	</sted>
+	<sted kode="217_20_2_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>20</faknr>
+		<instituttnr>2</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">STIL</navn>
+		<navn lang="nn">STIL</navn>
+	</sted>
+	<sted kode="217_21_0_0">
+		<institusjonsnr>217</institusjonsnr>
+		<faknr>21</faknr>
+		<instituttnr>0</instituttnr>
+		<gruppenr>0</gruppenr>
+		<navn lang="nb">Studentsamskipnaden i Stavanger</navn>
+		<navn lang="nn">Studentsamskipnaden i Stavanger</navn>
+	</sted>
+</steder>

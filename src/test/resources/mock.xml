@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+		<bean id="fsWsBas" class="no.uis.service.fsimport.mock.BASServiceMockFactoryBean">
+				<property name="fsStedResource" value="classpath:getsted.xml" />
+				<property name="fsBasdataResource" value="classpath:testDataSafe.xml"/>
+		</bean>
+
+		<import resource="fsdbmock.xml"/>
+
+		<bean id="personDAO" class="no.uis.service.fsimport.mock.PersonDAOMockFactoryBean">
+				<property name="person">
+						<bean parent="person-common">
+								<property name="affiliationData">
+										<bean class="no.uis.service.model.StudentData">
+												<property name="affiliation" value="STUDENT" />
+												<property name="academicAffiliation">
+														<list>
+																<bean class="no.uis.service.model.AcademicAffiliation">
+																		<property name="programLink">
+																				<list>
+																						<bean class="no.uis.service.model.ProgramLink">
+																								<property name="active" value="true" />
+																								<property name="ref" value="M-TEST" />
+																						</bean>
+																				</list>
+																		</property>
+																</bean>
+														</list>
+												</property>
+										</bean>
+								</property>
+						</bean>
+				</property>
+				<property name="studyProgram">
+						<bean class="no.uis.service.model.StudyProgram">
+								<property name="placeRef">
+										<list>
+												<bean class="no.uis.service.model.PlaceRef">
+														<property name="value" value="217_6_3_0" />
+												</bean>
+										</list>
+								</property>
+								<property name="programId" value="M-TEST" />
+								<property name="programName">
+										<list>
+												<bean class="no.uis.service.model.BaseText">
+														<property name="lang" value="nb" />
+														<property name="value" value="Testprogramm" />
+												</bean>
+												<bean class="no.uis.service.model.BaseText">
+														<property name="lang" value="nn" />
+														<property name="value" value="Testprogramm" />
+												</bean>
+												<bean class="no.uis.service.model.BaseText">
+														<property name="lang" value="en" />
+														<property name="value" value="Test Programme" />
+												</bean>
+										</list>
+								</property>
+						</bean>
+				</property>
+				<property name="placesMap">
+						<map>
+								<entry key="217_0_0_0">
+										<bean class="no.uis.service.model.StudyPlace">
+												<property name="institutionNumber" value="217" />
+												<property name="facultyNumber" value="0" />
+												<property name="instituteNumber" value="0" />
+												<property name="groupNumber" value="0" />
+												<property name="placeRef" value="217_0_0_0" />
+												<property name="name">
+														<list>
+																<bean class="no.uis.service.model.BaseText">
+																		<property name="lang" value="nb" />
+																		<property name="value" value="Universitetet i Stavanger" />
+																</bean>
+																<bean class="no.uis.service.model.BaseText">
+																		<property name="lang" value="nn" />
+																		<property name="value" value="Universitetet i Stavanger" />
+																</bean>
+																<bean class="no.uis.service.model.BaseText">
+																		<property name="lang" value="en" />
+																		<property name="value" value="University of Stavanger" />
+																</bean>
+														</list>
+												</property>
+										</bean>
+								</entry>
+								<entry key="217_6_0_0">
+										<bean class="no.uis.service.model.StudyPlace">
+												<property name="institutionNumber" value="217" />
+												<property name="facultyNumber" value="6" />
+												<property name="instituteNumber" value="0" />
+												<property name="groupNumber" value="0" />
+												<property name="placeRef" value="217_6_0_0" />
+												<property name="name">
+														<list>
+																<bean class="no.uis.service.model.BaseText">
+																		<property name="lang" value="nb" />
+																		<property name="value" value="Test Fakultet" />
+																</bean>
+																<bean class="no.uis.service.model.BaseText">
+																		<property name="lang" value="nn" />
+																		<property name="value" value="Test Fakultet" />
+																</bean>
+																<bean class="no.uis.service.model.BaseText">
+																		<property name="lang" value="en" />
+																		<property name="value" value="Test Faculty" />
+																</bean>
+														</list>
+												</property>
+										</bean>
+								</entry>
+								<entry key="217_6_3_0">
+										<bean class="no.uis.service.model.StudyPlace">
+												<property name="institutionNumber" value="217" />
+												<property name="facultyNumber" value="6" />
+												<property name="instituteNumber" value="3" />
+												<property name="groupNumber" value="0" />
+												<property name="placeRef" value="217_6_3_0" />
+												<property name="name">
+														<list>
+																<bean class="no.uis.service.model.BaseText">
+																		<property name="lang" value="nb" />
+																		<property name="value" value="Test Institutt" />
+																</bean>
+																<bean class="no.uis.service.model.BaseText">
+																		<property name="lang" value="nn" />
+																		<property name="value" value="Test Institutt" />
+																</bean>
+																<bean class="no.uis.service.model.BaseText">
+																		<property name="lang" value="en" />
+																		<property name="value" value="Test Institute" />
+																</bean>
+														</list>
+												</property>
+										</bean>
+								</entry>
+						</map>
+				</property>
+		</bean>
+
+		<bean id="fsWsCdm" class="no.uis.service.fsimport.mock.CDMServiceMockFactoryBean">
+		</bean>
+
+		<bean id="person-common" abstract="true" class="no.uis.service.model.Person">
+				<property name="firstName" value="Frank" />
+				<property name="lastName" value="Zappa" />
+				<property name="gender" value="MALE" />
+				<property name="NIN" value="12345678901" />
+		</bean>
+
+	
+		<bean id="fsStudInfoImport" class="java.lang.Object"></bean>
+		<bean id="studInfoDao" class="java.lang.Object"></bean>
+</beans>

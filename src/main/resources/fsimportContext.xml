@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:http="http://cxf.apache.org/transports/http/configuration"
+		xmlns:sec="http://cxf.apache.org/configuration/security"
+
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-2.5.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+    http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+    http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
+    http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
+
+	<import resource="classpath:mappingContext.xml" />
+		<!--import resource="classpath:personormContext.xml"/>
+		<import resource="classpath:fsJdbcClientContext.xml"/-->
+		
+		<context:annotation-config/>
+		
+		<bean id="ormUtil" class="no.uis.service.fsimport.util.ORMUtil">
+			<property name="personDao" ref="personDAO" />
+			<property name="fsJdbcDao" ref="fsJdbcDao" />
+		</bean>
+
+		<bean id="fsStudInfoImport" class="no.uis.service.fsimport.impl.StudInfoImportImpl">
+			<property name="fsServiceStudInfo">
+				<ref bean="fsWsStudInfo"/>
+			</property>
+			<property name="studInfoDao">
+				<ref bean="studInfoDao"/>
+			</property>
+			
+			<property name="solrServer">
+			 	<ref bean="solrServer"/>
+			</property>
+			
+			<property name="cpUrl">
+				<bean class="com.corepublish.util.DomainUrl">
+					<constructor-arg index="0" value="${evu.corepublish.url}"/>
+					<constructor-arg index="1" value="${evu.corepublish.domainid}"/>
+				</bean>
+			</property>
+			
+			<property name="cpAccessorHolder">
+				<ref bean="cpAccessorHolder"/>
+			</property>
+						
+			<property name="doSaveCourseXml" value="${evu.save.xml}"/>
+		</bean>
+
+		<bean id ="cpAccessorHolder" class="com.corepublish.impl.xml.XmlAccessorHolder" init-method="init" destroy-method="destroy">
+		</bean>
+		
+		<bean id="solrServer" class="org.apache.solr.client.solrj.impl.CommonsHttpSolrServer">
+			<constructor-arg index="0" value="${solr.server.url}"/>
+
+			<property name="soTimeout" value="1000"/>
+			<property name="allowCompression" value="true"/>
+			<property name="parser">
+				<bean class="org.apache.solr.client.solrj.impl.XMLResponseParser"/>
+			</property>
+		</bean>
+		
+		<bean id="fsImport" class="no.uis.service.fsimport.impl.FSImportImpl">
+				<property name="fsService">
+						<ref bean="fsWsBas" />
+				</property>
+				<property name="fsServiceCdm">
+						<ref bean="fsWsCdm" />
+				</property>
+				<property name="ormUtil">
+						<ref local="ormUtil" />
+				</property>
+				<property name="fsMapper" ref="fsBasdataMapper" />
+				<property name="useAttachment" value="${fs.ws.use.attachment}" />
+				<property name="importPlaces" value="${fs.ws.import.places}" />
+				<property name="placesInstitution" value="${fs.ws.places.institution}" />
+		</bean>
+
+		<jaxws:client id="fsWsCdm" serviceClass="no.usit.fsws.wsdl.cdm.CDMService"
+				address="${fs.ws.cdm.url}" username="${fs.ws.username}" password="${fs.ws.password}">
+
+				<jaxws:properties>
+						<entry key="mtom-enabled" value="true" />
+				</jaxws:properties>
+		</jaxws:client>
+
+		<jaxws:client id="fsWsBas" serviceClass="no.usit.fsws.wsdl.bas.BASService"
+				address="${fs.ws.url}" username="${fs.ws.username}" password="${fs.ws.password}">
+				<jaxws:properties>
+						<entry key="mtom-enabled" value="true" />
+				</jaxws:properties>
+
+		</jaxws:client>
+
+		<bean id="fsWsStudInfo" class="no.uis.service.fsimport.impl.StudInfoServiceJDBCAdapter">
+			<property name="fsDao" ref="fsJdbcDao"/>
+		</bean>
+		
+		<!-- Studinfo ws is not in production yet -->
+		<!--
+		< jaxws:client id="fsWsStudInfo" serviceClass="no.usit.fsws.wsdl.studinfo.StudInfoService"
+			address="${fs.ws.studinfo.url}" username="${fs.ws.username}" password="${fs.ws.password}" >
+			< jaxws:properties>
+				<entry key="mtom-enabled" value="true" />
+			< /jaxws:properties>
+		< /jaxws:client>
+		-->
+		
+		<http:conduit name="{http://fsws.usit.no/wsdl/bas}BASServicePort.http-conduit">
+				
+				<http:client ConnectionTimeout="${fs.ws.connection.timeout}"
+						ReceiveTimeout="${fs.ws.receive.timeout}" AllowChunking="false"
+						Connection="Keep-Alive" />
+		</http:conduit>
+	
+		<http:conduit
+			name="{http://fsws.usit.no/wsdl/studinfo}StudInfoServicePort.http-conduit">
+			<http:client ConnectionTimeout="${fs.ws.connection.timeout}"
+				ReceiveTimeout="${fs.ws.receive.timeout}" AllowChunking="false"
+				Connection="Keep-Alive" />
+		</http:conduit>	
+</beans>
+    

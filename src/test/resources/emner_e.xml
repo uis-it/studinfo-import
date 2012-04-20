@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fs-studieinfo xmlns="http://fsws.usit.no/schemas/studinfo">
+	<emne sprak="ENGELSK">
+		<emneid>
+			<institusjonsnr>217</institusjonsnr>
+			<emnekode>ALU101</emnekode>
+			<versjonskode>2</versjonskode>
+		</emneid>
+		<emnenavn>Educational Theory 2nd Year</emnenavn>
+		<emnenavn_en>Educational Theory 2nd Year</emnenavn_en>
+		<studiepoeng>10</studiepoeng>
+		<status-privatist>N</status-privatist>
+		<studieniva>LN</studieniva>
+		<nuskode>622101</nuskode>
+		<status_oblig>J</status_oblig>
+		<obligund>
+			<obligoppgave nr='OBL1'>Temaområde 1</obligoppgave>
+			<obligoppgave nr='OBL2'>Temaområde 2</obligoppgave>
+			<obligoppgave nr='OBL3'>Temaområde 3</obligoppgave>
+		</obligund>
+		<undervisningssemester>Autumn</undervisningssemester>
+		<antall-undsemester>2</antall-undsemester>
+		<undsemester>
+			<semester nr="1">Autumn</semester>
+			<semester nr="2">Spring</semester>
+		</undsemester>
+		<emnetype>VURDERING</emnetype>
+		<url>http://www.uis.no/studier/?emneID=ALU101_2&amp;year=2010</url>
+		<periode-eks>
+			<forstegang>2007V</forstegang>
+		</periode-eks>
+		<periode-und>
+			<forstegang>2006H</forstegang>
+		</periode-und>
+		<eksamenssemester>Spring</eksamenssemester>
+		<formelle-forkunnskaper>
+			<kravalternativ kravnr='1'>ALU100 Educational Theory 1st Year</kravalternativ>
+			<kravalternativ kravnr='2'>ALU100 Educational Theory  1st Year</kravalternativ>
+		</formelle-forkunnskaper>
+		<inngar-i-studieprogram>
+			<studieprogramkode>A-ALLMEN</studieprogramkode>
+		</inngar-i-studieprogram>
+		<sted type="fagansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>6</fakultetsnr>
+			<instituttnr>3</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>Department of Education</navn>
+			<avdnavn>Faculty of Arts and Education</avdnavn>
+		</sted>
+		<sted type="adminansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>6</fakultetsnr>
+			<instituttnr>3</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>Department of Education</navn>
+			<avdnavn>Faculty of Arts and Education</avdnavn>
+		</sted>
+		<fagperson-liste>
+				<personid>12345</personid>
+				<fnr>01234567890</fnr>
+				<personrolle>Head of placements</personrolle>
+				<personnavn>
+						<etternavn>Normann</etternavn>
+						<fornavn>Nora</fornavn>
+				</personnavn>
+				<personid>23456</personid>
+				<fnr>12345678901</fnr>
+				<personrolle>Course teacher</personrolle>
+				<personnavn>
+						<etternavn>Normann</etternavn>
+						<fornavn>Ola</fornavn>
+				</personnavn>
+		</fagperson-liste>
+		<eksamensordning>
+			<eksamensordningid>S</eksamensordningid>
+			<eksamensordningnavn>En skriftlig prøve</eksamensordningnavn>
+			<lovlig-hjelpemiddel>
+				<hjelpemiddel>
+					<hjelpemiddelnavn>Mappe. </hjelpemiddelnavn>
+					<hjelpemiddelmerknad>Studentene kan bringe med seg sin individuelle mappe og gjeldende læreplanverk for grunnskolen inn i eksamenslokalet.</hjelpemiddelmerknad>
+				</hjelpemiddel>
+			</lovlig-hjelpemiddel>
+			<karregel>A - F</karregel>
+			<eksamensdel>
+				<eksamensdelnr>0</eksamensdelnr>
+				<eksamensdelnavn>Skriftlig prøve</eksamensdelnavn>
+				<varighet>6 Hours</varighet>
+				<eksamensform>Skriftlig eksamen</eksamensform>
+				<dato-eksamen/>
+			</eksamensdel>
+		</eksamensordning>
+	</emne>
+</fs-studieinfo>

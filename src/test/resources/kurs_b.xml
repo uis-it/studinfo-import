@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<fs-studieinfo>
+	<kurs sprak="BOKMÅL">
+		<kursid>
+			<kurskode>PBYGG</kurskode>
+			<tidkode>2011V</tidkode>
+		</kursid>
+		<kursnavn>Praktisk byggesaksbehandling</kursnavn>
+		<sted type="fagansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>3</fakultetsnr>
+			<instituttnr>6</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>UiS Pluss: Etter- og videreutdanning</navn>
+			<avdnavn>Ledelse og stab</avdnavn>
+		</sted>
+		<sted type="adminansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>3</fakultetsnr>
+			<instituttnr>6</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>UiS Pluss: Etter- og videreutdanning</navn>
+			<avdnavn>Ledelse og stab</avdnavn>
+		</sted>
+		<dato-opptak-fra>2010-07-09</dato-opptak-fra>
+		<dato-opptak-til>2011-01-10</dato-opptak-til>
+		<dato-frist-soknad>2011-01-10</dato-frist-soknad>
+		<email>hallvor.lyngstad@uis.no</email>
+		<fjernundervisning>N</fjernundervisning>
+		<desentral-undervisning>N</desentral-undervisning>
+		<nettbasert-undervisning>N</nettbasert-undervisning>
+		<kan-tilbys>N</kan-tilbys>
+		<skal-avholdes>N</skal-avholdes>
+		<dato-publiseres-fra>2010-07-09</dato-publiseres-fra>
+		<dato-publiseres-til>2011-01-25</dato-publiseres-til>
+		<kurskategori-liste>
+			<kurskategorikode>TEKNOLOGI</kurskategorikode>
+			<kurskategorinavn>Teknologi og naturvitenskap</kurskategorinavn>
+		</kurskategori-liste>
+	</kurs>
+	<kurs sprak="BOKMÅL">
+		<kursid>
+			<kurskode>HMS</kurskode>
+			<tidkode>2011V</tidkode>
+		</kursid>
+		<kursnavn>Helse-, miljø- og sikkerhetsledelse</kursnavn>
+		<sted type="fagansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>3</fakultetsnr>
+			<instituttnr>6</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>UiS Pluss: Etter- og videreutdanning</navn>
+			<avdnavn>Ledelse og stab</avdnavn>
+		</sted>
+		<sted type="adminansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>3</fakultetsnr>
+			<instituttnr>6</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>UiS Pluss: Etter- og videreutdanning</navn>
+			<avdnavn>Ledelse og stab</avdnavn>
+		</sted>
+		<dato-opptak-fra>2010-11-04</dato-opptak-fra>
+		<dato-opptak-til>2011-01-14</dato-opptak-til>
+		<dato-frist-soknad>2011-01-14</dato-frist-soknad>
+		<email>oddveig.hansen@uis.no</email>
+		<fjernundervisning>N</fjernundervisning>
+		<desentral-undervisning>N</desentral-undervisning>
+		<nettbasert-undervisning>N</nettbasert-undervisning>
+		<kan-tilbys>N</kan-tilbys>
+		<skal-avholdes>N</skal-avholdes>
+		<dato-publiseres-fra>2010-11-04</dato-publiseres-fra>
+		<dato-publiseres-til>2011-02-01</dato-publiseres-til>
+		<kurskategori-liste>
+			<kurskategorikode>ORGLED</kurskategorikode>
+			<kurskategorinavn>Økonomi, organisasjon og ledelsesfag</kurskategorinavn>
+		</kurskategori-liste>
+	</kurs>
+	<kurs sprak="BOKMÅL">
+		<kursid>
+			<kurskode>RISKTILV11</kurskode>
+			<tidkode>2011V</tidkode>
+		</kursid>
+		<kursnavn>Risikobasert tilsyn</kursnavn>
+		<sted type="fagansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>3</fakultetsnr>
+			<instituttnr>6</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>UiS Pluss: Etter- og videreutdanning</navn>
+			<avdnavn>Ledelse og stab</avdnavn>
+		</sted>
+		<sted type="adminansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>3</fakultetsnr>
+			<instituttnr>6</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>UiS Pluss: Etter- og videreutdanning</navn>
+			<avdnavn>Ledelse og stab</avdnavn>
+		</sted>
+		<dato-opptak-fra>2010-11-16</dato-opptak-fra>
+		<dato-opptak-til>2011-02-01</dato-opptak-til>
+		<dato-frist-soknad>2011-02-01</dato-frist-soknad>
+		<email>frode.leidland@uis.no</email>
+		<fjernundervisning>N</fjernundervisning>
+		<desentral-undervisning>N</desentral-undervisning>
+		<nettbasert-undervisning>N</nettbasert-undervisning>
+		<kan-tilbys>N</kan-tilbys>
+		<skal-avholdes>N</skal-avholdes>
+		<dato-publiseres-fra>2010-11-16</dato-publiseres-fra>
+		<dato-publiseres-til>2011-02-01</dato-publiseres-til>
+		<kurskategori-liste>
+			<kurskategorikode>RISIKO</kurskategorikode>
+			<kurskategorinavn>Risikostyring og samfunnssikkerhet</kurskategorinavn>
+		</kurskategori-liste>
+	</kurs>
+	<kurs sprak="BOKMÅL">
+		<kursid>
+			<kurskode>ARCTECH1</kurskode>
+			<tidkode>2011V</tidkode>
+		</kursid>
+		<kursnavn>Arctic Technology 1</kursnavn>
+		<sted type="fagansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>3</fakultetsnr>
+			<instituttnr>6</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>UiS Pluss: Etter- og videreutdanning</navn>
+			<avdnavn>Ledelse og stab</avdnavn>
+		</sted>
+		<sted type="adminansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>3</fakultetsnr>
+			<instituttnr>6</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>UiS Pluss: Etter- og videreutdanning</navn>
+			<avdnavn>Ledelse og stab</avdnavn>
+		</sted>
+		<dato-opptak-fra>2010-08-19</dato-opptak-fra>
+		<dato-opptak-til>2011-02-02</dato-opptak-til>
+		<dato-frist-soknad>2011-02-02</dato-frist-soknad>
+		<email>hallvor.lyngstad@uis.no</email>
+		<fjernundervisning>N</fjernundervisning>
+		<desentral-undervisning>N</desentral-undervisning>
+		<nettbasert-undervisning>N</nettbasert-undervisning>
+		<kan-tilbys>N</kan-tilbys>
+		<skal-avholdes>J</skal-avholdes>
+		<dato-publiseres-fra>2010-08-19</dato-publiseres-fra>
+		<dato-publiseres-til>2011-02-02</dato-publiseres-til>
+		<kurskategori-liste>
+			<kurskategorikode>TEKNOLOGI</kurskategorikode>
+			<kurskategorinavn>Teknologi og naturvitenskap</kurskategorinavn>
+		</kurskategori-liste>
+	</kurs>
+	<kurs sprak="BOKMÅL">
+		<kursid>
+			<kurskode>NASJV11</kurskode>
+			<tidkode>2011V</tidkode>
+		</kursid>
+		<kursnavn>Nasjonale sykepleiefag</kursnavn>
+		<sted type="fagansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>3</fakultetsnr>
+			<instituttnr>6</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>UiS Pluss: Etter- og videreutdanning</navn>
+			<avdnavn>Ledelse og stab</avdnavn>
+		</sted>
+		<sted type="adminansvarlig">
+			<institusjonsnr>217</institusjonsnr>
+			<fakultetsnr>3</fakultetsnr>
+			<instituttnr>6</instituttnr>
+			<gruppenr>0</gruppenr>
+			<navn>UiS Pluss: Etter- og videreutdanning</navn>
+			<avdnavn>Ledelse og stab</avdnavn>
+		</sted>
+		<dato-opptak-fra>2010-11-01</dato-opptak-fra>
+		<dato-opptak-til>2011-03-01</dato-opptak-til>
+		<dato-frist-soknad>2011-03-01</dato-frist-soknad>
+		<email>tonje.i.hansen@uis.no</email>
+		<fjernundervisning>N</fjernundervisning>
+		<desentral-undervisning>N</desentral-undervisning>
+		<nettbasert-undervisning>N</nettbasert-undervisning>
+		<kan-tilbys>N</kan-tilbys>
+		<skal-avholdes>N</skal-avholdes>
+		<dato-publiseres-fra>2010-11-01</dato-publiseres-fra>
+		<dato-publiseres-til>2011-05-01</dato-publiseres-til>
+		<kurskategori-liste>
+			<kurskategorikode>HELSESOS</kurskategorikode>
+			<kurskategorinavn>Helse og sosialfag</kurskategorinavn>
+		</kurskategori-liste>
+		<kurskategori-liste>
+			<kurskategorikode>TEKNOLOGI</kurskategorikode>
+			<kurskategorinavn>Teknologi og naturvitenskap</kurskategorinavn>
+		</kurskategori-liste>
+	</kurs>
+</fs-studieinfo>

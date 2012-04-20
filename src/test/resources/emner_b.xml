@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fs-studieinfo xmlns="http://fsws.usit.no/schemas/studinfo">
+		<emne sprak="BOKMÅL">
+				<emneid>
+						<institusjonsnr>217</institusjonsnr>
+						<emnekode>ALU101</emnekode>
+						<versjonskode>2</versjonskode>
+				</emneid>
+				<emnenavn>Pedagogikk 2. studieår</emnenavn>
+				<emnenavn_en>Educational Theory 2nd Year</emnenavn_en>
+				<studiepoeng>10</studiepoeng>
+				<status-privatist>N</status-privatist>
+				<studieniva>LN</studieniva>
+				<nuskode>622101</nuskode>
+				<status_oblig>J</status_oblig>
+				<obligund>
+						<obligoppgave nr='OBL1'>Temaområde 1</obligoppgave>
+						<obligoppgave nr='OBL2'>Temaområde 2</obligoppgave>
+						<obligoppgave nr='OBL3'>Temaområde 3</obligoppgave>
+				</obligund>
+				<undervisningssemester>Høst</undervisningssemester>
+				<antall-undsemester>2</antall-undsemester>
+				<undsemester>
+						<semester nr="1">Høst</semester>
+						<semester nr="2">Vår</semester>
+				</undsemester>
+				<emnetype>VURDERING</emnetype>
+				<url>http://www.uis.no/studier/?emneID=ALU101_2&amp;year=2010</url>
+				<periode-eks>
+						<forstegang>2007V</forstegang>
+				</periode-eks>
+				<periode-und>
+						<forstegang>2006H</forstegang>
+				</periode-und>
+				<eksamenssemester>Vår</eksamenssemester>
+				<formelle-forkunnskaper>
+						<kravalternativ kravnr='1'>ALU100 Pedagogikk 1.
+								studieår</kravalternativ>
+						<kravalternativ kravnr='2'>ALU100 Pedagogikk 1.
+								studieår</kravalternativ>
+				</formelle-forkunnskaper>
+				<inngar-i-studieprogram>
+						<studieprogramkode>A-ALLMEN</studieprogramkode>
+				</inngar-i-studieprogram>
+				<sted type="fagansvarlig">
+						<institusjonsnr>217</institusjonsnr>
+						<fakultetsnr>6</fakultetsnr>
+						<instituttnr>3</instituttnr>
+						<gruppenr>0</gruppenr>
+						<navn>Institutt for allmennlærerutdanning og spesialpedagogikk
+						</navn>
+						<avdnavn>Det humanistiske fakultet</avdnavn>
+				</sted>
+				<sted type="adminansvarlig">
+						<institusjonsnr>217</institusjonsnr>
+						<fakultetsnr>6</fakultetsnr>
+						<instituttnr>3</instituttnr>
+						<gruppenr>0</gruppenr>
+						<navn>Institutt for allmennlærerutdanning og spesialpedagogikk
+						</navn>
+						<avdnavn>Det humanistiske fakultet</avdnavn>
+				</sted>
+				<fagperson-liste>
+						<personid>12345</personid>
+						<fnr>01234567890</fnr>
+						<personrolle>Praksisansvarlig</personrolle>
+						<personnavn>
+								<etternavn>Normann</etternavn>
+								<fornavn>Nora</fornavn>
+						</personnavn>
+						<personid>23456</personid>
+						<fnr>12345678901</fnr>
+						<personrolle>Faglærer</personrolle>
+						<personnavn>
+								<etternavn>Normann</etternavn>
+								<fornavn>Ola</fornavn>
+						</personnavn>
+				</fagperson-liste>
+				<eksamensordning>
+						<eksamensordningid>S</eksamensordningid>
+						<eksamensordningnavn>En skriftlig prøve</eksamensordningnavn>
+						<lovlig-hjelpemiddel>
+								<hjelpemiddel>
+										<hjelpemiddelnavn>Mappe. </hjelpemiddelnavn>
+										<hjelpemiddelmerknad>Studentene kan bringe med seg sin
+												individuelle mappe og gjeldende læreplanverk for grunnskolen
+												inn i eksamenslokalet.</hjelpemiddelmerknad>
+								</hjelpemiddel>
+						</lovlig-hjelpemiddel>
+						<karregel>A - F</karregel>
+						<eksamensdel>
+								<eksamensdelnr>0</eksamensdelnr>
+								<eksamensdelnavn>Skriftlig prøve</eksamensdelnavn>
+								<varighet>6 Timer</varighet>
+								<eksamensform>Skriftlig eksamen</eksamensform>
+								<dato-eksamen></dato-eksamen>
+						</eksamensdel>
+				</eksamensordning>
+				<arbeidsformer>
+						<p>- I undervisningen vil studentene møte et mangfold av
+								arbeidsmåter som alle har som formål å dyktiggjøre dem i
+								lærergjerningen. Dette kan omfatte formidlingsorientert
+								undervisning i samlet klasse, gruppebasert undervisning og mer
+								undersøkende arbeidsmåter. Gjennom arbeidsmåtene skal studentene
+								prøve ut og få erfaring med</p>
+						<p>- undervisning i større og mindre grupper</p>
+						<p>- enkelte av de arbeidsmåtene som benyttes i grunnskolen</p>
+						<p>- oppgaver hvor de henter kunnskap fra ulike kilder og vurdere
+								disse kritisk og selvstendig</p>
+						<p>- framføring og formidling for ulike mottakergrupper</p>
+						<p></p>
+						<p></p>
+				</arbeidsformer>
+				<innhold>
+						<p>
+								<bold>Temaområde 1: Spesialpedagogikk (tilsvarer en
+										arbeidsmengde på 3 studiepoeng)</bold>
+						</p>
+						<p>- inklusjon og tilpassa opplæring</p>
+						<p>- tilpassa opplæring og organisasjonsdidaktikk</p>
+						<p>- læreforutsetninger og muligheter</p>
+						<p>- psykisk helse, kriser og læreforutsetninger</p>
+						<p>- spesialundervisning som juridisk begrep og IOP</p>
+						<p>- samarbeid og støttesystem</p>
+						<p></p>
+						<p>
+								<bold>Temaområde 2: Skolen som institusjon og organisasjon
+										(tilsvarer en arbeidsmengde på 5 studiepoeng)</bold>
+						</p>
+						<p>- Sentrale filosofiske retninger som har betydning for dagens
+								skole</p>
+						<p>- Sentrale skolepolitiske dilemmaer i etterkrigstidens Norge
+						</p>
+						<p>- Skolen som en lærende organisasjon</p>
+						<p>- Skolevurdering</p>
+						<p>- Skoleutvikling</p>
+						<p></p>
+						<p>
+								<bold>Temaområde 3: Å være lærer (tilsvarer en arbeidsmengde på
+										2 av 4 studiepoeng)</bold>
+						</p>
+						<p>Dette er en felles avslutning der trådene mellom de ulike
+								temaområdene både fra 1. og 2. studieårene trekkes eksplisitt.
+						</p>
+						<p></p>
+				</innhold>
+				<intro>
+						<p>Planen bygger på Rammeplan for lærerutdanning (2003).
+								Pedagogikk andre studieår henger sammen med det første. De to
+								årene kan ikke sees isolert, men som en del av en helhet. Dette
+								studieåret vil undervisningen rette oppmerksomheten mot
+								læreryrket i et historisk og organisatorisk perspektiv. I
+								tillegg vil studiet ta opp sentrale spesialpedagogiske
+								problemstillinger.  </p>
+						<p></p>
+						<p></p>
+						<p>Studiet i pedagogikk skal stimulere til personlig vekst,
+								utvikling og yrkesetisk bevissthet. Fra et slikt perspektiv blir
+								pedagogikk et danningsfag, som skal gjøre studentene i stand til
+								å arbeide i et framtidig foranderlig faglig, sosialt og
+								kulturelt landskap preget av kompleksitet og mangfold.
+								Studentene kan bygge på studiet til mastergrad i
+								spesialpedagogikk.</p>
+						<p></p>
+						<p></p>
+						<p>Emnet er organisert i temaområder: 1. Spesialpedagogikk 2.
+								Skolen som institusjon og organisasjon 3. Å være lærer. </p>
+						<p></p>
+						<p></p>
+						<p></p>
+				</intro>
+				<litteratur>Oversikt over aktuell litteratur vil bli oppgitt i
+						semesterplan</litteratur>
+				<læringsutbytte>
+						<p>
+								<bold>Temaområde 1: Spesialpedagogikk (tilsvarer en
+										arbeidsmengde på 3 studiepoeng)</bold>
+						</p>
+						<p>Etter fullført temaområde skal studentene kunne:</p>
+						<list listType="bulleted">
+								<listItem>beskrive, analysere og vurdere hvilke forhold som kan
+										fremme eller hindre elever i å få tilfredsstillende utbytte av
+										opplæringa og foreslå eventuelle endringer</listItem>
+								<listItem>identifisere og ta stilling til hvordan de vil
+										håndtere didaktiske utfordringer knyttet til mangfold i en
+										inkluderende skole</listItem>
+								<listItem>identifisere elever som ikke har tilfredsstillende
+										utbytte av opplæringa og ha kunnskap om lovverk, prosedyrer og
+										støttesystem for elever som har behov spesialundervisning
+								</listItem>
+								<listItem>forklare hvordan vi som lærere forholder oss til barn
+										i krise, og kritisk vurdere og gjennomføre tiltak i
+										forbindelse med dette. </listItem>
+						</list>
+						<p></p>
+						<p></p>
+						<p>
+								<bold>Temaområde 2: Skolen som institusjon og organisasjon
+										(tilsvarer en arbeidsmengde på 5 studiepoeng</bold>
+						</p>
+						<p>Etter fullført temaområde skal studentene kunne</p>
+						<list listType="bulleted">
+								<listItem>peke på endringer i lærerrollen og elevrollen ut fra
+										et historisk, filosofisk og samfunnsmessig perspektiv og kunne
+										forklare hvordan disse rollene har endret seg i takt med
+										endringer i samfunnet</listItem>
+								<listItem>beskrive, analysere og vurdere skolen som organisasjon
+										ut fra ulike teoretiske perspektiver </listItem>
+								<listItem>peke på faktorer som er nødvendige for å gå inn i et
+										samarbeid om skolens virksomhet og utviklingsarbeid</listItem>
+								<listItem>begrunne og forklare egne valg i lys av yrkesetikk,
+										relevant teori og ut fra erfaringer innenfor forskning om
+										skoleutvikling</listItem>
+								<listItem>beskrive, analysere og vurdere ulike framstillinger av
+										prøveformer, resultatoversikter og vurderingsformer som brukes
+										i evaluering av skolen, lærerne eller elevene og peke på
+										hvordan disse kan anvendes til å bedre elevenes læring.
+								</listItem>
+						</list>
+						<p></p>
+						<p>
+								<bold>Temaområde 3: Å være lærer (tilsvarer en arbeidsmengde på
+										2 av 4 studiepoeng)</bold>
+						</p>
+						<p>Dette er en felles avslutning der trådene mellom de ulike
+								temaområdene både fra 1. og 2. studieårene trekkes eksplisitt.
+						</p>
+						<p></p>
+						<p>Etter fullført temaområde skal studentene kunne</p>
+						<list listType="bulleted">
+								<listItem>beskrive, analysere og vurdere lærerrollen med
+										utgangspunkt i nyere forskning, pedagogisk teori og praktiske
+										erfaringer </listItem>
+						</list>
+						<p></p>
+						<p></p>
+				</læringsutbytte>
+				<oblig_undakt_tilleggsinfo>
+						<p>Det blir gitt ett eller to arbeidskrav innenfor hvert
+								temaområde, og disse må være gjennomført og bestått før en kan
+								gå opp til eksamen. I semesterplanen vil det bli lagt inn
+								obligatoriske aktiviteter som seminarer og fremlegg av
+								arbeidskrav.</p>
+						<p></p>
+						<p>
+								<bold>Temaområde 1: Spesialpedagogikk</bold>
+						</p>
+						<p>- En skriftlig gruppeoppgave på anslagsvis 6 sider der
+								studentene med utgangspunkt i for eksempel praksisskolen
+								analyserer forhold som fremmet og eller hemmet inklusjon.
+								Reflekter over hva som kan gjøres.</p>
+						<p></p>
+						<p>
+								<bold>Temaområde 3: Å være lærer</bold>
+						</p>
+						<p>- Studentene henter fram sine innledende tenketekster og
+								utvikler den til en fagtekst på 3 - 4 sider. Fagteksten skal ta
+								utgangspunkt i ett av områdene fra tenketeksten. Vurdering av
+								faglærer. Vurderingsform: Bestått/ikke bestått.</p>
+						<p></p>
+				</oblig_undakt_tilleggsinfo>
+				<praksis>
+						<p>Praksis er en læringsarena som fordrer samhandling, utforsking
+								og refleksjon over møtet mellom teori, fag og skolehverdagen.
+								Ved hjelp av sine praksiserfaringer skal studentene analysere
+								teorier og innsikter på tvers av fag og læringsarenaer.
+								Studentene skal videre drøfte aktuelle problemstillinger fra
+								fagstudiet i pedagogikk med representanter for teorifaget og for
+								praksisfeltet. Dette vil skje på fire måter:</p>
+						<p>- Fortløpende kritiske diskusjoner i spenningsfeltet teori og
+								praksis i pedagogikkundervisningen</p>
+						<p>- Gjennom teoriperspektivering og didaktisk refleksjon i
+								planleggingen av praksis ( se praksisplan)</p>
+						<p>- Gjennom lærings/refleksjonssamtaler mellom studenter,
+								praksislærere og faglærere i praksisperioden for å ivareta
+								teoriperspektivering og didaktisk refleksjon under praksisbesøk
+						</p>
+				</praksis>
+				<studentevaluering>Tidligdialog, sluttevaluering og fagutvalg.
+				</studentevaluering>
+				<vurdering_tilleggstekst>
+						<p>Studentene kan bringe med seg sin individuelle mappe og
+								gjeldende læreplanverk for grunnskolen inn i eksamenslokalet.
+								Besvarelsen vil bli vurdert med bokstavkarakter av sensor. Denne
+								teller femti prosent av totalkarakter i faget.</p>
+						<p>
+								<bold></bold>
+						</p>
+						<p></p>
+						<p></p>
+				</vurdering_tilleggstekst>
+		</emne>
+</fs-studieinfo>
