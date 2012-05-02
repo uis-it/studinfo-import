@@ -17,9 +17,9 @@
 	<inceptionYear>2010</inceptionYear>
 
 	<scm>
-		<connection>scm:svn:http://source01.uis.no/repos/portal/service/component/fsimport/trunk</connection>
-		<developerConnection>scm:svn:https://source01.uis.no/repos/portal/service/component/fsimport/trunk</developerConnection>
-		<url>http://source01.uis.no/repos/portal/service/component/fsimport/trunk</url>
+		<connection>scm:git:git@source01.uis.no:soa-component-fsimport.git</connection>
+		<developerConnection>scm:git:git@source01.uis.no:soa-component-fsimport.git</developerConnection>
+		<url>scm:git:git@source01.uis.no:soa-component-fsimport.git</url>
 	</scm>
 	
 
@@ -365,4 +365,12 @@
 			</dependencies>
 		</profile>
 	</profiles>
+	<issueManagement>
+			<system>JIRA</system>
+			<url>http://apps01.uis.no/jira</url>
+	</issueManagement>
+	<ciManagement>
+			<system>jenkins</system>
+			<url>http://build01.uis.no/jenkins/job/soa-component-fsimport/</url>
+	</ciManagement>
 </project>
