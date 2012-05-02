@@ -1,20 +1,18 @@
 package no.uis.service.fsimport;
 
 
-import static org.junit.Assert.*;
-
 import java.util.Date;
 import java.util.List;
-
 import no.uis.service.fsimport.impl.StudInfoImportImpl;
 import no.uis.service.fsimport.impl.StudInfoImportImpl.StudinfoInterceptor;
 import no.uis.service.model.ImportReport;
 import no.uis.service.studinfo.data.FsStudieinfoKursOrEmneOrStudieprogramItem;
 import no.uis.service.studinfo.data.KursType;
-
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

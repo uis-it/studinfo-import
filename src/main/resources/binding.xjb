@@ -23,6 +23,13 @@
 					</jaxb:property>
 				</jaxb:bindings>
 			</jaxb:bindings>
+			
+			<jaxb:bindings node="xs:complexType[@name='StudieprogramType']">
+				<jaxb:bindings node="xs:sequence/xs:element[@name='læringsutbytte']">
+					<jaxb:property name="laringsutbytte">
+					</jaxb:property>
+				</jaxb:bindings>
+			</jaxb:bindings>
 		</jaxb:bindings>
 
 </jaxb:bindings>
