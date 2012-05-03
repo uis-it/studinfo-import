@@ -53,10 +53,10 @@
 		<bean id="cpAccessorHolder" class="com.corepublish.impl.xml.XmlAccessorHolder" init-method="init" destroy-method="destroy">
 		</bean>
 		
-		<bean id="httpClient" class="no.uis.service.fsimport.util.HttpClientFactory">
-			<property name="username" value="${solr.server.username}"/>
-			<property name="password" value="${solr.server.password}"/>
-			<property name="url" value="${solr.server.url}"/>
+		<bean id="httpClient" class="no.uis.service.fsimport.util.PreemptBasicAuthHttpClient">
+			<constructor-arg index="0"  value="${solr.server.url}"/>
+			<constructor-arg index="1"  value="${solr.server.username}"/>
+			<constructor-arg index="2" value="${solr.server.password}"/>
 		</bean>
 		
 		<bean id="solrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">

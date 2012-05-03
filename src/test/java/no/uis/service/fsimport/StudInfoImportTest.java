@@ -22,6 +22,7 @@ public class StudInfoImportTest {
 				,"fsimportContext.xml"
 				,"studinfoMock.xml"
 				,"studinfoAnswerMockLarge.xml"
+				,"cpmock.xml"
 				});
 
 		studInfoImport = (StudInfoImport) bf.getBean("fsStudInfoImport",

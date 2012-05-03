@@ -33,6 +33,7 @@ public class DateTimeSolrTest {
        ,"fsimportContext.xml"
        ,"studinfoMock.xml"
        ,"studinfoAnswerMockCurrentDate.xml"
+       ,"cpmock.xml"
        }, 
      true);
 

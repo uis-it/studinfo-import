@@ -153,7 +153,6 @@
 				<property name="NIN" value="12345678901" />
 		</bean>
 
-	
 		<bean id="fsStudInfoImport" class="java.lang.Object"></bean>
 		<bean id="studInfoDao" class="java.lang.Object"></bean>
 </beans>

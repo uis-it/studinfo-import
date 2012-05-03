@@ -5,3 +5,5 @@
 /.classpath
 /.settings
 /.springBeans
+/pom.xml.releaseBackup
+/release.properties
