@@ -3,7 +3,7 @@
 
 	<groupId>no.uis.service.component</groupId>
 	<artifactId>fs-import</artifactId>
-	<version>1.1.7</version>
+	<version>1.1.8-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>component-fsimport</name>
 	<url>http://source01.uis.no/maven-site/${project.groupId}/${project.artifactId}/${project.version}</url>
@@ -17,9 +17,9 @@
 	<inceptionYear>2010</inceptionYear>
 
 	<scm>
-		<connection>scm:git:git@source01.uis.no:soa-component-fsimport.git</connection>
-		<developerConnection>scm:git:git@source01.uis.no:soa-component-fsimport.git</developerConnection>
-		<url>scm:git:git@source01.uis.no:soa-component-fsimport.git</url>
+		<connection>scm:git:git://source01.uis.no/soa-component-fsimport.git</connection>
+		<developerConnection>scm:git:ssh://source01.uis.no/soa-component-fsimport.git</developerConnection>
+		<url>scm:git:git://source01.uis.no/soa-component-fsimport.git</url>
 	</scm>
 	
 
