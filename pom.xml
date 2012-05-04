@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>no.uis.service</groupId>
 		<artifactId>parent-pom</artifactId>
-		<version>1.0.17</version>
+		<version>1.0.18</version>
 	</parent>
 	
 	<inceptionYear>2010</inceptionYear>
@@ -19,7 +19,7 @@
 	<scm>
 		<connection>scm:git:git://source01.uis.no/soa-component-fsimport.git</connection>
 		<developerConnection>scm:git:git@152.94.3.85:soa-component-fsimport.git</developerConnection>
-		<url>scm:git:git://source01.uis.no/soa-component-fsimport.git</url>
+		<url>http://source01.uis.no/git/?p=soa-component-fsimport.git</url>
 	</scm>
 	
 
@@ -365,10 +365,6 @@
 			</dependencies>
 		</profile>
 	</profiles>
-	<issueManagement>
-			<system>JIRA</system>
-			<url>http://apps01.uis.no/jira</url>
-	</issueManagement>
 	<ciManagement>
 			<system>jenkins</system>
 			<url>http://build01.uis.no/jenkins/job/soa-component-fsimport/</url>
