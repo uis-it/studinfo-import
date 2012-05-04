@@ -18,7 +18,7 @@
 
 	<scm>
 		<connection>scm:git:git://source01.uis.no/soa-component-fsimport.git</connection>
-		<developerConnection>scm:git:git@152.94.3.85/soa-component-fsimport.git</developerConnection>
+		<developerConnection>scm:git:git@152.94.3.85:soa-component-fsimport.git</developerConnection>
 		<url>scm:git:git://source01.uis.no/soa-component-fsimport.git</url>
 	</scm>
 	
