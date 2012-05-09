@@ -198,8 +198,6 @@
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpmime</artifactId>
       <version>4.1.2</version>
-      <!-- HttpSolrServer requires this dependency. -->
-      <optional>true</optional>
     </dependency>
 		<dependency>
 			<groupId>no.coretrek</groupId>

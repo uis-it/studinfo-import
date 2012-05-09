@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 		xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-		xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:http="http://cxf.apache.org/transports/http/configuration"
+		xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
 		xmlns:sec="http://cxf.apache.org/configuration/security"
 
 		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -109,18 +109,17 @@
 			</jaxws:properties>
 		</jaxws:client>
 		
-		<http:conduit name="{http://fsws.usit.no/wsdl/bas}BASServicePort.http-conduit">
-				
-				<http:client ConnectionTimeout="${fs.ws.connection.timeout}"
+		<http-conf:conduit name="{http://fsws.usit.no/wsdl/bas}BASServicePort.http-conduit">
+				<http-conf:client ConnectionTimeout="${fs.ws.connection.timeout}"
 						ReceiveTimeout="${fs.ws.receive.timeout}" AllowChunking="false"
 						Connection="Keep-Alive" />
-		</http:conduit>
+		</http-conf:conduit>
 	
-		<http:conduit
-			name="{http://fsws.usit.no/wsdl/studinfo}StudInfoServicePort.http-conduit">
-			<http:client ConnectionTimeout="${fs.ws.connection.timeout}"
+		<http-conf:conduit name="{http://fsws.usit.no/wsdl/studinfo}StudInfoServicePort.http-conduit">
+			<http-conf:client ConnectionTimeout="${fs.ws.connection.timeout}"
 				ReceiveTimeout="${fs.ws.receive.timeout}" AllowChunking="false"
 				Connection="Keep-Alive" />
-		</http:conduit>	
+			<http-conf:tlsClientParameters disableCNCheck="true"/>
+		</http-conf:conduit>	
 </beans>
     
