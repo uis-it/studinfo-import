@@ -23,7 +23,6 @@ import javax.xml.transform.sax.SAXSource;
 import no.uis.service.fsimport.StudInfoImport;
 import no.uis.service.fsimport.util.ImportReportUtil;
 import no.uis.service.model.ImportReport;
-import no.uis.service.model.studinfo.StudInfo;
 import no.uis.service.model.studinfo.courses.CourseCategory;
 import no.uis.service.model.studinfo.courses.FSCourse;
 import no.uis.service.model.studinfo.courses.FSCourseId;
@@ -33,7 +32,6 @@ import no.uis.service.studinfo.data.KursType;
 import no.uis.service.studinfo.data.Kursid;
 import no.uis.service.studinfo.data.KurskategoriType;
 import no.uis.service.studinfo.data.YESNOType;
-import no.uis.service.studinfo.persistence.StudInfoDAO;
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
 
 import org.apache.commons.io.IOUtils;
@@ -94,7 +92,6 @@ public class StudInfoImportImpl implements StudInfoImport {
     }
   }
   
-  private static final String XML_PREFIX = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?>";
   private static final Integer INTEGER_0 = Integer.valueOf(0);
   private static final Integer INTEGER_1 = Integer.valueOf(1);
   private static final String ID_TOKEN_SEPARATOR = "_";
@@ -106,8 +103,6 @@ public class StudInfoImportImpl implements StudInfoImport {
 	
   private StudInfoService fsServiceStudInfo;
   
-	private StudInfoDAO studInfoDao;
-	
 	private SolrServer solrServer;
   private DomainUrl cpUrl;
   private XmlAccessorHolder xmlAccessorHolder;
@@ -117,10 +112,6 @@ public class StudInfoImportImpl implements StudInfoImport {
 
 	public void setFsServiceStudInfo(StudInfoService fsServiceStudInfo) {
 		this.fsServiceStudInfo = fsServiceStudInfo;
-	}
-
-	public void setStudInfoDao(StudInfoDAO studInfoDao) {
-		this.studInfoDao = studInfoDao;
 	}
 
 	public void setSolrServer(SolrServer solrServer) {
@@ -154,16 +145,18 @@ public class StudInfoImportImpl implements StudInfoImport {
 	  ImportReport report = ImportReportUtil.newImportReport("studprog");
 
 		Integer medUPinfo = includeEP ? INTEGER_1 : INTEGER_0;
-		String studieprogramSI = fsServiceStudInfo.getStudieprogramSI(year,
+		String studieinfoXml = fsServiceStudInfo.getStudieprogramSI(year,
 				semester, medUPinfo, null, institution, INTEGER_MINUS_ONE, null, null, language);
 
-		savePackage(PACKAGE_STUDY_PROGRAM, year, semester, language, studieprogramSI);
+		FsStudieinfo sinfo = unmarshalStudieinfo(studieinfoXml);
+		
+		savePrograms(sinfo.getKursOrEmneOrStudieprogramItems(), true, report);
 		
 		ImportReportUtil.stop(report);
 		return report;
 	}
 
-	@Override
+  @Override
 	public ImportReport importSubjects(int institution, int year, String semester,
 			String language) throws Exception {
 
@@ -179,8 +172,6 @@ public class StudInfoImportImpl implements StudInfoImport {
 
     FsStudieinfo sinfo = unmarshalStudieinfo(studieinfoXml);
     
-		savePackage(PACKAGE_SUBJECT, year, semester, language, studieinfoXml);
-
 		List<FsStudieinfoKursOrEmneOrStudieprogramItem> studieinfos = sinfo.getKursOrEmneOrStudieprogramItems();
 		
 		saveSubjects(studieinfos, true, report);
@@ -238,6 +229,14 @@ public class StudInfoImportImpl implements StudInfoImport {
 
   private void saveSubjects(List<FsStudieinfoKursOrEmneOrStudieprogramItem> studieinfos, boolean cleanBeforeUpdate, ImportReport report) {
     //List<FSSubject> subjects = mapEmnerToSubjects(studieinfos, report);
+    // TODO Auto-generated method stub
+    
+  }
+  
+  private void savePrograms(List<FsStudieinfoKursOrEmneOrStudieprogramItem> kursOrEmneOrStudieprogramItems, boolean b,
+      ImportReport report)
+  {
+    // TODO Auto-generated method stub
     
   }
   
@@ -518,27 +517,6 @@ public class StudInfoImportImpl implements StudInfoImport {
     return (FsStudieinfo)um.unmarshal(source);
   }
 
-  /**
-   * Save the data to the tblOracleXml table where it can be picked up by DTS packages. 
-   * The data fetched from the database contains an <?xml ?> header but no namespace.
-   * The data fetched from the web service contains no <?xml ?> header but a namespace.
-   */
-  private void savePackage(String studinfoPackage, int year, String semester, String language, String data) {
-    
-    StudInfo studInfo = new StudInfo();
-    if (data.indexOf(XML_PREFIX) < 0) {
-      data = XML_PREFIX + data;
-    }
-    studInfo.setXmlString(data);
-    studInfo.setDate(Calendar.getInstance());
-    studInfo.setSprak(language);
-    studInfo.setSemester(semester);
-    studInfo.setYear(year);
-    studInfo.setPackage(studinfoPackage);
-    
-    studInfoDao.saveXML(studInfo);
-  }
-  
   private static class CPArticleInfo {
     private final String id;
     private String text;

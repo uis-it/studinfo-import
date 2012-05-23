@@ -3,9 +3,6 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-		<bean name="studInfoDao" class="no.uis.service.fsimport.mock.StudInfoDaoMockFactoryBean">
-		</bean>
-		
 		<bean name="fsWsStudInfo" class="no.uis.service.fsimport.mock.StudInfoWSMockFactoryBean" >
 			<property name="answers" ref="answerMap"/>
 		</bean>
@@ -16,7 +13,6 @@
 		<!--bean id="solrServer" class="no.uis.service.fsimport.mock.SolrServerFactoryBean"></bean--> 
 		
 		<!-- we don't need those for the test -->		
-		<bean name="ormUtil" class="java.lang.Object"></bean>
 		<bean name="fsImport" class="java.lang.Object"></bean>
 		
 </beans>

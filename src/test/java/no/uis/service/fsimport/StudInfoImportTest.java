@@ -16,13 +16,11 @@ public class StudInfoImportTest {
 	public static void setup() {
 		BeanFactory bf = new ClassPathXmlApplicationContext(new String[] {
 				 "fsimportPropsContext.xml" 
-				,"fsJdbcClientContext.xml" 
-				//,"personormContext.xml"
-				,"studinfoOrmContext.xml"
 				,"fsimportContext.xml"
 				,"studinfoMock.xml"
 				,"studinfoAnswerMockLarge.xml"
 				,"cpmock.xml"
+				,"solrMock.xml"
 				});
 
 		studInfoImport = (StudInfoImport) bf.getBean("fsStudInfoImport",

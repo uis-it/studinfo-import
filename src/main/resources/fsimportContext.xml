@@ -13,23 +13,15 @@
     http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
 
-	<import resource="classpath:mappingContext.xml" />
+	<!--import resource="classpath:mappingContext.xml" /-->
 		<!--import resource="classpath:personormContext.xml"/>
 		<import resource="classpath:fsJdbcClientContext.xml"/-->
 		
 		<context:annotation-config/>
 		
-		<bean id="ormUtil" class="no.uis.service.fsimport.util.ORMUtil">
-			<property name="personDao" ref="personDAO" />
-			<property name="fsJdbcDao" ref="fsJdbcDao" />
-		</bean>
-
 		<bean id="fsStudInfoImport" class="no.uis.service.fsimport.impl.StudInfoImportImpl">
 			<property name="fsServiceStudInfo">
 				<ref bean="fsWsStudInfo"/>
-			</property>
-			<property name="studInfoDao">
-				<ref bean="studInfoDao"/>
 			</property>
 			
 			<property name="solrServer">
@@ -70,36 +62,12 @@
 			<property name="allowCompression" value="true"/>
 		</bean>
 		
-		<bean id="fsImport" class="no.uis.service.fsimport.impl.FSImportImpl">
-				<property name="fsService">
-						<ref bean="fsWsBas" />
-				</property>
-				<property name="fsServiceCdm">
-						<ref bean="fsWsCdm" />
-				</property>
-				<property name="ormUtil">
-						<ref local="ormUtil" />
-				</property>
-				<property name="fsMapper" ref="fsBasdataMapper" />
-				<property name="useAttachment" value="${fs.ws.use.attachment}" />
-				<property name="importPlaces" value="${fs.ws.import.places}" />
-				<property name="placesInstitution" value="${fs.ws.places.institution}" />
-		</bean>
-
 		<jaxws:client id="fsWsCdm" serviceClass="no.usit.fsws.wsdl.cdm.CDMService"
 				address="${fs.ws.cdm.url}" username="${fs.ws.username}" password="${fs.ws.password}">
 
 				<jaxws:properties>
 						<entry key="mtom-enabled" value="true" />
 				</jaxws:properties>
-		</jaxws:client>
-
-		<jaxws:client id="fsWsBas" serviceClass="no.usit.fsws.wsdl.bas.BASService"
-				address="${fs.ws.url}" username="${fs.ws.username}" password="${fs.ws.password}">
-				<jaxws:properties>
-						<entry key="mtom-enabled" value="true" />
-				</jaxws:properties>
-
 		</jaxws:client>
 
 		<jaxws:client id="fsWsStudInfo" serviceClass="no.usit.fsws.wsdl.studinfo.StudInfoService"
@@ -109,12 +77,6 @@
 			</jaxws:properties>
 		</jaxws:client>
 		
-		<http-conf:conduit name="{http://fsws.usit.no/wsdl/bas}BASServicePort.http-conduit">
-				<http-conf:client ConnectionTimeout="${fs.ws.connection.timeout}"
-						ReceiveTimeout="${fs.ws.receive.timeout}" AllowChunking="false"
-						Connection="Keep-Alive" />
-		</http-conf:conduit>
-	
 		<http-conf:conduit name="{http://fsws.usit.no/wsdl/studinfo}StudInfoServicePort.http-conduit">
 			<http-conf:client ConnectionTimeout="${fs.ws.connection.timeout}"
 				ReceiveTimeout="${fs.ws.receive.timeout}" AllowChunking="false"

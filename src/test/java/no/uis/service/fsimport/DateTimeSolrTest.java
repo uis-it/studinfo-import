@@ -19,6 +19,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DateTimeSolrTest {
 
+  private static final String VAAR = String.valueOf(new char[] {'V', '\u00c5', 'R'});
   private static StudInfoImportImpl studInfoImport;
   private static SolrServer solrServer;
 
@@ -27,13 +28,11 @@ public class DateTimeSolrTest {
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
       new String[] {
         "fsimportPropsContext.xml" 
-       ,"fsJdbcClientContext.xml" 
-       //,"personormContext.xml"
-       ,"studinfoOrmContext.xml"
        ,"fsimportContext.xml"
        ,"studinfoMock.xml"
        ,"studinfoAnswerMockCurrentDate.xml"
        ,"cpmock.xml"
+       ,"solrMock.xml"
        }, 
      true);
 
@@ -58,7 +57,7 @@ public class DateTimeSolrTest {
       }};
       
     studInfoImport.setInterceptor(interceptor);
-    ImportReport report = studInfoImport.importCourses(217, 2011, "VÅR", "B", true);
+    ImportReport report = studInfoImport.importCourses(217, 2011, VAAR, "B", true);
 
     assertTrue(report.getEntry().isEmpty());
     
@@ -83,7 +82,7 @@ public class DateTimeSolrTest {
       }};
       
     studInfoImport.setInterceptor(interceptor);
-    ImportReport report = studInfoImport.importCourses(217, 2011, "VÅR", "B", true);
+    ImportReport report = studInfoImport.importCourses(217, 2011, VAAR, "B", true);
 
     assertTrue(report.getEntry().isEmpty());
     
