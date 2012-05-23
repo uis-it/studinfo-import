@@ -4,17 +4,13 @@ import static org.easymock.EasyMock.*;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.FactoryBean;
 
 import com.corepublish.api.Article;
 import com.corepublish.api.ArticleQuery;
-import com.corepublish.api.article.element.ArticleElement;
-import com.corepublish.api.article.element.ArticleElementList;
-import com.corepublish.api.article.element.ProgramaticElement;
-import com.corepublish.api.article.richtext.RichText;
+import com.corepublish.api.ArticleQueryResult;
 import com.corepublish.api.article.richtext.Token;
 import com.corepublish.impl.defaultt.DefaultArticle;
 import com.corepublish.impl.defaultt.DefaultArticleElementList;
@@ -61,9 +57,13 @@ public class XmlAccessorHolderFactoryBean implements FactoryBean {
     
     expect(holder.getAccessor(anyObject(DomainUrl.class))).andStubReturn(accessor);
 
-    expect(accessor.getArticleQueryResult(anyObject(ArticleQuery.class))).andStubReturn(Collections.EMPTY_LIST);
-    expect(accessor.getArticleIds(anyObject(List.class))).andReturn(Arrays.asList(1)).atLeastOnce();
-    expect(accessor.getArticles(anyObject(List.class))).andReturn(Arrays.asList((Article)article)).atLeastOnce();
+    expect(accessor.getArticleQueryResult(anyObject(ArticleQuery.class))).andStubReturn(Collections.<ArticleQueryResult>emptyList());
+    @SuppressWarnings("unchecked")
+    List<ArticleQueryResult> anyResult = anyObject(List.class);
+    expect(accessor.getArticleIds(anyResult)).andReturn(Arrays.asList(1)).atLeastOnce();
+    @SuppressWarnings("unchecked")
+    List<Integer> anyArticleIds = anyObject(List.class);
+    expect(accessor.getArticles(anyArticleIds)).andReturn(Arrays.asList((Article)article)).atLeastOnce();
     expect(accessor.getProgrammaticElementObjectValue(eq(kurskode))).andReturn("PBYGG").atLeastOnce();
     expect(accessor.getProgrammaticElementObjectValue(eq(tidskode))).andReturn("2011V").atLeastOnce();
     
