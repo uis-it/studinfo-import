@@ -24,22 +24,38 @@
 	
 
 	<properties>
-		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-		<!--project.build.sourceEncoding>UTF-8</project.build.sourceEncoding-->
-		<cxf.version>2.3.10</cxf.version>
+		<cxf.version>2.4.0</cxf.version>
 		<hyperjaxb3.version>0.5.5</hyperjaxb3.version>
 		<uismodel.version>1.1.1</uismodel.version>
-		<fsws.version>1.0.5</fsws.version>
-		<fsjdbc.version>1.0.6</fsjdbc.version>
+		<fsws.version>1.2.0</fsws.version>
 		<component.person.version>1.0.7</component.person.version>
-		<fsmapping.version>1.0.5</fsmapping.version>
-		<studinfo.orm.version>1.0.2</studinfo.orm.version>
-		<person.service.version>1.0.7</person.service.version>
 		<spring.version>3.0.6.RELEASE</spring.version>
 		<solr.version>3.6.0</solr.version>
 		<slf4j.version>1.6.1</slf4j.version>
+		<jetty.version>6.1.26</jetty.version>
 	</properties>
 
+  <profiles>
+    <profile>
+      <id>windows</id>
+      <activation>
+        <os><family>windows</family></os>
+      </activation>
+      <properties>
+        <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+      </properties>
+    </profile>
+    <profile>
+      <id>unix</id>
+      <activation>
+        <os><family>unix</family></os>
+      </activation>
+      <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      </properties>
+    </profile>
+  </profiles>
+  
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -231,6 +247,18 @@
 			<version>1.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		  <groupId>org.mortbay.jetty</groupId>
+		  <artifactId>jetty</artifactId>
+		  <version>${jetty.version}</version>
+		  <scope>test</scope>
+		</dependency>
+		<dependency>
+		  <groupId>org.mortbay.jetty</groupId>
+		  <artifactId>jsp-2.1</artifactId>
+      <version>6.1.14</version>
+		  <scope>test</scope>
+		</dependency>
 	</dependencies>
 	
 	<distributionManagement>
@@ -265,106 +293,70 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+			 <groupId>org.apache.maven.plugins</groupId>
+			 <artifactId>maven-dependency-plugin</artifactId>
+			 <version>2.4</version>
+			 <executions>
+			   <execution>
+			     <id>get-solr-war</id>
+			     <phase>process-test-classes</phase>
+			     <goals><goal>copy</goal></goals>
+			     <configuration>
+			       <artifactItems>
+			         <artifactItem>
+			           <groupId>org.apache.solr</groupId>
+			           <artifactId>solr</artifactId>
+			           <version>3.6.0</version>
+			           <type>war</type>
+			          </artifactItem>
+			       </artifactItems>
+			       <stripVersion>true</stripVersion>
+			     </configuration>
+			   </execution>
+			 </executions>
 			</plugin>			
 		</plugins>
+		<pluginManagement>
+				<plugins>
+						<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+						<plugin>
+								<groupId>org.eclipse.m2e</groupId>
+								<artifactId>
+										lifecycle-mapping
+								</artifactId>
+								<version>1.0.0</version>
+								<configuration>
+										<lifecycleMappingMetadata>
+												<pluginExecutions>
+														<pluginExecution>
+																<pluginExecutionFilter>
+																		<groupId>
+																				org.apache.maven.plugins
+																		</groupId>
+																		<artifactId>
+																				maven-dependency-plugin
+																		</artifactId>
+																		<versionRange>
+																				[2.4,)
+																		</versionRange>
+																		<goals>
+																				<goal>
+																						copy
+																				</goal>
+																		</goals>
+																</pluginExecutionFilter>
+																<action>
+																		<ignore></ignore>
+																</action>
+														</pluginExecution>
+												</pluginExecutions>
+										</lifecycleMappingMetadata>
+								</configuration>
+						</plugin>
+				</plugins>
+		</pluginManagement>
 	</build>
 	
-	<profiles>
-		<profile>
-			<id>postgresql</id>
-			<properties>
-					<javamojo.driver>org.postgresql.Driver</javamojo.driver>
-					<javamojo.dialect>org.hibernate.dialect.PostgreSQLDialect</javamojo.dialect>
-					<javamojo.mode>create-drop</javamojo.mode>
-					<javamojo.username>bas</javamojo.username>
-					<javamojo.password>bas</javamojo.password>
-					<javamojo.url>jdbc:postgresql://lportal-test.uis.no/bas_mg</javamojo.url>
-					<javamojo.type>POSTGRESQL</javamojo.type>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>postgresql</groupId>
-					<artifactId>postgresql</artifactId>
-					<version>8.4-701.jdbc4</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>mssql</id>
-			<properties>
-					<javamojo.driver>net.sourceforge.jtds.jdbc.Driver</javamojo.driver>
-					<javamojo.dialect>org.hibernate.dialect.SQLServerDialect</javamojo.dialect>
-					<javamojo.mode>create-drop</javamojo.mode>
-					<javamojo.username>basuser</javamojo.username>
-					<javamojo.password>mars321take#</javamojo.password>
-					<javamojo.url>jdbc:jtds:sqlserver://uisdb02.uis.no/UiSBase01</javamojo.url>
-					<javamojo.type>SQL_SERVER</javamojo.type>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>net.sourceforge.jtds</groupId>
-					<artifactId>jtds</artifactId>
-					<version>1.2.4</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>mysql</id>
-			<properties>
-					<javamojo.driver>com.mysql.jdbc.Driver</javamojo.driver>
-					<javamojo.dialect>org.hibernate.dialect.MySQLDialect</javamojo.dialect>
-					<javamojo.mode>create-drop</javamojo.mode>
-					<javamojo.username>liferay</javamojo.username>
-					<javamojo.password>password</javamojo.password>
-					<javamojo.url>jdbc:mysql://localhost:3306/jaxb</javamojo.url>
-					<javamojo.type>MYSQL</javamojo.type>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>mysql</groupId>
-					<artifactId>mysql-connector-java</artifactId>
-					<version>5.1.12</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>importdb</id>
-			<build>
-				<defaultGoal>org.codehaus.mojo:exec-maven-plugin:1.2:java</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.2</version>
-						<configuration>
-							<mainClass>no.uis.service.fsimport.util.DBImportUtil</mainClass>
-							<classpathScope>test</classpathScope>
-							<arguments>
-								<argument>-c${javamojo.driver}</argument>
-								<argument>-d${javamojo.dialect}</argument>
-								<argument>-m${javamojo.mode}</argument>
-								<argument>-u${javamojo.username}</argument>
-								<argument>-p${javamojo.password}</argument>
-								<argument>-r${javamojo.url}</argument>
-								<argument>-t${javamojo.type}</argument>
-							</arguments>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<skipTests>true</skipTests>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-			<dependencies>
-			</dependencies>
-		</profile>
-	</profiles>
-	<ciManagement>
-			<system>jenkins</system>
-			<url>http://build01.uis.no/jenkins/job/soa-component-fsimport/</url>
-	</ciManagement>
 </project>

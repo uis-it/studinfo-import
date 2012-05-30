@@ -3,6 +3,7 @@ package no.uis.service.fsimport;
 import static org.junit.Assert.assertTrue;
 import no.uis.service.fsimport.StudInfoImport;
 
+import org.apache.solr.client.solrj.SolrServer;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
@@ -11,20 +12,21 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class StudInfoImportTest {
 
 	private static StudInfoImport studInfoImport;
+  private static SolrServer solrServer;
 
 	@BeforeClass
 	public static void setup() {
 		BeanFactory bf = new ClassPathXmlApplicationContext(new String[] {
 				 "fsimportPropsContext.xml" 
 				,"fsimportContext.xml"
-				,"studinfoMock.xml"
+				//,"studinfoMock.xml"
 				,"studinfoAnswerMockLarge.xml"
 				,"cpmock.xml"
 				,"solrMock.xml"
 				});
 
-		studInfoImport = (StudInfoImport) bf.getBean("fsStudInfoImport",
-				StudInfoImport.class);
+		studInfoImport = bf.getBean("fsStudInfoImport", StudInfoImport.class);
+		solrServer = bf.getBean("solrServer", SolrServer.class);
 	}
 
 //	@Test
@@ -35,7 +37,7 @@ public class StudInfoImportTest {
 		assertTrue(true);
 	}
 
-	// @Test
+	@Test
 	public void getStudyPrograms() throws Exception {
 //		studInfoImport.importStudyPrograms(217, 2011, "VÅR", false, "B");
 //		studInfoImport.importStudyPrograms(217, 2011, "VÅR", false, "N");
@@ -46,6 +48,7 @@ public class StudInfoImportTest {
 	@Test
 	public void getKurs() throws Exception {
 	  studInfoImport.importCourses(217, 2011, "VÅR", "B", true);
+	  
     assertTrue(true);
 	}
 }

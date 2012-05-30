@@ -221,7 +221,7 @@ public class StudInfoImportImpl implements StudInfoImport {
     
     List<FSCourse> courseList = mapKursTypeFSCourseList(studieinfos, report);
     
-    deleteSolrIndex(SolrCategory.KURS);
+    solrServer.deleteByQuery("category:"+SolrCategory.KURS.toString());
     updateCoursesSolrIndex(SolrCategory.KURS, courseList);
     solrServer.commit();
   }
@@ -397,13 +397,6 @@ public class StudInfoImportImpl implements StudInfoImport {
         break;
     }
     return value;
-  }
-
-  private void deleteSolrIndex(SolrCategory solrCategory) throws SolrServerException, IOException {
-    if (solrServer == null) {
-      return;
-    }
-    solrServer.deleteByQuery("category:"+solrCategory.toString());
   }
 
   private List<FSCourse> mapKursTypeFSCourseList(List<FsStudieinfoKursOrEmneOrStudieprogramItem> studieinfos, ImportReport report) {
