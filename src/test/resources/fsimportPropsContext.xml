@@ -8,9 +8,8 @@
 	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
     <!-- The files have to be put into one property placeholder, otherwise an error ocurres -->
-    <context:property-placeholder location="file:///${user.home}/fsimport.properties"/>
+    <!--context:property-placeholder location="file:///${user.home}/fsimport.properties"/-->
     
-    <!--
 		<context:property-placeholder properties-ref="config-properties"/>
 	
 		<bean id="config-properties" class="java.util.Properties">
@@ -26,14 +25,13 @@
 				<prop key="fs.ws.use.attachment">true</prop>
 				<prop key="fs.ws.import.places">true</prop>
 				<prop key="fs.ws.places.institution">217</prop>
-				<prop key="fs.database.driver.class.name">NOT_USED_IN_TEST</prop>
-				<prop key="fs.database.url">NOT_USED_IN_TEST</prop>
-				<prop key="fs.database.username">NOT_USED_IN_TEST</prop>
-				<prop key="fs.database.password">NOT_USED_IN_TEST</prop>
-				<prop key="example.user.nin">01017012345</prop>
-				<prop key="database.03.driver.class.name">NOT_USED_IN_TEST</prop>
+				<prop key="corepublish.url">NOT_USED_IN_TEST</prop>
+				<prop key="corepublish.domainid">0</prop>
+				<prop key="solr.server.url.evu.nb">http://localhost:8080/solr</prop>
+				<prop key="solr.server.url.studinfo.nb">http://localhost:8080/solr</prop>
+				<prop key="solr.server.username">NOT_USED_IN_TEST</prop>
+        <prop key="solr.server.password">NOT_USED_IN_TEST</prop>
 			</props>
 		</constructor-arg>
 	</bean>    
-	-->
 </beans>

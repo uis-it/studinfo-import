@@ -12,6 +12,6 @@
 		</bean>
 		
 		<bean id="answer_pbygg" class="no.uis.service.fsimport.mock.ResourceAnswer">
-			<constructor-arg value="kurs_pbygg_b.xml"/>
+			<constructor-arg value="data/kurs_pbygg_b.xml"/>
 		</bean>
 </beans>

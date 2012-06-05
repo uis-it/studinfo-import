@@ -16,7 +16,7 @@ public class StudInfoAnswer extends AbstractResourceAnswer {
   @Override
   protected String getResourceName() {
     String langCode = language.getValue().substring(0, 1);
-    String resourceName = String.format("%s_%s.xml", studInfoType, langCode.toLowerCase());
+    String resourceName = String.format("data/%s_%s.xml", studInfoType, langCode.toLowerCase());
 
     return resourceName;
   }

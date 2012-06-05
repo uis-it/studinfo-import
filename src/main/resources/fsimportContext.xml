@@ -13,10 +13,6 @@
     http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
 
-	<!--import resource="classpath:mappingContext.xml" /-->
-		<!--import resource="classpath:personormContext.xml"/>
-		<import resource="classpath:fsJdbcClientContext.xml"/-->
-		
 		<context:annotation-config/>
 		
 		<bean id="fsStudInfoImport" class="no.uis.service.fsimport.impl.StudInfoImportImpl">
@@ -24,14 +20,14 @@
 				<ref bean="fsWsStudInfo"/>
 			</property>
 			
-			<property name="solrServer">
-			 	<ref bean="solrServer"/>
-			</property>
+			<property name="solrServerCourse" ref="solrServerCourse"/>
+      <property name="solrServerProgram" ref="solrServerStudinfo"/>
+      <property name="solrServerSubject" ref="solrServerStudinfo"/>
 			
 			<property name="cpUrl">
 				<bean class="com.corepublish.util.DomainUrl">
-					<constructor-arg index="0" value="${evu.corepublish.url}"/>
-					<constructor-arg index="1" value="${evu.corepublish.domainid}"/>
+					<constructor-arg index="0" value="${corepublish.url}"/>
+					<constructor-arg index="1" value="${corepublish.domainid}"/>
 				</bean>
 			</property>
 			
@@ -39,29 +35,43 @@
 				<ref bean="cpAccessorHolder"/>
 			</property>
 						
-			<property name="doSaveCourseXml" value="${evu.save.xml}"/>
 		</bean>
 
 		<bean id="cpAccessorHolder" class="com.corepublish.impl.xml.XmlAccessorHolder" init-method="init" destroy-method="destroy">
 		</bean>
 		
-		<bean id="httpClient" class="no.uis.service.fsimport.util.PreemptBasicAuthHttpClient">
-			<constructor-arg index="0"  value="${solr.server.url}"/>
+		<bean id="httpClientCourse" class="no.uis.service.fsimport.util.PreemptBasicAuthHttpClient">
+			<constructor-arg index="0"  value="${solr.server.url.evu.nb}"/>
 			<constructor-arg index="1"  value="${solr.server.username}"/>
 			<constructor-arg index="2" value="${solr.server.password}"/>
 		</bean>
 		
-		<bean id="solrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
-			<constructor-arg index="0" value="${solr.server.url}"/>
-			<constructor-arg index="1" ref="httpClient"/>
+		<bean id="solrServerCourse" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+			<constructor-arg index="0" value="${solr.server.url.evu.nb}"/>
+			<constructor-arg index="1" ref="httpClientCourse"/>
 			<constructor-arg index="2">
 				<bean class="org.apache.solr.client.solrj.impl.XMLResponseParser"/>
 			</constructor-arg>
-
 			<property name="soTimeout" value="1000"/>
 			<property name="allowCompression" value="true"/>
 		</bean>
 		
+    <bean id="httpClientStudinfo" class="no.uis.service.fsimport.util.PreemptBasicAuthHttpClient">
+      <constructor-arg index="0"  value="${solr.server.url.studinfo.nb}"/>
+      <constructor-arg index="1"  value="${solr.server.username}"/>
+      <constructor-arg index="2" value="${solr.server.password}"/>
+    </bean>
+    
+    <bean id="solrServerStudinfo" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+      <constructor-arg index="0" value="${solr.server.url.studinfo.nb}"/>
+      <constructor-arg index="1" ref="httpClientStudinfo"/>
+      <constructor-arg index="2">
+        <bean class="org.apache.solr.client.solrj.impl.XMLResponseParser"/>
+      </constructor-arg>
+      <property name="soTimeout" value="1000"/>
+      <property name="allowCompression" value="true"/>
+    </bean>
+    
 		<jaxws:client id="fsWsCdm" serviceClass="no.usit.fsws.wsdl.cdm.CDMService"
 				address="${fs.ws.cdm.url}" username="${fs.ws.username}" password="${fs.ws.password}">
 

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-		xmlns:hj="http://hyperjaxb3.jvnet.org/ejb/schemas/customizations"
-		xmlns:orm="http://java.sun.com/xml/ns/persistence/orm" 
 		xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-		jaxb:extensionBindingPrefixes="hj orm xjc">
+		xmlns:hj="http://hyperjaxb3.jvnet.org/ejb/schemas/customizations"
+    xmlns:orm="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:annox="http://annox.dev.java.net"
+    xmlns:jl="http://annox.dev.java.net/java.lang"
+		jaxb:extensionBindingPrefixes="xjc hj orm annox">
 
-		<jaxb:globalBindings generateIsSetMethod="true"
-				localScoping="toplevel" typesafeEnumMemberName="generateName">
+		<jaxb:globalBindings generateIsSetMethod="true" localScoping="toplevel" typesafeEnumMemberName="generateName">
 				<jaxb:serializable uid="1" />
 		</jaxb:globalBindings>
 

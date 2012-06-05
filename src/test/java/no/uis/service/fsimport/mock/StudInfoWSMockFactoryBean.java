@@ -31,7 +31,7 @@ public class StudInfoWSMockFactoryBean implements FactoryBean {
     // getStudieProgramSI
     language = new Capture<String>();
     IAnswer<String> programAnswer = findAnswer("studieprogram", language);
-    expect(ws.getStudieprogramSI(eq(year), anyObject(String.class), anyObject(Integer.class), anyObject(String.class), eq(institution), eq(faculty), anyObject(Integer.class), anyObject(Integer.class), capture(language))).andAnswer(programAnswer).atLeastOnce();
+    expect(ws.getStudieprogramSI(anyObject(Integer.class), anyObject(String.class), anyObject(Integer.class), anyObject(String.class), eq(institution), eq(faculty), anyObject(Integer.class), anyObject(Integer.class), capture(language))).andAnswer(programAnswer).atLeastOnce();
 
     // getKursSI
     language = new Capture<String>();

@@ -1,13 +1,9 @@
 package no.uis.service.fsimport.impl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,28 +13,22 @@ import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.transform.sax.SAXSource;
 
 import no.uis.service.fsimport.StudInfoImport;
 import no.uis.service.fsimport.util.ImportReportUtil;
 import no.uis.service.model.ImportReport;
-import no.uis.service.model.studinfo.courses.CourseCategory;
-import no.uis.service.model.studinfo.courses.FSCourse;
-import no.uis.service.model.studinfo.courses.FSCourseId;
+import no.uis.service.studinfo.data.EmneType;
 import no.uis.service.studinfo.data.FsStudieinfo;
-import no.uis.service.studinfo.data.FsStudieinfoKursOrEmneOrStudieprogramItem;
 import no.uis.service.studinfo.data.KursType;
-import no.uis.service.studinfo.data.Kursid;
 import no.uis.service.studinfo.data.KurskategoriType;
-import no.uis.service.studinfo.data.YESNOType;
+import no.uis.service.studinfo.data.StudieprogramType;
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.request.UpdateRequest;
-import org.apache.solr.client.solrj.request.AbstractUpdateRequest.ACTION;
 import org.apache.solr.common.SolrInputDocument;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -62,7 +52,6 @@ import com.corepublish.util.DomainUrl;
 
 public class StudInfoImportImpl implements StudInfoImport {
 
-  private static final String FILE_CHARSET = "ISO-8859-1";
   private static Logger log = Logger.getLogger(StudInfoImportImpl.class);
   
   enum SolrCategory {
@@ -101,23 +90,40 @@ public class StudInfoImportImpl implements StudInfoImport {
 	private static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
 	
   private StudInfoService fsServiceStudInfo;
+
+  private ThreadLocal<Map<String, CPArticleInfo>> courseDescriptionCache = new ThreadLocal<Map<String, CPArticleInfo>>() {
+    @Override
+    protected Map<String, CPArticleInfo> initialValue() {
+      return Collections.emptyMap();
+    }
+  };
   
-	private SolrServer solrServer;
+	private SolrServer solrServerCourse;
+	private SolrServer solrServerProgram;
+	private SolrServer solrServerSubject;
+	
   private DomainUrl cpUrl;
   private XmlAccessorHolder xmlAccessorHolder;
   private int evuCategoryId = 5793;
-  private boolean doSaveCourseXml;
   private StudinfoInterceptor interceptor;
 
 	public void setFsServiceStudInfo(StudInfoService fsServiceStudInfo) {
 		this.fsServiceStudInfo = fsServiceStudInfo;
 	}
 
-	public void setSolrServer(SolrServer solrServer) {
-    this.solrServer = solrServer;
+	public void setSolrServerCourse(SolrServer solrServer) {
+    this.solrServerCourse = solrServer;
   }
 
-	public void setCpUrl(DomainUrl cpUrl) {
+	public void setSolrServerProgram(SolrServer solrServerProgram) {
+    this.solrServerProgram = solrServerProgram;
+  }
+
+  public void setSolrServerSubject(SolrServer solrServerSubject) {
+    this.solrServerSubject = solrServerSubject;
+  }
+
+  public void setCpUrl(DomainUrl cpUrl) {
 	  this.cpUrl = cpUrl; 
 	}
 	
@@ -129,10 +135,6 @@ public class StudInfoImportImpl implements StudInfoImport {
     this.evuCategoryId = evuCategoryId;
   }
 
-  public void setDoSaveCourseXml(boolean doSaveCourseXml) {
-    this.doSaveCourseXml = doSaveCourseXml;
-  }
-
   public void setInterceptor(StudinfoInterceptor interceptor) {
     this.interceptor = interceptor;
   }
@@ -141,69 +143,71 @@ public class StudInfoImportImpl implements StudInfoImport {
 	public ImportReport importStudyPrograms(int institution, int year, String semester, boolean includeEP,
 			String language) throws Exception {
 
-	  ImportReport report = ImportReportUtil.newImportReport("studprog");
-
 		Integer medUPinfo = includeEP ? INTEGER_1 : INTEGER_0;
 		String studieinfoXml = fsServiceStudInfo.getStudieprogramSI(year,
 				semester, medUPinfo, null, institution, INTEGER_MINUS_ONE, null, null, language);
 
-		FsStudieinfo sinfo = unmarshalStudieinfo(studieinfoXml);
-		
-		savePrograms(sinfo.getKursOrEmneOrStudieprogramItems(), true, report);
-		
-		ImportReportUtil.stop(report);
-		return report;
+		return importStudyInfoXml(SolrCategory.STUDIEPROGRAM, studieinfoXml);
 	}
 
   @Override
 	public ImportReport importSubjects(int institution, int year, String semester,
 			String language) throws Exception {
 
-	  ImportReport report = ImportReportUtil.newImportReport("emne");
-
 	  String studieinfoXml = fsServiceStudInfo.getEmneSI(Integer.valueOf(institution), null, null,
 				INTEGER_MINUS_ONE, null, null, year, semester, language);
 		
-	  
-    if (this.doSaveCourseXml) {
-      writeToFile(studieinfoXml);
-    }
-
-    FsStudieinfo sinfo = unmarshalStudieinfo(studieinfoXml);
-    
-		List<FsStudieinfoKursOrEmneOrStudieprogramItem> studieinfos = sinfo.getKursOrEmneOrStudieprogramItems();
-		
-		saveSubjects(studieinfos, true, report);
-		
-		ImportReportUtil.stop(report);
-		return report;
-	}
+	  return importStudyInfoXml(SolrCategory.EMNE, studieinfoXml);
+  }
 
   @Override
   public ImportReport importCourses(int institution, int year, String semester, String language, boolean cleanBeforeUpdate) throws Exception {
 
-    ImportReport report = ImportReportUtil.newImportReport("kurs");
-    
     String studieinfoXml = fsServiceStudInfo.getKursSI(Integer.valueOf(institution), INTEGER_MINUS_ONE, INTEGER_MINUS_ONE, INTEGER_MINUS_ONE, language);
 
-    if (this.doSaveCourseXml) {
-      writeToFile(studieinfoXml);
+    Map<String, CPArticleInfo> descriptionCache = new HashMap<String, CPArticleInfo>();
+    fillDescriptionCache(descriptionCache);
+    courseDescriptionCache.set(descriptionCache);
+    try {
+      return importStudyInfoXml(SolrCategory.KURS, studieinfoXml);
+    } finally {
+      courseDescriptionCache.remove();
     }
+  }
+
+  protected ImportReport importStudyInfoXml(SolrCategory category, String studieinfoXml)
+      throws JAXBException, SAXException, SolrServerException, IOException, Exception
+      {
+    ImportReport report = ImportReportUtil.newImportReport(category.toString());
     
     FsStudieinfo sinfo = unmarshalStudieinfo(studieinfoXml);
     
-    List<FsStudieinfoKursOrEmneOrStudieprogramItem> studieinfos = sinfo.getKursOrEmneOrStudieprogramItems();
+    List<?> studieinfos = sinfo.getKursOrEmneOrStudieprogram();
     
     interceptStudieInfo(studieinfos);
     
-    saveCourses(studieinfos, cleanBeforeUpdate, report);
+    cleanCategory(category);
+    
+    pushItemsToSolr(studieinfos, report);
     
     ImportReportUtil.stop(report);
     
     return report;
   }
+  
+  private void cleanCategory(SolrCategory category) throws SolrServerException, IOException {
+    StringBuffer sb = new StringBuffer();
+    for (String cat : category.getPartialCategories()) {
+      if (sb.length() > 0) {
+        sb.append(" AND ");
+      }
+      sb.append("cat:");
+      sb.append(cat);
+    }
+    solrServerCourse.deleteByQuery(sb.toString());
+  }
 
-  private void interceptStudieInfo(List<FsStudieinfoKursOrEmneOrStudieprogramItem> studieinfos) {
+  private void interceptStudieInfo(List<?> studieinfos) throws Exception {
     if (this.interceptor != null) {
       interceptor.interceptStudinfo(studieinfos);
     }
@@ -217,97 +221,87 @@ public class StudInfoImportImpl implements StudInfoImport {
    * @param cleanBeforeUpdate purge courses before inserting new ones
    * @param report 
    */
-  private void saveCourses(List<FsStudieinfoKursOrEmneOrStudieprogramItem> studieinfos, boolean cleanBeforeUpdate, ImportReport report) throws Exception {
+  private void pushItemsToSolr(List<?> studieinfos, ImportReport report) throws Exception {
     
-    List<FSCourse> courseList = mapKursTypeFSCourseList(studieinfos, report);
-    
-    solrServer.deleteByQuery("category:"+SolrCategory.KURS.toString());
-    updateCoursesSolrIndex(SolrCategory.KURS, courseList);
-    solrServer.commit();
+    for (Object item : studieinfos) {
+      if (item instanceof EmneType) {
+        pushEmneToSolr((EmneType)item, report);
+      } else if (item instanceof KursType) {
+        pushKursToSolr((KursType)item, report);
+      } else if (item instanceof StudieprogramType) {
+        pushStudieprogramToSolr((StudieprogramType)item, report);
+      }
+    }
   }
 
-  private void saveSubjects(List<FsStudieinfoKursOrEmneOrStudieprogramItem> studieinfos, boolean cleanBeforeUpdate, ImportReport report) {
-    //List<FSSubject> subjects = mapEmnerToSubjects(studieinfos, report);
-    // TODO Auto-generated method stub
+  private void pushStudieprogramToSolr(StudieprogramType prog, ImportReport report) {
+    SolrInputDocument doc = new SolrInputDocument();
     
   }
-  
-  private void savePrograms(List<FsStudieinfoKursOrEmneOrStudieprogramItem> kursOrEmneOrStudieprogramItems, boolean b,
-      ImportReport report)
-  {
-    // TODO Auto-generated method stub
+
+  private void pushKursToSolr(KursType kurs, ImportReport report) throws SolrServerException, IOException {
+    SolrInputDocument doc = new SolrInputDocument();
+
+    String courseId = kurs.getKursid().getKurskode() + ID_TOKEN_SEPARATOR + kurs.getKursid().getTidkode();
+    doc.addField("id", "kurs" + ID_TOKEN_SEPARATOR + courseId);
     
-  }
-  
-  private void writeToFile(String courses) throws FileNotFoundException, IOException {
-    File xmlFile = new File(System.getProperty("java.io.tmpdir"), "evu-kurs.xml");
-    OutputStream output = new FileOutputStream(xmlFile, false);
-    IOUtils.write(String.format("<?xml version=\"1.0\" encoding=\"%s\"?>\n", FILE_CHARSET), output);
-    IOUtils.write(courses, output, FILE_CHARSET);
-    output.close();
-  }
-  
-  private void updateCoursesSolrIndex(SolrCategory solrCategory, List<FSCourse> courseList) throws SolrServerException, IOException {
-    if (solrServer == null) {
-      return;
+    addCategories(doc, SolrCategory.KURS);
+
+    doc.addField("name", kurs.getKursnavn());
+    for (KurskategoriType kursKat : kurs.getKurskategoriListe()) {
+      doc.addField("course_category_code", kursKat.getKurskategorikode());
     }
 
-    List<SolrInputDocument> docList = new ArrayList<SolrInputDocument>(courseList.size());
-    Map<String, CPArticleInfo> descriptionCache = new HashMap<String, CPArticleInfo>();
-    fillDescriptionCache(descriptionCache);
-    for (FSCourse fsCourse : courseList) {
-      SolrInputDocument doc = new SolrInputDocument();
-
-      doc.addField("category", solrCategory.toString()); // single valued
-      
-      String courseId = fsCourse.getCourseId().toId(ID_TOKEN_SEPARATOR);
-      doc.addField("id", solrCategory + ID_TOKEN_SEPARATOR + courseId);
-      
-      for (String cat : solrCategory.getPartialCategories()) {
-        doc.addField("cat", cat);
-      }
-      
-      doc.addField("name", fsCourse.getName());
-      for (CourseCategory category : fsCourse.getCourseCategoryList()) {
-        doc.addField("course_category_code", category.getCourseCategoryCode());
-      }
-      doc.addField("course_code_s", fsCourse.getCourseId().getCourseCode());
-      doc.addField("course_time_code_s", fsCourse.getCourseId().getTimeCode());
-      String date = dateToSolrString(fsCourse.getApplicationDeadline());
-      if (date != null) {
-        doc.addField("application_deadline_dt", date);
-      }
-      date = dateToSolrString(fsCourse.getPublishDateFrom());
-      if (date != null) {
-        doc.addField("publish_from_dt", date);
-      }
-      date = dateToSolrString(fsCourse.getPublishDateTo());
-      if (date != null) {
-        doc.addField("publish_to_dt", date);
-      }
-      doc.addField("course_contact_s", fsCourse.getEmail());
-      
-      CPArticleInfo cpinfo = descriptionCache.get(courseId);
-      if (cpinfo != null) {
-        doc.addField("cp_article_id_l", cpinfo.getArticleId());
-        doc.addField("cp_category_id_l", cpinfo.getCategoryId());
-        doc.addField("text", cpinfo.getText());
-      }
-
-      docList.add(doc);
-    }
-
-    UpdateRequest update = new UpdateRequest();
-    update.setAction(ACTION.COMMIT, false, false);
-    update.add(docList);
-    update.process(solrServer);
-  }
-
-  private static String dateToSolrString(Date date) {
+    doc.addField("course_code_s", kurs.getKursid().getKurskode());
+    doc.addField("course_time_code_s", kurs.getKursid().getTidkode());
+    String date = dateToSolrString(kurs.getDatoFristSoknad());
     if (date != null) {
-      SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-      String s = df.format(date);
-      return s + "Z";
+      doc.addField("application_deadline_dt", date);
+    }
+    date = dateToSolrString(kurs.getDatoPubliseresFra());
+    if (date != null) {
+      doc.addField("publish_from_dt", date);
+    }
+    date = dateToSolrString(kurs.getDatoPubliseresTil());
+    if (date != null) {
+      doc.addField("publish_to_dt", date);
+    }
+    doc.addField("course_contact_s", kurs.getEmail());
+    
+    CPArticleInfo cpinfo = courseDescriptionCache.get().get(courseId);
+    if (cpinfo != null) {
+      doc.addField("cp_article_id_l", cpinfo.getArticleId());
+      doc.addField("cp_category_id_l", cpinfo.getCategoryId());
+      doc.addField("text", cpinfo.getText());
+    }
+
+    solrServerCourse.add(doc, 3000);
+  }
+
+  private void pushEmneToSolr(EmneType emne, ImportReport report) throws SolrServerException, IOException {
+    SolrInputDocument doc = new SolrInputDocument();
+    
+    String emneId = emne.getEmneid().getInstitusjonsnr() + ID_TOKEN_SEPARATOR + emne.getEmneid().getEmnekode() + ID_TOKEN_SEPARATOR + emne.getEmneid().getVersjonskode();
+    doc.addField("id", "emne" + ID_TOKEN_SEPARATOR + emneId);
+    
+    addCategories(doc, SolrCategory.EMNE);
+    
+    //doc.addField("adminasvarlig_s", emne.getFagpersonListe())
+    doc.addField("emnenavn_s", emne.getEmnenavn());
+    
+    solrServerSubject.add(doc, 3000);
+  }
+
+  private static void addCategories(SolrInputDocument doc, SolrCategory category) {
+    //doc.addField("category", category.name().toLowerCase());
+    for (String pCat : category.getPartialCategories()) {
+      doc.addField("cat", pCat);
+    }
+  }
+  
+  private static String dateToSolrString(XMLGregorianCalendar xcal) {
+    if (xcal != null) {
+      return String.format("%d-%02d-%02dT%02d:%02d:%02dZ", xcal.getYear(), xcal.getMonth(), xcal.getDay(), xcal.getHour(), xcal.getMinute(), xcal.getMinute());
     }
     return null;
   }
@@ -399,98 +393,6 @@ public class StudInfoImportImpl implements StudInfoImport {
     return value;
   }
 
-  private List<FSCourse> mapKursTypeFSCourseList(List<FsStudieinfoKursOrEmneOrStudieprogramItem> studieinfos, ImportReport report) {
-    
-    List<FSCourse> l = new ArrayList<FSCourse>(studieinfos.size());
-    for (FsStudieinfoKursOrEmneOrStudieprogramItem kursType : studieinfos) {
-      try {
-        FSCourse course = mapKursTypeToFSCourse(kursType);
-        if (course != null) {
-          l.add(course);
-        }
-      } catch(Exception e) {
-        ImportReportUtil.add(report, e);
-      }
-    }
-    return l;
-  }
-
-  /**
-   * Map FS data type {@link KursType} to our data type {@link FSCourse}. 
-   * TODO move to mapping component ?
-   * @param kursType
-   * @return
-   */
-  private FSCourse mapKursTypeToFSCourse(FsStudieinfoKursOrEmneOrStudieprogramItem kursObject) {
-    
-    KursType kursType = kursObject.getItemKurs();
-    if (kursType == null) {
-      return null;
-    }
-
-    FSCourse c = new FSCourse();
-
-    c.setLanguage(kursType.getSprak());
-    
-    Kursid kursid = kursType.getKursid();
-    if (kursid == null) {
-      throw new IllegalArgumentException("kursid is null");
-    }
-    c.setCourseId(new FSCourseId(kursid.getKurskode(), kursid.getTidkode()));
-    
-    c.setName(kursType.getKursnavn());
-    c.setAdminSupervisor(INTEGER_1);
-    c.setLecturer(INTEGER_1);
-    c.setApplicationDeadline(kursType.getDatoFristSoknadItem());
-    c.setAdmissionDeadline(kursType.getDatoOpptakTilItem());
-    c.setAdmissionFrom(kursType.getDatoOpptakTilItem());
-    c.setEmail(kursType.getEmail());
-    if (kursType.isSetFjernundervisning()) {
-      c.setRemoteTuition(kursType.getFjernundervisning().equals(YESNOType.Y));
-    }
-    if (kursType.isSetDesentralUndervisning()) {
-      c.setDecentralizedTuition(kursType.getDesentralUndervisning().equals(YESNOType.Y));
-    }
-    if (kursType.isSetNettbasertUndervisning()) {
-      c.setNetbasedTuition(kursType.getNettbasertUndervisning().equals(YESNOType.Y));
-    }
-    if (kursType.isSetKanTilbys()) {
-      c.setOffered(kursType.getKanTilbys().equals(YESNOType.Y));
-    }
-    if (kursType.isSetSkalAvholdes()) {
-      c.setActive(kursType.getSkalAvholdes().equals(YESNOType.Y));
-    }
-    c.setPublishDateFrom(kursType.getDatoPubliseresFraItem());
-    c.setPublishDateTo(kursType.getDatoPubliseresTilItem());
-
-    List<CourseCategory> categoryList;
-    List<KurskategoriType> kursItems = kursType.getKurskategoriListe();
-    if (kursItems.isEmpty()) {
-      categoryList = Collections.emptyList();
-    } else {
-      categoryList = new ArrayList<CourseCategory>();
-      for (KurskategoriType item : kursItems) {
-        categoryList.add(new CourseCategory(item.getKurskategorikode(), item.getKurskategorinavn()));
-      }
-    }
-    c.setCourseCategoryList(categoryList);
-    return c;
-  }
-
-//  private List<FSSubject> mapEmnerToSubjects(List<FsStudieinfoKursOrEmneOrStudieprogramItem> studieinfos, ImportReport report) {
-//    List<FSSubject> subjects = new ArrayList<FSSubject>(studieinfos.size());
-//    
-//    for (FsStudieinfoKursOrEmneOrStudieprogramItem fsItems : studieinfos) {
-//      EmneType emne = fsItems.getItemEmne();
-//      if (emne != null) {
-////        FSSubject subject = new FSSubject();
-////        subjects.add(subject);
-//      }
-//    }
-//    
-//    return subjects;
-//  }
-
   /**
    * Namespace handling taken from http://stackoverflow.com/questions/277502/jaxb-how-to-ignore-namespace-during-unmarshalling-xml-document  
    */
@@ -550,7 +452,7 @@ public class StudInfoImportImpl implements StudInfoImport {
 
   public interface StudinfoInterceptor {
     
-   void interceptStudinfo(List<FsStudieinfoKursOrEmneOrStudieprogramItem> items);  
+   void interceptStudinfo(List<?> items) throws Exception;  
   }
   
 }
