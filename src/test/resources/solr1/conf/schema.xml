@@ -4,6 +4,7 @@
     <fieldtype name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
     <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
     <fieldType name="date" class="solr.TrieDateField" omitNorms="true" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
    
     <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
@@ -33,6 +34,7 @@
    <dynamicField name="*_ms" type="string" indexed="true" stored="true" multiValued="true"/>
    <dynamicField name="*_t" type="text_general" indexed="true" stored="true"/>
    <dynamicField name="*_i" type="int" indexed="true" stored="true"/>
+   <dynamicField name="*_b" type="boolean" indexed="true" stored="true"/>
  </fields>
 
  <!-- field to use to determine and enforce document uniqueness. -->

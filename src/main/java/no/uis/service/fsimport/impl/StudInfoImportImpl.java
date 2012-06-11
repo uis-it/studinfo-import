@@ -1,11 +1,8 @@
 package no.uis.service.fsimport.impl;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.io.StringReader;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +20,9 @@ import no.uis.service.studinfo.data.EmneType;
 import no.uis.service.studinfo.data.FsStudieinfo;
 import no.uis.service.studinfo.data.KursType;
 import no.uis.service.studinfo.data.KurskategoriType;
+import no.uis.service.studinfo.data.StedType;
 import no.uis.service.studinfo.data.StudieprogramType;
+import no.uis.service.studinfo.data.YESNOType;
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
 
 import org.apache.log4j.Logger;
@@ -286,14 +285,68 @@ public class StudInfoImportImpl implements StudInfoImport {
     
     addCategories(doc, SolrCategory.EMNE);
     
-    //doc.addField("adminasvarlig_s", emne.getFagpersonListe())
+    String adminAnsvarlig = null;
+    String fagAnsvarlig = null;
+    for (StedType sted : emne.getSted()) {
+      if (sted.getType().equals("adminansvarlig")) {
+        adminAnsvarlig = getStedCode(sted);
+      } else if (sted.getType().equals("fagansvarlig")) {
+        fagAnsvarlig = getStedCode(sted);
+      }
+    }
+    if (adminAnsvarlig != null) {
+      doc.addField("adminansvarlig_s", adminAnsvarlig);
+    }
+    if (fagAnsvarlig != null) {
+      doc.addField("fagansvarlig_s", fagAnsvarlig);
+    }
     doc.addField("emnenavn_s", emne.getEmnenavn());
+    
+    doc.addField("antall-undsemester_i", emne.getAntallUndsemester());
+    doc.addField("eksamensemester_s", emne.getEksamenssemester());
+    doc.addField("inngar-i-studieprogram_ms", emne.getInngarIStudieprogram());
+    doc.addField("inngar-i-fag_ms", emne.getInngarIFag());
+    doc.addField("nuskode_s", emne.getNuskode());
+    doc.addField("periode-eks-start_s", emne.getPeriodeEks().getForstegangObject());
+    doc.addField("periode-eks-end_s", emne.getPeriodeEks().getSistegangObject());
+    doc.addField("periode-und-start_s", emne.getPeriodeUnd().getForstegangObject());
+    doc.addField("periode-und-end_s", emne.getPeriodeUnd().getSistegangObject());
+    doc.addField("sprak_s", emne.getSprak());
+    doc.addField("status-oblig_b", isTrue(emne.getStatusOblig()));
+    doc.addField("status-privatist_b", isTrue(emne.getStatusPrivatist()));
+    doc.addField("studieniva_s", emne.getStudieniva());
+    doc.addField("studiepoeng", emne.getStudiepoeng());
+    doc.addField("undervisningssemester_s", emne.getUndervisningssemester());
+    doc.addField("emnetype_s", emne.getEmnetype());
+    //doc.addField(", value)
     
     solrServerSubject.add(doc, 3000);
   }
 
+  private Boolean isTrue(YESNOType yn) {
+    if (yn != null) {
+      if (yn.equals(YESNOType.J) || yn.equals(YESNOType.Y)) {
+        return Boolean.TRUE;
+      }
+    }
+    
+    return Boolean.FALSE;
+  }
+  
+  private String getStedCode(StedType sted) {
+    StringBuilder sb = new StringBuilder();
+    
+    sb.append(sted.getInstitusjonsnr().intValue());
+    sb.append(ID_TOKEN_SEPARATOR);
+    sb.append(sted.getFakultetsnr().intValue());
+    sb.append(ID_TOKEN_SEPARATOR);
+    sb.append(sted.getInstituttnr().intValue());
+    sb.append(ID_TOKEN_SEPARATOR);
+    sb.append(sted.getGruppenr().intValue());
+    return sb.toString();
+  }
+
   private static void addCategories(SolrInputDocument doc, SolrCategory category) {
-    //doc.addField("category", category.name().toLowerCase());
     for (String pCat : category.getPartialCategories()) {
       doc.addField("cat", pCat);
     }

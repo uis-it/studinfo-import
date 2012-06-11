@@ -45,9 +45,9 @@ public class StudySubjectSolrTest {
   }
   
   @Test
-  public void resultsExist() throws SolrServerException {
+  public void emneExist() throws SolrServerException {
     HttpSolrServer server = new HttpSolrServer("http://localhost:8080/solr");
-    SolrParams params = new SolrQuery("cat:emne");
+    SolrParams params = new SolrQuery("cat:emne AND cat:studinfo");
     QueryResponse response = server.query(params);
     int status = response.getStatus();
     assertThat(status, is(equalTo(0)));
