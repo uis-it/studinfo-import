@@ -5,15 +5,14 @@ import static org.junit.Assert.*;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
 import no.uis.service.fsimport.impl.StudInfoImportImpl;
 import no.uis.service.fsimport.impl.StudInfoImportImpl.StudinfoInterceptor;
 import no.uis.service.model.ImportReport;
-import no.uis.service.studinfo.data.KursType;
+import no.uis.service.studinfo.data.FsStudieinfo;
+import no.uis.service.studinfo.data.Kurs;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
@@ -50,17 +49,14 @@ public class DateTimeSolrTest {
 
     StudinfoInterceptor interceptor = new StudinfoInterceptor() {
       @Override
-      public void interceptStudinfo(List<?> items) throws Exception {
-        for (Object item : items) {
-          if (item instanceof KursType) {
-            KursType kurs = (KursType)item;
-            DatatypeFactory dtf = DatatypeFactory.newInstance();
-            Calendar calToday = Calendar.getInstance();
-            kurs.setDatoPubliseresFra(dtf.newXMLGregorianCalendar((GregorianCalendar)calToday));
-            Calendar calTomorrow = (Calendar)calToday.clone();
-            calTomorrow.add(Calendar.DAY_OF_MONTH, 1);
-            kurs.setDatoPubliseresTil(dtf.newXMLGregorianCalendar((GregorianCalendar)calTomorrow));
-          }
+      public void interceptStudinfo(FsStudieinfo sinfo) throws Exception {
+        for (Kurs kurs : sinfo.getKurs()) {
+          DatatypeFactory dtf = DatatypeFactory.newInstance();
+          Calendar calToday = Calendar.getInstance();
+          kurs.setDatoPubliseresFra(dtf.newXMLGregorianCalendar((GregorianCalendar)calToday));
+          Calendar calTomorrow = (Calendar)calToday.clone();
+          calTomorrow.add(Calendar.DAY_OF_MONTH, 1);
+          kurs.setDatoPubliseresTil(dtf.newXMLGregorianCalendar((GregorianCalendar)calTomorrow));
         }
       }};
       
@@ -78,17 +74,14 @@ public class DateTimeSolrTest {
   public void testDateUpperLimit() throws Exception {
     StudinfoInterceptor interceptor = new StudinfoInterceptor() {
       @Override
-      public void interceptStudinfo(List<?> items) throws Exception {
-        for (Object item : items) {
-          if (item instanceof KursType) {
-            KursType kurs = (KursType)item;
+      public void interceptStudinfo(FsStudieinfo sinfo) throws Exception {
+        for (Kurs kurs: sinfo.getKurs()) {
             DatatypeFactory dtf = DatatypeFactory.newInstance();
             Calendar calToday = Calendar.getInstance();
             kurs.setDatoPubliseresTil(dtf.newXMLGregorianCalendar((GregorianCalendar)calToday));
             Calendar calYesterday = (Calendar)calToday.clone();
             calYesterday.add(Calendar.DAY_OF_MONTH, -1);
             kurs.setDatoPubliseresFra(dtf.newXMLGregorianCalendar((GregorianCalendar)calYesterday));
-          }
         }
       }};
       

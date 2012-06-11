@@ -16,12 +16,12 @@ import javax.xml.transform.sax.SAXSource;
 import no.uis.service.fsimport.StudInfoImport;
 import no.uis.service.fsimport.util.ImportReportUtil;
 import no.uis.service.model.ImportReport;
-import no.uis.service.studinfo.data.EmneType;
+import no.uis.service.studinfo.data.Emne;
 import no.uis.service.studinfo.data.FsStudieinfo;
-import no.uis.service.studinfo.data.KursType;
-import no.uis.service.studinfo.data.KurskategoriType;
-import no.uis.service.studinfo.data.StedType;
-import no.uis.service.studinfo.data.StudieprogramType;
+import no.uis.service.studinfo.data.Kurs;
+import no.uis.service.studinfo.data.KurskategoriListeKurskategorikodeAndKurskategorinavnItem;
+import no.uis.service.studinfo.data.Sted;
+import no.uis.service.studinfo.data.Studieprogram;
 import no.uis.service.studinfo.data.YESNOType;
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
 
@@ -181,13 +181,12 @@ public class StudInfoImportImpl implements StudInfoImport {
     
     FsStudieinfo sinfo = unmarshalStudieinfo(studieinfoXml);
     
-    List<?> studieinfos = sinfo.getKursOrEmneOrStudieprogram();
     
-    interceptStudieInfo(studieinfos);
+    interceptStudieInfo(sinfo);
     
     cleanCategory(category);
     
-    pushItemsToSolr(studieinfos, report);
+    pushItemsToSolr(sinfo, report);
     
     ImportReportUtil.stop(report);
     
@@ -206,9 +205,9 @@ public class StudInfoImportImpl implements StudInfoImport {
     solrServerCourse.deleteByQuery(sb.toString());
   }
 
-  private void interceptStudieInfo(List<?> studieinfos) throws Exception {
+  private void interceptStudieInfo(FsStudieinfo sinfo) throws Exception {
     if (this.interceptor != null) {
-      interceptor.interceptStudinfo(studieinfos);
+      interceptor.interceptStudinfo(sinfo);
     }
   }
 
@@ -216,29 +215,35 @@ public class StudInfoImportImpl implements StudInfoImport {
    * Courses (the FS part) are simply put into a Solr index.
    * The data from the FS database contains no namespace, whereas the one from the web service does.
    * 
-   * @param studieinfos the XML from either DB or WS
+   * @param sinfo the XML from either DB or WS
    * @param cleanBeforeUpdate purge courses before inserting new ones
    * @param report 
    */
-  private void pushItemsToSolr(List<?> studieinfos, ImportReport report) throws Exception {
+  private void pushItemsToSolr(FsStudieinfo sinfo, ImportReport report) throws Exception {
     
-    for (Object item : studieinfos) {
-      if (item instanceof EmneType) {
-        pushEmneToSolr((EmneType)item, report);
-      } else if (item instanceof KursType) {
-        pushKursToSolr((KursType)item, report);
-      } else if (item instanceof StudieprogramType) {
-        pushStudieprogramToSolr((StudieprogramType)item, report);
+    if (sinfo.isSetKurs()) {
+      for (Kurs kurs : sinfo.getKurs()) {
+        pushKursToSolr(kurs, report);
+      }
+    }
+    if (sinfo.isSetEmne()) {
+      for (Emne emne : sinfo.getEmne()) {
+        pushEmneToSolr(emne, report);
+      }
+    }
+    if (sinfo.isSetStudieprogram()) {
+      for (Studieprogram program : sinfo.getStudieprogram()) {
+        pushStudieprogramToSolr(program, report);
       }
     }
   }
 
-  private void pushStudieprogramToSolr(StudieprogramType prog, ImportReport report) {
+  private void pushStudieprogramToSolr(Studieprogram prog, ImportReport report) {
     SolrInputDocument doc = new SolrInputDocument();
     
   }
 
-  private void pushKursToSolr(KursType kurs, ImportReport report) throws SolrServerException, IOException {
+  private void pushKursToSolr(Kurs kurs, ImportReport report) throws SolrServerException, IOException {
     SolrInputDocument doc = new SolrInputDocument();
 
     String courseId = kurs.getKursid().getKurskode() + ID_TOKEN_SEPARATOR + kurs.getKursid().getTidkode();
@@ -247,8 +252,8 @@ public class StudInfoImportImpl implements StudInfoImport {
     addCategories(doc, SolrCategory.KURS);
 
     doc.addField("name", kurs.getKursnavn());
-    for (KurskategoriType kursKat : kurs.getKurskategoriListe()) {
-      doc.addField("course_category_code", kursKat.getKurskategorikode());
+    for (KurskategoriListeKurskategorikodeAndKurskategorinavnItem kursKat : kurs.getKurskategoriListe().getKurskategorikodeAndKurskategorinavnItems()) {
+      doc.addField("course_category_code", kursKat.getItemKurskategorikode());
     }
 
     doc.addField("course_code_s", kurs.getKursid().getKurskode());
@@ -277,7 +282,7 @@ public class StudInfoImportImpl implements StudInfoImport {
     solrServerCourse.add(doc, 3000);
   }
 
-  private void pushEmneToSolr(EmneType emne, ImportReport report) throws SolrServerException, IOException {
+  private void pushEmneToSolr(Emne emne, ImportReport report) throws SolrServerException, IOException {
     SolrInputDocument doc = new SolrInputDocument();
     
     String emneId = emne.getEmneid().getInstitusjonsnr() + ID_TOKEN_SEPARATOR + emne.getEmneid().getEmnekode() + ID_TOKEN_SEPARATOR + emne.getEmneid().getVersjonskode();
@@ -287,7 +292,7 @@ public class StudInfoImportImpl implements StudInfoImport {
     
     String adminAnsvarlig = null;
     String fagAnsvarlig = null;
-    for (StedType sted : emne.getSted()) {
+    for (Sted sted : emne.getSted()) {
       if (sted.getType().equals("adminansvarlig")) {
         adminAnsvarlig = getStedCode(sted);
       } else if (sted.getType().equals("fagansvarlig")) {
@@ -307,10 +312,10 @@ public class StudInfoImportImpl implements StudInfoImport {
     doc.addField("inngar-i-studieprogram_ms", emne.getInngarIStudieprogram());
     doc.addField("inngar-i-fag_ms", emne.getInngarIFag());
     doc.addField("nuskode_s", emne.getNuskode());
-    doc.addField("periode-eks-start_s", emne.getPeriodeEks().getForstegangObject());
-    doc.addField("periode-eks-end_s", emne.getPeriodeEks().getSistegangObject());
-    doc.addField("periode-und-start_s", emne.getPeriodeUnd().getForstegangObject());
-    doc.addField("periode-und-end_s", emne.getPeriodeUnd().getSistegangObject());
+    doc.addField("periode-eks-start_s", emne.getPeriodeEks().getForstegang());
+    doc.addField("periode-eks-end_s", emne.getPeriodeEks().getSistegang());
+    doc.addField("periode-und-start_s", emne.getPeriodeUnd().getForstegang());
+    doc.addField("periode-und-end_s", emne.getPeriodeUnd().getSistegang());
     doc.addField("sprak_s", emne.getSprak());
     doc.addField("status-oblig_b", isTrue(emne.getStatusOblig()));
     doc.addField("status-privatist_b", isTrue(emne.getStatusPrivatist()));
@@ -325,7 +330,7 @@ public class StudInfoImportImpl implements StudInfoImport {
 
   private Boolean isTrue(YESNOType yn) {
     if (yn != null) {
-      if (yn.equals(YESNOType.J) || yn.equals(YESNOType.Y)) {
+      if (yn.equals(YESNOType.J)) {
         return Boolean.TRUE;
       }
     }
@@ -333,7 +338,7 @@ public class StudInfoImportImpl implements StudInfoImport {
     return Boolean.FALSE;
   }
   
-  private String getStedCode(StedType sted) {
+  private String getStedCode(Sted sted) {
     StringBuilder sb = new StringBuilder();
     
     sb.append(sted.getInstitusjonsnr().intValue());
@@ -505,7 +510,7 @@ public class StudInfoImportImpl implements StudInfoImport {
 
   public interface StudinfoInterceptor {
     
-   void interceptStudinfo(List<?> items) throws Exception;  
+   void interceptStudinfo(FsStudieinfo sinfo) throws Exception;  
   }
   
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 		xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
@@ -6,31 +6,37 @@
     xmlns:orm="http://java.sun.com/xml/ns/persistence/orm"
     xmlns:annox="http://annox.dev.java.net"
     xmlns:jl="http://annox.dev.java.net/java.lang"
-		jaxb:extensionBindingPrefixes="xjc hj orm annox">
+		jaxb:extensionBindingPrefixes="xjc hj orm annox"
+>
 
 		<jaxb:globalBindings generateIsSetMethod="true" localScoping="toplevel" typesafeEnumMemberName="generateName">
 				<jaxb:serializable uid="1" />
 		</jaxb:globalBindings>
 
-		<jaxb:bindings node="/xs:schema" schemaLocation="studie-info-data.xsd" generateIsSetMethod="true">
+		<jaxb:bindings node="/xs:schema" schemaLocation="studinfo.xsd" generateIsSetMethod="true">
 		
-			<jaxb:bindings node="xs:complexType[@name='kurskategoriListeType']">
-					<jaxb:class name="KurskategoriType"/>
-			</jaxb:bindings>
-			
-			<jaxb:bindings node="xs:complexType[@name='EmneType']">
-				<jaxb:bindings node="xs:sequence/xs:element[@name='lÃ¦ringsutbytte']">
-					<jaxb:property name="laringsutbytte">
-					</jaxb:property>
-				</jaxb:bindings>
-			</jaxb:bindings>
-			
-			<jaxb:bindings node="xs:complexType[@name='StudieprogramType']">
-				<jaxb:bindings node="xs:sequence/xs:element[@name='lÃ¦ringsutbytte']">
-					<jaxb:property name="laringsutbytte">
-					</jaxb:property>
-				</jaxb:bindings>
-			</jaxb:bindings>
-		</jaxb:bindings>
+		  <jaxb:bindings node="xs:complexType[@name='Emne']">
+		    <jaxb:class name="Emne"/>
+		    <jaxb:bindings node="xs:sequence/xs:element[@name='læringsutbytte']">
+		      <jaxb:property name="laringsutbytte"/>
+		    </jaxb:bindings>
+		    <jaxb:bindings node="xs:sequence/xs:element[@name='åpent_for_tillegg']">
+		      <jaxb:property name="apentForTillegg"/>
+		    </jaxb:bindings>
+		  </jaxb:bindings>
+		  
+      <jaxb:bindings node="xs:complexType[@name='Studieprogram']">
+        <jaxb:class name="Studieprogram"/>
+        <jaxb:bindings node="xs:sequence/xs:element[@name='læringsutbytte']">
+          <jaxb:property name="laringsutbytte"/>
+        </jaxb:bindings>
+      </jaxb:bindings>
+		
+		  <!--jaxb:bindings node="xs:complexType[@name='Kurskategori-liste']">
+		    <jaxb:bindings node="xs:sequence">
+		      <jaxb:class name="KurskategoriItem"/>
+		    </jaxb:bindings>
+		  </jaxb:bindings-->
+    </jaxb:bindings>		
 
 </jaxb:bindings>
