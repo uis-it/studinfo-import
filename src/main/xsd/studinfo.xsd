@@ -2,6 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://fsws.usit.no/schemas/studinfo"
   xmlns:studinfo="http://fsws.usit.no/schemas/studinfo">
+  
   <xs:element name="fs-studieinfo">
     <xs:complexType>
       <xs:choice>
@@ -31,7 +32,7 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Studieprogram">
-    <xs:sequence>
+    <xs:all>
       <xs:element name="studieprogramkode" type="xs:string"/>
       <xs:element name="studieprogramnavn" type="xs:string"/>
       <xs:element name="studieprogramnavn_en" type="xs:string"/>
@@ -60,12 +61,12 @@
       <xs:element name="studentevaluering" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="utenlandsopphold" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="vurdering_tilleggstekst" minOccurs="0" type="studinfo:FreeText"/>
-      <xs:element name="opptak" type="studinfo:Opptak" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="opptak" type="studinfo:Opptak" minOccurs="0"/>
       <xs:element name="fagkode" minOccurs="0" type="xs:string"/>
       <xs:element name="sprak-liste" minOccurs="0" type="studinfo:ProgramSprakListe"/>
       <xs:element name="utdanningsplan" type="studinfo:Utdanningsplan"/>
       <xs:element name="planforslag" minOccurs="0" type="studinfo:Planforslag"/>
-    </xs:sequence>
+    </xs:all>
     <xs:attribute name="sprak" use="required" type="xs:NCName"/>
   </xs:complexType>
   <xs:complexType name="Emne">
@@ -75,7 +76,8 @@
       <xs:element name="emnenavn_en" minOccurs="0" type="xs:string"/>
       <xs:element name="undtermin" minOccurs="0" type="xs:integer"/>
       <xs:element name="studiepoeng" minOccurs="0" type="xs:integer"/>
-      <xs:element name="undervisningstermin" minOccurs="0" maxOccurs="unbounded" type="studinfo:Undervisningstermin"/>
+      <xs:element name="undervisningstermin" minOccurs="0" maxOccurs="unbounded"
+        type="studinfo:Undervisningstermin"/>
       <xs:element name="status-privatist" type="studinfo:YESNOType" minOccurs="0"/>
       <xs:element name="studieniva" type="xs:string" minOccurs="0"/>
       <xs:element name="nuskode" minOccurs="0" type="xs:string"/>
@@ -96,8 +98,9 @@
       <xs:element name="inngar-i-studieprogram" minOccurs="0" type="studinfo:Inngar-i-studieprogram"/>
       <xs:element name="inngar-i-fag" minOccurs="0" type="studinfo:Inngar-i-fag"/>
       <xs:element name="sted" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sted"/>
-      <xs:element name="sprak-liste" minOccurs="0" type="studinfo:EmneSprakListe"/> 
+      <xs:element name="sprak-liste" minOccurs="0" type="studinfo:EmneSprakListe"/>
       <xs:element name="fagperson-liste" minOccurs="0" type="studinfo:Fagperson-liste"/>
+      <xs:element name="dato-eksamen" minOccurs="0" maxOccurs="1" type="xs:string"/>
       <xs:element name="eksamensordning" minOccurs="0" maxOccurs="unbounded" type="studinfo:Eksamensordning"/>
       <xs:element name="vurdordning" minOccurs="0" maxOccurs="unbounded" type="studinfo:Vurdordning"/>
       <xs:element name="vektingsreduksjon" minOccurs="0" type="studinfo:Vektingsreduksjon"/>
@@ -117,10 +120,10 @@
       <xs:element name="valgstatus" minOccurs="0" type="xs:string"/>
       <xs:element name="undtermin-fra" minOccurs="0" type="xs:integer"/>
       <xs:element name="undtermin-til" minOccurs="0" type="xs:integer"/>
-      <xs:element minOccurs="0" name="undtermin-default" type="xs:integer"/>
-      <xs:element minOccurs="0" name="termin-start-fra" type="xs:string"/>
-      <xs:element minOccurs="0" name="termin-start-til" type="xs:string"/>
-      <xs:element minOccurs="0" name="termin-valg-til" type="xs:string"/>
+      <xs:element name="undtermin-default" minOccurs="0" type="xs:integer"/>
+      <xs:element name="termin-start-fra" minOccurs="0" type="xs:string"/>
+      <xs:element name="termin-start-til" minOccurs="0" type="xs:string"/>
+      <xs:element name="termin-valg-til" minOccurs="0" type="xs:string"/>
     </xs:sequence>
     <xs:attribute name="sprak" type="xs:string"/>
   </xs:complexType>
@@ -379,7 +382,7 @@
     <xs:sequence>
       <xs:element name="eksamensdagnr" type="xs:integer"/>
       <xs:element name="varighet-timer" type="xs:integer"/>
-      <xs:element name="lovlig-hjelpemiddel" type="studinfo:Lovlig-hjelpemiddel"/>
+      <xs:element name="lovlig-hjelpemiddel" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Eksamensdel">
@@ -390,7 +393,11 @@
       <xs:element minOccurs="0" name="eksamensform" type="xs:string"/>
       <xs:element minOccurs="0" name="karaktervekt" type="xs:string"/>
       <xs:element minOccurs="0" name="karregel" type="xs:string"/>
-      <xs:element name="dato-eksamen" type="studinfo:UisDate" nillable="true"/>
+      <xs:element name="dato-eksamen" type="xs:string" nillable="true">
+        <xs:annotation>
+          <xs:documentation>This "date" is a kombination of several fields. They should be put in separate elements</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element minOccurs="0" name="eksamensdag" type="studinfo:Eksamensdag"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="lovlig-hjelpemiddel" type="xs:string"/>
     </xs:sequence>
@@ -401,10 +408,14 @@
       <xs:element name="eksamensordningnavn" type="xs:string"/>
       <xs:element name="default" type="xs:string"/>
       <xs:element name="meld_studentweb" type="xs:string"/>
-      <xs:element minOccurs="0" name="lovlig-hjelpemiddel" type="studinfo:Lovlig-hjelpemiddel"/>
+      <xs:element name="lovlig-hjelpemiddel" minOccurs="0" type="studinfo:Lovlig-hjelpemiddel"/>
       <xs:element name="karregel" type="xs:string"/>
-      <xs:element minOccurs="0" name="dato-eksamen" type="studinfo:UisDate"/>
-      <xs:element maxOccurs="unbounded" name="eksamensdel" type="studinfo:Eksamensdel"/>
+      <xs:element name="dato-eksamen" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>should be xs:date</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="eksamensdel" maxOccurs="unbounded" type="studinfo:Eksamensdel"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Vurdordning">
@@ -421,7 +432,10 @@
       <xs:element maxOccurs="unbounded" name="redregel" type="studinfo:Redregel"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="Vurdenhet">
+  <!--xs:complexType name="Vurdenhet">
+    <xs:annotation>
+      <xs:documentation>This type is not generated properly in FS. We just don't bother parsing it.</xs:documentation>
+    </xs:annotation>
     <xs:sequence maxOccurs="unbounded" minOccurs="0">
       <xs:element name="dato-eksamen" type="studinfo:UisDate"/>
       <xs:element name="dato-innlevering" type="studinfo:UisDate"/>
@@ -435,11 +449,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Vurdenheter">
+    <xs:annotation>
+      <xs:documentation>Contains the type vurdenhet which is is not generated properly in FS. We just don't bother parsing it.</xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element name="vurdenhet" minOccurs="0" maxOccurs="unbounded" nillable="true"
         type="studinfo:Vurdenhet"/>
     </xs:sequence>
-  </xs:complexType>
+  </xs:complexType-->
   <xs:complexType name="Vurdkombtider">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" name="vurdkombtid" type="studinfo:Vurdkombtid"/>
@@ -459,17 +476,21 @@
   </xs:complexType>
   <xs:complexType name="Vurdkombinasjon">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="dato-eksamen" type="studinfo:UisDate">
+      <xs:element name="dato-eksamen" type="xs:string">
         <xs:annotation>
           <xs:documentation>should be xs:date</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="dato-innlevering" type="studinfo:UisDate">
+      <xs:element name="dato-innlevering" type="xs:string">
         <xs:annotation>
           <xs:documentation>should be xs:date</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="dato-uttak" type="studinfo:UisDate"/>
+      <xs:element name="dato-uttak" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>should be xs:date</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="forstegang" type="xs:string"/>
       <xs:element name="karregel" type="xs:string"/>
       <xs:element name="klokkeslett-eksamen-fremmotetid" type="studinfo:UisTime"/>
@@ -477,14 +498,18 @@
       <xs:element name="klokkeslett-uttak" type="studinfo:UisTime"/>
       <xs:element name="lovlig-hjelpemiddel" type="studinfo:Lovlig-hjelpemiddel"/>
       <xs:element name="sistegang" type="xs:string"/>
-      <xs:element name="tid" type="studinfo:UisYearMonth"/>
-      <xs:element name="tid-reell" type="studinfo:UisYearMonth"/>
+      <xs:element name="tid" type="studinfo:UisTerminkode"/>
+      <xs:element name="tid-reell" type="studinfo:UisTerminkode"/>
       <xs:element name="varighet" type="xs:string"/>
       <xs:element name="vurdkombinasjon" type="studinfo:Vurdkombinasjon"/>
       <xs:element name="vurdstatus" type="xs:string"/>
       <xs:element name="brok" type="xs:string"/>
       <xs:element name="karregelkode" type="xs:integer"/>
-      <xs:element name="vurdenheter" type="studinfo:Vurdenheter"/>
+      <xs:element name="vurdenheter" type="studinfo:FreeText">
+        <xs:annotation>
+          <xs:documentation>This should have type studinfo:Vurdenheter</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="vurdform" type="xs:string"/>
       <xs:element name="vurdkombkode" type="xs:string"/>
       <xs:element name="vurdkombnavn" type="xs:string"/>
@@ -493,20 +518,22 @@
     </xs:choice>
     <xs:attribute name="niva" use="required" type="xs:integer"/>
   </xs:complexType>
-  <xs:simpleType name="UisYearMonth">
+  <xs:simpleType name="UisTerminkode">
     <xs:annotation>
-      <xs:documentation>This should be of type xs:gYearMonth YYYY-MM </xs:documentation>
+      <xs:documentation>Format: YYYYMMXX where XX is an optional kode
+        kodes: EO - ekstra ordinær, K - kont, KN - Kont ny
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="\d{6}"/>
+      <xs:pattern value="\d{6}(EO|K|KN)?"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="UisDate">
     <xs:annotation>
-      <xs:documentation>This should be xs:date with proper separators</xs:documentation>
+      <xs:documentation>This should be xs:date with proper separators, and "Frist innlevering: should be put in a separate element</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="(\d{2}\.\d{2}\.\d{4})?"/>
+      <xs:pattern value="\d{8}"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="UisTime">

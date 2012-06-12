@@ -27,16 +27,11 @@
 		  
       <jaxb:bindings node="xs:complexType[@name='Studieprogram']">
         <jaxb:class name="Studieprogram"/>
-        <jaxb:bindings node="xs:sequence/xs:element[@name='læringsutbytte']">
+        <jaxb:bindings node="xs:all/xs:element[@name='læringsutbytte']">
           <jaxb:property name="laringsutbytte"/>
         </jaxb:bindings>
       </jaxb:bindings>
 		
-		  <!--jaxb:bindings node="xs:complexType[@name='Kurskategori-liste']">
-		    <jaxb:bindings node="xs:sequence">
-		      <jaxb:class name="KurskategoriItem"/>
-		    </jaxb:bindings>
-		  </jaxb:bindings-->
     </jaxb:bindings>		
 
 </jaxb:bindings>
