@@ -19,7 +19,7 @@ import no.uis.service.model.ImportReport;
 import no.uis.service.studinfo.data.Emne;
 import no.uis.service.studinfo.data.FsStudieinfo;
 import no.uis.service.studinfo.data.Kurs;
-import no.uis.service.studinfo.data.KurskategoriListeKurskategorikodeAndKurskategorinavnItem;
+import no.uis.service.studinfo.data.Kurskategori;
 import no.uis.service.studinfo.data.Sted;
 import no.uis.service.studinfo.data.Studieprogram;
 import no.uis.service.studinfo.data.YESNOType;
@@ -174,13 +174,10 @@ public class StudInfoImportImpl implements StudInfoImport {
     }
   }
 
-  protected ImportReport importStudyInfoXml(SolrCategory category, String studieinfoXml)
-      throws JAXBException, SAXException, SolrServerException, IOException, Exception
-      {
+  protected ImportReport importStudyInfoXml(SolrCategory category, String studieinfoXml) throws Exception {
     ImportReport report = ImportReportUtil.newImportReport(category.toString());
     
     FsStudieinfo sinfo = unmarshalStudieinfo(studieinfoXml);
-    
     
     interceptStudieInfo(sinfo);
     
@@ -252,8 +249,8 @@ public class StudInfoImportImpl implements StudInfoImport {
     addCategories(doc, SolrCategory.KURS);
 
     doc.addField("name", kurs.getKursnavn());
-    for (KurskategoriListeKurskategorikodeAndKurskategorinavnItem kursKat : kurs.getKurskategoriListe().getKurskategorikodeAndKurskategorinavnItems()) {
-      doc.addField("course_category_code", kursKat.getItemKurskategorikode());
+    for (Kurskategori kursKat : kurs.getKurskategoriListe()) {
+      doc.addField("course_category_code", kursKat.getKurskategorikode());
     }
 
     doc.addField("course_code_s", kurs.getKursid().getKurskode());
@@ -454,7 +451,7 @@ public class StudInfoImportImpl implements StudInfoImport {
   /**
    * Namespace handling taken from http://stackoverflow.com/questions/277502/jaxb-how-to-ignore-namespace-during-unmarshalling-xml-document  
    */
-  private FsStudieinfo unmarshalStudieinfo(String studieinfoXml) throws JAXBException, SAXException {
+  protected FsStudieinfo unmarshalStudieinfo(String studieinfoXml) throws JAXBException, SAXException {
     JAXBContext jc = JAXBContext.newInstance(FsStudieinfo.class.getPackage().getName());
     Unmarshaller um = jc.createUnmarshaller();
     

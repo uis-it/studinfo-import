@@ -25,7 +25,7 @@
 
 	<properties>
 		<cxf.version>2.4.0</cxf.version>
-		<hyperjaxb3.version>0.5.5</hyperjaxb3.version>
+		<hyperjaxb3.version>0.5.6</hyperjaxb3.version>
 		<uismodel.version>1.1.1</uismodel.version>
 		<fsws.version>1.2.0</fsws.version>
 		<component.person.version>1.0.7</component.person.version>
@@ -138,6 +138,23 @@
 	   <artifactId>model-do</artifactId>
 	   <version>${uismodel.version}</version>
 	  </dependency>
+	  <dependency>
+	   <groupId>javax.persistence</groupId>
+	   <artifactId>persistence-api</artifactId>
+	   <version>1.0</version>
+	  </dependency>
+    <dependency>
+     <groupId>org.jvnet.hyperjaxb3</groupId>
+     <artifactId>hyperjaxb3-ejb-schemas-persistence</artifactId>
+     <version>${hyperjaxb3.version}</version>
+     <scope>compile</scope>
+    </dependency>
+    <dependency>
+     <groupId>org.jvnet.hyperjaxb3</groupId>
+     <artifactId>hyperjaxb3-ejb-schemas-customizations</artifactId>
+     <version>${hyperjaxb3.version}</version>
+     <scope>compile</scope>
+    </dependency>
 		<dependency>
 			<groupId>no.uis.service.client</groupId>
 			<artifactId>fs-ws</artifactId>
@@ -240,9 +257,9 @@
 	<build>
 		<plugins>
       <plugin>
-        <groupId>org.jvnet.hyperjaxb3</groupId>
-        <artifactId>maven-hyperjaxb3-plugin</artifactId>
-        <version>${hyperjaxb3.version}</version>
+        <groupId>org.jvnet.jaxb2.maven2</groupId>
+        <artifactId>maven-jaxb2-plugin</artifactId>
+        <version>0.8.1</version>
         <executions>
           <execution>
             <id>generate-sources</id>
@@ -257,6 +274,20 @@
               <extension>true</extension>
               <verbose>false</verbose>
               <removeOldOutput>true</removeOldOutput>
+              <episode>false</episode>
+              <extension>true</extension>
+              <args>
+                <arg>-Xxew</arg>
+                <arg>-Xxew:instantiate lazy</arg>
+                <arg>-Xxew:delete</arg>
+              </args>
+              <plugins>
+                <plugin>
+                  <groupId>com.github.jaxb-xew-plugin</groupId>
+                  <artifactId>jaxb-xew-plugin</artifactId>
+                  <version>1.0</version>
+                </plugin>
+              </plugins>
             </configuration>
           </execution>
         </executions>
@@ -299,23 +330,31 @@
 												<pluginExecutions>
 														<pluginExecution>
 																<pluginExecutionFilter>
-																		<groupId>
-																				org.apache.maven.plugins
-																		</groupId>
-																		<artifactId>
-																				maven-dependency-plugin
-																		</artifactId>
-																		<versionRange>
-																				[2.4,)
-																		</versionRange>
+																		<groupId>org.apache.maven.plugins</groupId>
+																		<artifactId>maven-dependency-plugin</artifactId>
+																		<versionRange>[2.4,)</versionRange>
 																		<goals>
-																				<goal>
-																						copy
-																				</goal>
+																				<goal>copy</goal>
 																		</goals>
 																</pluginExecutionFilter>
 																<action>
 																		<ignore></ignore>
+																</action>
+														</pluginExecution>
+														<pluginExecution>
+																<pluginExecutionFilter>
+																		<groupId>org.jvnet.jaxb2.maven2</groupId>
+																		<artifactId>maven-jaxb2-plugin</artifactId>
+																		<versionRange>[0.7.4,1.0.0)
+																		</versionRange>
+																		<goals>
+																				<goal>generate</goal>
+																		</goals>
+																</pluginExecutionFilter>
+																<action>
+									                <configurator>
+									                    <id>org.omadac.m2e.jaxb.jaxbConfigurator</id>
+									                </configurator>
 																</action>
 														</pluginExecution>
 												</pluginExecutions>
