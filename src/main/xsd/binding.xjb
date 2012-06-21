@@ -75,7 +75,7 @@
         <jaxb:bindings node="xs:sequence/xs:element[@name='tid-reell']">
           <jaxb:property>
             <jaxb:baseType>
-              <xjc:javaType name="no.uis.service.studinfo.data.FsTerminkodeYearMonth" adapter="no.uis.service.fsimport.util.FSTerminkodeYMAdapter"/>
+              <xjc:javaType name="no.uis.service.studinfo.data.FsTerminkodeYearMonth" adapter="no.uis.service.fsimport.util.FsTerminkodeYMAdapter"/>
             </jaxb:baseType>
           </jaxb:property>
         </jaxb:bindings>

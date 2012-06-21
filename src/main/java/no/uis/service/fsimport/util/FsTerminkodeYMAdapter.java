@@ -4,15 +4,15 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import no.uis.service.studinfo.data.FsTerminkodeYearMonth;
 
-public class FsTerminkodeYMAdapter extends XmlAdapter<FsTerminkodeYearMonth, String> {
+public class FsTerminkodeYMAdapter extends XmlAdapter<String, FsTerminkodeYearMonth> {
 
   @Override
-  public String unmarshal(FsTerminkodeYearMonth v) throws Exception {
-    return v.toString();
+  public FsTerminkodeYearMonth unmarshal(String v) throws Exception {
+    return FsTerminkodeYearMonth.valueOf(v);
   }
 
   @Override
-  public FsTerminkodeYearMonth marshal(String v) throws Exception {
-    return FsTerminkodeYearMonth.valueOf(v);
+  public String marshal(FsTerminkodeYearMonth v) throws Exception {
+    return v.toString();
   }
 }
