@@ -10,6 +10,13 @@
 
 		<jaxb:globalBindings generateIsSetMethod="true" localScoping="toplevel" typesafeEnumMemberName="generateName">
 				<jaxb:serializable uid="1" />
+				<!--xjc:javaType name="no.uis.service.studinfo.FreeText" xmlType="studinfo:FreeText" adapter="no.uis.service.fsimport.util.FreeTextAdapter"/-->
+        <xjc:javaType name="no.uis.service.studinfo.data.FsSemester" xmlType="studinfo:FsSemester" adapter="no.uis.service.fsimport.util.FsSemesterAdapter"/>
+        <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsNullableDate" adapter="no.uis.service.fsimport.util.CalendarJDBCAdapter"/>
+        <xjc:javaType name="no.uis.service.studinfo.data.FsTerminkodeYearMonth" xmlType="studinfo:FsTerminkodeYearMonth" adapter="no.uis.service.fsimport.util.FsTerminkodeYMAdapter"/>
+        <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsDate" adapter="no.uis.service.fsimport.util.CalendarNorwegianAdapter"/>
+        <xjc:javaType name="no.uis.service.studinfo.data.FsTime" xmlType="studinfo:FsTime" adapter="no.uis.service.fsimport.util.FsTimeAdapter"/>
+        <xjc:javaType name="no.uis.service.studinfo.data.FsEksamensdato" xmlType="studinfo:FsEksamensdato" adapter="no.uis.service.fsimport.util.FsEksamensdatoAdapter"/>
 		</jaxb:globalBindings>
 
 		<jaxb:bindings node="/xs:schema" schemaLocation="studinfo.xsd" generateIsSetMethod="true">
@@ -31,114 +38,5 @@
         </jaxb:bindings>
       </jaxb:bindings>
 		
-		  <jaxb:bindings node="xs:complexType[@name='Krav-sammensetting']/xs:sequence/xs:element[@type='studinfo:FsSemester']">
-		    <jaxb:property>
-		      <jaxb:baseType>
-		        <xjc:javaType name="no.uis.service.studinfo.data.FsSemester" adapter="no.uis.service.fsimport.util.FsSemesterAdapter"/>
-		      </jaxb:baseType>
-		    </jaxb:property>
-		  </jaxb:bindings>
-
-      <jaxb:bindings node="xs:complexType[@name='Emnekombinasjon-valg']/xs:sequence/xs:element[@type='studinfo:FsSemester']">
-        <jaxb:property>
-          <jaxb:baseType>
-            <xjc:javaType name="no.uis.service.studinfo.data.FsSemester" adapter="no.uis.service.fsimport.util.FsSemesterAdapter"/>
-          </jaxb:baseType>
-        </jaxb:property>
-      </jaxb:bindings>
-
-      <jaxb:bindings node="xs:complexType[@name='Datoperiode']/xs:sequence">
-        <jaxb:bindings node="xs:element[@name='fradato']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="java.util.Calendar" adapter="no.uis.service.fsimport.util.CalendarJDBCAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-        <jaxb:bindings node="xs:element[@name='tildato']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="java.util.Calendar" adapter="no.uis.service.fsimport.util.CalendarJDBCAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-      </jaxb:bindings>
-      
-      <jaxb:bindings node="xs:complexType[@name='Vurdenhet']">
-        <jaxb:bindings node="xs:sequence/xs:element[@name='tid']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="no.uis.service.studinfo.data.FsTerminkodeYearMonth" adapter="no.uis.service.fsimport.util.FsTerminkodeYMAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-        <jaxb:bindings node="xs:sequence/xs:element[@name='tid-reell']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="no.uis.service.studinfo.data.FsTerminkodeYearMonth" adapter="no.uis.service.fsimport.util.FsTerminkodeYMAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-        
-        <jaxb:bindings node="xs:sequence/xs:element[@name='dato-eksamen']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="java.util.Calendar" adapter="no.uis.service.fsimport.util.CalendarNorwegianAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-      
-        <jaxb:bindings node="xs:sequence/xs:element[@name='dato-uttak']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="java.util.Calendar" adapter="no.uis.service.fsimport.util.CalendarNorwegianAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-      
-        <jaxb:bindings node="xs:sequence/xs:element[@name='dato-innlevering']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="java.util.Calendar" adapter="no.uis.service.fsimport.util.CalendarNorwegianAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-      
-        <jaxb:bindings node="xs:sequence/xs:element[@name='klokkeslett-eksamen-fremmotetid']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="no.uis.service.studinfo.data.FsTime" adapter="no.uis.service.fsimport.util.FsTimeAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-      
-        <jaxb:bindings node="xs:sequence/xs:element[@name='klokkeslett-uttak']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="no.uis.service.studinfo.data.FsTime" adapter="no.uis.service.fsimport.util.FsTimeAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-      
-        <jaxb:bindings node="xs:sequence/xs:element[@name='klokkeslett-innlevering']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="no.uis.service.studinfo.data.FsTime" adapter="no.uis.service.fsimport.util.FsTimeAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-      
-      </jaxb:bindings>
-
-      <jaxb:bindings node="xs:complexType[@name='Eksamensdel']">
-        <jaxb:bindings node="xs:sequence/xs:element[@name='dato-eksamen']">
-          <jaxb:property>
-            <jaxb:baseType>
-              <xjc:javaType name="no.uis.service.studinfo.data.FsEksamensdato" adapter="no.uis.service.fsimport.util.FsEksamensdatoAdapter"/>
-            </jaxb:baseType>
-          </jaxb:property>
-        </jaxb:bindings>
-      </jaxb:bindings>
-            
     </jaxb:bindings>		
 </jaxb:bindings>
