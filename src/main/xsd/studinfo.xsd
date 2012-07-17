@@ -358,14 +358,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Fagperson-liste">
-    <xs:choice maxOccurs="unbounded">
-      <xs:element name="dato-fra" type="xs:date"/>
-      <xs:element name="dato-til" type="xs:date"/>
-      <xs:element name="fnr" type="xs:integer"/>
+    <xs:sequence maxOccurs="unbounded">
       <xs:element name="personid" type="xs:integer"/>
-      <xs:element name="personnavn" type="studinfo:Personnavn"/>
+      <xs:element name="fnr" type="xs:integer"/>
       <xs:element name="personrolle" type="xs:string"/>
-    </xs:choice>
+      <xs:element name="personnavn" type="studinfo:Personnavn"/>
+      <xs:element name="dato-fra" type="xs:date"/>
+      <xs:element name="dato-til" type="xs:date" minOccurs="0"/>
+    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Lovlig-hjelpemiddel">
     <xs:sequence>
