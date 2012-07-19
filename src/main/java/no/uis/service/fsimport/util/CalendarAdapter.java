@@ -20,6 +20,7 @@ public class CalendarAdapter extends XmlAdapter<String, Calendar> {
   public Calendar unmarshal(String v) throws Exception {
     Date date = format.parse(v);
     Calendar cal = GregorianCalendar.getInstance();
+    cal.clear();
     cal.set(date.getYear() + 1900, date.getMonth(), date.getDate());
     return cal;
   }
