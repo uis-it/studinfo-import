@@ -258,7 +258,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Sprak">
+  <xs:complexType name="Sprak" abstract="true">
     <xs:sequence>
       <xs:element name="sprakkode" type="xs:string"/>
       <xs:element name="undervisning" type="studinfo:YESNOType"/>
