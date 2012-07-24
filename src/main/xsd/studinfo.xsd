@@ -68,7 +68,7 @@
       <xs:element name="vurdering_tilleggstekst" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="opptak" minOccurs="0" type="studinfo:Opptak"/>
       <xs:element name="fagkode" minOccurs="0" type="xs:string"/>
-      <xs:element name="sprak-liste" minOccurs="0" type="studinfo:ProgramSprakListe"/>
+      <xs:element name="sprak-liste" minOccurs="0" type="studinfo:SprakListe"/>
       <xs:element name="utdanningsplan" type="studinfo:Utdanningsplan"/>
       <xs:element name="planforslag" minOccurs="0" type="studinfo:Planforslag"/>
     </xs:all>
@@ -102,7 +102,7 @@
       <xs:element name="inngar-i-studieprogram" minOccurs="0" type="studinfo:Inngar-i-studieprogram"/>
       <xs:element name="inngar-i-fag" minOccurs="0" type="studinfo:Inngar-i-fag"/>
       <xs:element name="sted" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sted"/>
-      <xs:element name="sprak-liste" minOccurs="0" type="studinfo:EmneSprakListe"/>
+      <xs:element name="sprak-liste" minOccurs="0" type="studinfo:SprakListe"/>
       <xs:element name="fagperson-liste" minOccurs="0" type="studinfo:Fagperson-liste"/>
       <xs:element name="dato-eksamen" minOccurs="0" maxOccurs="1" type="xs:string"/>
       <xs:element name="eksamensordning" minOccurs="0" maxOccurs="unbounded" type="studinfo:Eksamensordning"/>
@@ -240,28 +240,12 @@
     </xs:sequence>
     <xs:attribute name="start" use="required" type="xs:string"/>
   </xs:complexType>
-  <xs:complexType name="ProgramSprak">
-    <xs:complexContent>
-      <xs:extension base="studinfo:Sprak">
-        <xs:sequence>
-          <xs:element name="eksamen" type="studinfo:YESNOType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EmneSprak">
-    <xs:complexContent>
-      <xs:extension base="studinfo:Sprak">
-        <xs:sequence>
-          <xs:element name="vurdering" type="studinfo:YESNOType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Sprak" abstract="true">
+  <xs:complexType name="Sprak">
     <xs:sequence>
       <xs:element name="sprakkode" type="xs:string"/>
       <xs:element name="undervisning" type="studinfo:YESNOType"/>
+      <xs:element name="vurdering" minOccurs="0" type="studinfo:YESNOType"/>
+      <xs:element name="eksamen" minOccurs="0" type="studinfo:YESNOType"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Termin">
@@ -546,14 +530,9 @@
       <xs:pattern value="(HØST|VÅR)"/>
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="ProgramSprakListe">
+  <xs:complexType name="SprakListe">
     <xs:sequence>
-      <xs:element name="sprak" minOccurs="0" maxOccurs="unbounded" type="studinfo:ProgramSprak"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EmneSprakListe">
-    <xs:sequence>
-      <xs:element name="sprak" minOccurs="0" maxOccurs="unbounded" type="studinfo:EmneSprak"/>
+      <xs:element name="sprak" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sprak"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Emnekombinasjon-valg">
