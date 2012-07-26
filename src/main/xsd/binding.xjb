@@ -23,11 +23,13 @@
 		
 		  <jaxb:bindings node="xs:complexType[@name='Emne']">
 		    <jaxb:class name="Emne"/>
-		    <jaxb:bindings node="xs:sequence/xs:element[@name='læringsutbytte']">
-		      <jaxb:property name="laringsutbytte"/>
-		    </jaxb:bindings>
-		    <jaxb:bindings node="xs:sequence/xs:element[@name='åpent_for_tillegg']">
-		      <jaxb:property name="apentForTillegg"/>
+		    <jaxb:bindings node="xs:complexContent/xs:extension/xs:sequence">
+			    <jaxb:bindings node="xs:element[@name='læringsutbytte']">
+			      <jaxb:property name="laringsutbytte"/>
+			    </jaxb:bindings>
+			    <jaxb:bindings node="xs:element[@name='åpent_for_tillegg']">
+			      <jaxb:property name="apentForTillegg"/>
+			    </jaxb:bindings>
 		    </jaxb:bindings>
 		  </jaxb:bindings>
 		  
