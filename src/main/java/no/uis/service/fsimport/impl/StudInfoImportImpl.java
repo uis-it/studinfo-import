@@ -98,7 +98,8 @@ public class StudInfoImportImpl implements StudInfoImport {
   };
   
 	private SolrServer solrServerCourse;
-	private SolrServer solrServerProgram;
+	@SuppressWarnings("unused")
+  private SolrServer solrServerProgram;
 	private SolrServer solrServerSubject;
 	
   private DomainUrl cpUrl;
@@ -236,7 +237,7 @@ public class StudInfoImportImpl implements StudInfoImport {
   }
 
   private void pushStudieprogramToSolr(Studieprogram prog, ImportReport report) {
-    SolrInputDocument doc = new SolrInputDocument();
+    //SolrInputDocument doc = new SolrInputDocument();
     
   }
 
@@ -448,20 +449,14 @@ public class StudInfoImportImpl implements StudInfoImport {
     return value;
   }
 
-  /**
-   * Namespace handling taken from http://stackoverflow.com/questions/277502/jaxb-how-to-ignore-namespace-during-unmarshalling-xml-document  
-   */
   protected FsStudieinfo unmarshalStudieinfo(String studieinfoXml) throws JAXBException, SAXException {
     JAXBContext jc = JAXBContext.newInstance(FsStudieinfo.class.getPackage().getName());
     Unmarshaller um = jc.createUnmarshaller();
     
     XMLReader reader = XMLReaderFactory.createXMLReader();
     
-    StudinfoNamespaceFilter readerFilter = new StudinfoNamespaceFilter("http://fsws.usit.no/schemas/studinfo", true);
-    readerFilter.setParent(reader);
-    
     InputSource is = new InputSource(new StringReader(studieinfoXml));
-    SAXSource source = new SAXSource(readerFilter, is);
+    SAXSource source = new SAXSource(reader, is);
     
     return (FsStudieinfo)um.unmarshal(source);
   }
