@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -29,8 +28,6 @@ public class ValidatorTest {
     String semester = System.getProperty("studinfo.semester");
     final String sInfoType = System.getProperty("studinfo.type");
     final String sLang = System.getProperty("studinfo.lang");
-    System.out.println("Year: " + sYear);
-    System.out.println("Semester: " + semester);
     if (sYear != null && semester != null) {
       
       int year = Integer.parseInt(sYear);
@@ -46,11 +43,16 @@ public class ValidatorTest {
       InfoType[] infoTypes = (sInfoType != null ? new InfoType[] {InfoType.valueOf(sInfoType)} : InfoType.values());
       String[] langs = (sLang != null ? sLang.split(",") : new String[] {"B", "E", "N"});
 
+      System.out.println("Year: " + sYear);
+      System.out.println("Semester: " + semester);
+      System.out.println("Language:" + langs);
+      System.out.println("Types: " + infoTypes);
+      
       StudinfoValidator sinfo = new StudinfoValidator();
-//      final List<String> messages = sinfo.validateAll(year, semester, infoTypes, langs);
-      final List<String> messages = Arrays.asList(langs);
+      final List<String> messages = sinfo.validateAll(year, semester, infoTypes, langs);
       assertThat(new ListWrapper(messages), is(emptyList()));
     } else {
+      System.out.println("[WARN] Test not run");
       assertTrue(true);
     }
   }
