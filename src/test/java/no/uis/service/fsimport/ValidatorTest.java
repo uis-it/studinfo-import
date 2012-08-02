@@ -26,7 +26,7 @@ public class ValidatorTest {
   @Test
   public void validateAll() throws Exception {
     final String sYear = System.getProperty("studinfo.year");
-    final String semester = System.getProperty("studinfo.semester");
+    String semester = System.getProperty("studinfo.semester");
     final String sInfoType = System.getProperty("studinfo.type");
     final String sLang = System.getProperty("studinfo.lang");
     System.out.println("Year: " + sYear);
@@ -34,6 +34,11 @@ public class ValidatorTest {
     if (sYear != null && semester != null) {
       
       int year = Integer.parseInt(sYear);
+      if (semester.startsWith("V")) {
+        semester = "VÅR";
+      } else if (semester.startsWith("H")) {
+        semester = "HØST";
+      }
       if (!semester.equals("VÅR") && !semester.equals("HØST")) {
         throw new IllegalArgumentException(semester);
       }
