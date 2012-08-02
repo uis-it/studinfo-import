@@ -3,6 +3,7 @@ package no.uis.service.fsimport;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.SAXParser;
@@ -32,30 +33,39 @@ public class StudinfoValidator {
    */
   public static void main(String[] args) {
     final StudinfoValidator validator = new StudinfoValidator();
-    if (args.length != 2) {
-      validator.printUsage();
-    } else {
-      try {
-        validator.validate(args[0], args[1]);
-      } catch(Exception ex) {
-        log.error(null, ex);
-      }
+    try {
+      validator.validateMain(args);
+    } catch(Exception ex) {
+      log.error(null, ex);
     }
   }
 
   private StudInfoService fsWsStudInfo;
 
-  private void validate(String sYear, String semester) throws Exception {
+  private void validateMain(String[] args) throws Exception {
+    if (args.length != 2) {
+      printUsage();
+    } else {
+      List<String> messages = validateAll(args[0], args[1]);
+      printMessages(messages);
+    }
+  }
+  
+  public List<String> validateAll(String sYear, String semester) throws Exception {
     int year = Integer.parseInt(sYear);
     if (!semester.equals("VÅR") && !semester.equals("HØST")) {
       throw new IllegalArgumentException(semester);
     }
     
-    validateCourses(semester, year);
+    List<String> messages = new ArrayList<String>();
+    
+    messages.addAll(validateCourses(semester, year));
 
-    validatePrograms(semester, year);
+    messages.addAll(validatePrograms(semester, year));
 
-    validateSubjects(semester, year);
+    messages.addAll(validateSubjects(semester, year));
+    
+    return messages;
 }
 
   private void printMessages(List<String> messages) {
@@ -64,22 +74,31 @@ public class StudinfoValidator {
     }
   }
 
-  private void validateSubjects(String semester, int year) throws Exception {
-    validateSubjects(217, year, semester, "B");
-    validateSubjects(217, year, semester, "E");
-    validateSubjects(217, year, semester, "N");
+  private List<String> validateSubjects(String semester, int year) throws Exception {
+    List<String> messages = new ArrayList<String>();
+    messages.addAll(validateSubjects(217, year, semester, "B"));
+    messages.addAll(validateSubjects(217, year, semester, "E"));
+    messages.addAll(validateSubjects(217, year, semester, "N"));
+    
+    return messages;
   }
 
-  private void validatePrograms(String semester, int year) throws Exception {
-    validateStudyPrograms(217, year, semester, "B");
-    validateStudyPrograms(217, year, semester, "E");
-    validateStudyPrograms(217, year, semester, "N");
+  private List<String> validatePrograms(String semester, int year) throws Exception {
+    List<String> messages = new ArrayList<String>();
+    messages.addAll(validateStudyPrograms(217, year, semester, "B"));
+    messages.addAll(validateStudyPrograms(217, year, semester, "E"));
+    messages.addAll(validateStudyPrograms(217, year, semester, "N"));
+    
+    return messages;
   }
 
-  private void validateCourses(String semester, int year) throws Exception {
-    validateCourses(217, year, semester, "B");
-    validateCourses(217, year, semester, "E");
-    validateCourses(217, year, semester, "N");
+  private List<String> validateCourses(String semester, int year) throws Exception {
+    List<String> messages = new ArrayList<String>();
+    messages.addAll(validateCourses(217, year, semester, "B"));
+    messages.addAll(validateCourses(217, year, semester, "E"));
+    messages.addAll(validateCourses(217, year, semester, "N"));
+    
+    return messages;
   }
 
   private synchronized StudInfoService getBean() {
@@ -98,31 +117,31 @@ public class StudinfoValidator {
     System.out.println(this.getClass().getName() + " YEAR <VÅR | HØST>");
   }
 
-  public void validateStudyPrograms(int institution, int year, String semester, String language)
+  public List<String> validateStudyPrograms(int institution, int year, String semester, String language)
       throws Exception
   {
     String studieinfoXml = getBean().getStudieprogramSI(year,
         semester, INTEGER_1, null, institution, INTEGER_MINUS_ONE, null, null, language);
     
-    validate(studieinfoXml, ValidationErrorHandler.InfoType.studieprogram, year, semester, language);
+    return validate(studieinfoXml, ValidationErrorHandler.InfoType.studieprogram, year, semester, language);
   }
 
-  private void validateSubjects(int institution, int year, String semester, String language) throws Exception {
+  private List<String> validateSubjects(int institution, int year, String semester, String language) throws Exception {
     String studieinfoXml = getBean().getEmneSI(Integer.valueOf(institution), null, null,
       INTEGER_MINUS_ONE, null, null, year, semester, language);
 
-    validate(studieinfoXml, ValidationErrorHandler.InfoType.emne, year, semester, language);
+    return validate(studieinfoXml, ValidationErrorHandler.InfoType.emne, year, semester, language);
   }
 
-  private void validateCourses(int institution, int year, String semester, String language)
+  private List<String> validateCourses(int institution, int year, String semester, String language)
       throws Exception
   {
     String studieinfoXml = getBean().getKursSI(Integer.valueOf(institution), INTEGER_MINUS_ONE, INTEGER_MINUS_ONE, INTEGER_MINUS_ONE, language);
 
-    validate(studieinfoXml, ValidationErrorHandler.InfoType.kurs, year, semester, language);
+    return validate(studieinfoXml, ValidationErrorHandler.InfoType.kurs, year, semester, language);
   }
 
-  protected void validate(String studieinfoXml, ValidationErrorHandler.InfoType infoType, int year, String semester, String language) throws Exception {
+  protected List<String> validate(String studieinfoXml, ValidationErrorHandler.InfoType infoType, int year, String semester, String language) throws Exception {
     
     // save xml
     File outFile = new File("target/out", infoType.toString() + year + semester + language + ".xml");
@@ -156,7 +175,7 @@ public class StudinfoValidator {
     } catch(SAXException ex) {
       // do nothing. The error is handled in the error handler
     }
-    printMessages(errorHandler.getMessages());
+    return errorHandler.getMessages();
   }
   
 }
