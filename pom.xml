@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>no.uis.service</groupId>
 		<artifactId>parent-pom</artifactId>
-		<version>1.0.18</version>
+		<version>1.0.19</version>
 	</parent>
 	
 	<inceptionYear>2010</inceptionYear>
@@ -74,6 +74,11 @@
 				<artifactId>spring-asm</artifactId>
 				<version>${spring.version}</version>			
 			</dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>      
+      </dependency>
 			<dependency>
 				<groupId>commons-collections</groupId>
 				<artifactId>commons-collections</artifactId>
@@ -170,11 +175,13 @@
 			<artifactId>cxf-rt-transports-http</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
-		<dependency>
+<!--
+ 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-solrj</artifactId>
 			<version>${solr.version}</version>
 		</dependency>
+-->		
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
@@ -185,6 +192,7 @@
       <artifactId>httpmime</artifactId>
       <version>4.1.2</version>
     </dependency>
+<!--    
 		<dependency>
 			<groupId>no.coretrek</groupId>
 			<artifactId>lib-corepublish-api</artifactId>
@@ -200,10 +208,19 @@
 			<artifactId>lib-corepublish-ehcache</artifactId>
 			<version>1.0.0-b25</version>
 		</dependency>
-		<dependency>
+ -->
+ <!--
+ 		<dependency>
 			<groupId>org.jdom</groupId>
 			<artifactId>jdom</artifactId>
 			<version>1.1</version>
+		</dependency>
+-->
+		<dependency>
+		  <groupId>org.easymock</groupId>
+		  <artifactId>easymock</artifactId>
+		  <version>3.0</version>
+		  <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

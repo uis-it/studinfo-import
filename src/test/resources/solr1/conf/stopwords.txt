@@ -1,4 +1,0 @@
-# This file contains stop words
-i
-å
-på

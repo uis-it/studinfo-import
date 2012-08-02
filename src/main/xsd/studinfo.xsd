@@ -32,12 +32,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Studieprogram">
-    <xs:all>
+    <xs:sequence>
       <xs:element name="studieprogramkode" type="xs:string"/>
       <xs:element name="studieprogramnavn" type="xs:string"/>
       <xs:element name="studieprogramnavn_vitn" type="xs:string"/>
-      <xs:element name="studieprogramnavn_en" type="xs:string"/>
-      <xs:element name="studieprogramnavn_vitn_en" type="xs:string"/>
+      <xs:element name="studieprogramnavn_en" minOccurs="0" type="xs:string"/>
+      <xs:element name="studieprogramnavn_vitn_en" minOccurs="0" type="xs:string"/>
       <xs:element name="studiepoeng" type="xs:integer"/>
       <xs:element name="studieniva" type="xs:string"/>
       <xs:element name="studienivakode" type="xs:integer"/>
@@ -51,14 +51,15 @@
       <xs:element name="varighet" minOccurs="0" type="xs:string"/>
       <xs:element name="grunnstudium" type="studinfo:YESNOType"/>
       <xs:element name="kulltrinnplan" type="studinfo:YESNOType"/>
-      <xs:element name="kontaktinformasjon" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="arbeidsformer" minOccurs="0" type="studinfo:FreeText"/>
-      <xs:element name="innhold" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="fagplan_tekst" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="fagplan_URL" minOccurs="0" type="xs:anyURI"/>
+      <xs:element name="innhold" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="intro" minOccurs="0" type="studinfo:FreeText"/>
+      <xs:element name="kontaktinformasjon" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="kvalifik_og_jobbmuligheter" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="læringsutbytte" minOccurs="0" type="studinfo:FreeText"/>
+      <xs:element name="litteratur" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="opptaksinformasjon" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="opptakskrav" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="rammeplan_tekst" minOccurs="0" type="studinfo:FreeText"/>
@@ -66,12 +67,12 @@
       <xs:element name="studentevaluering" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="utenlandsopphold" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="vurdering_tilleggstekst" minOccurs="0" type="studinfo:FreeText"/>
-      <xs:element name="opptak" minOccurs="0" type="studinfo:Opptak"/>
+      <xs:element name="opptak" minOccurs="0" maxOccurs="unbounded" type="studinfo:Opptak"/>
       <xs:element name="fagkode" minOccurs="0" type="xs:string"/>
       <xs:element name="sprak-liste" minOccurs="0" type="studinfo:SprakListe"/>
       <xs:element name="utdanningsplan" type="studinfo:Utdanningsplan"/>
       <xs:element name="planforslag" minOccurs="0" type="studinfo:Planforslag"/>
-    </xs:all>
+    </xs:sequence>
     <xs:attribute name="sprak" use="required" type="xs:string"/>
   </xs:complexType>
   <xs:complexType name="BasisEmne" abstract="true">
@@ -222,8 +223,8 @@
     <xs:sequence>
       <xs:element name="opptakstype" type="xs:string"/>
       <xs:element name="opptakskode" type="xs:string"/>
-      <xs:element name="frist_ettersending" minOccurs="0" type="xs:date"/>
       <xs:element name="frist_soknad" minOccurs="0" type="xs:date"/>
+      <xs:element name="frist_ettersending" minOccurs="0" type="xs:date"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Utdanningsplan">
@@ -300,7 +301,7 @@
     <xs:sequence>
       <xs:element name="planelementkode" type="xs:string"/>
       <xs:element name="planelementnavn" type="xs:string"/>
-      <xs:element name="planelementnavn-en" type="xs:string"/>
+      <xs:element name="planelementnavn-en" minOccurs="0" type="xs:string"/>
       <xs:element name="sorteringsrekkefolge" minOccurs="0" type="xs:integer"/>
       <xs:element name="valgstatus" type="xs:string"/>
       <xs:sequence minOccurs="0">
@@ -493,23 +494,33 @@
       <xs:element name="sistegang" minOccurs="0" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="Vurdkomb">
+    <xs:sequence>
+      <xs:element name="vurdkombkode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Vurdkombforutsetter">
+    <xs:sequence>
+      <xs:element name="vurdkomb" minOccurs="0" type="studinfo:Vurdkomb"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="Vurdkombinasjon">
     <xs:sequence>
       <xs:element name="vurdkombkode" type="xs:string"/>
       <xs:element name="vurdkombnavn" type="xs:string"/>
-      <xs:element name="vurdform" type="xs:string" minOccurs="0"/>
-      <xs:element name="vurdkombtype" type="xs:string" minOccurs="0"/>
-      <xs:element name="forstegang" type="xs:string" minOccurs="0"/>
-      <xs:element name="sistegang" type="xs:string" minOccurs="0"/>
-      <xs:element name="brok" type="xs:string" minOccurs="0"/>
-      <xs:element name="varighet" type="xs:string" minOccurs="0"/>
-      <xs:element name="karregelkode" type="xs:integer" minOccurs="0"/>
-      <xs:element name="karregel" type="xs:string" minOccurs="0"/>
-      <xs:element name="vurdkombtider" type="studinfo:Vurdkombtider" minOccurs="0"/>
-      <xs:element name="lovlig-hjelpemiddel" type="studinfo:Lovlig-hjelpemiddel" minOccurs="0"/>
-      <xs:element name="vurdenheter" type="studinfo:Vurdenheter" minOccurs="0"/>
-      <xs:element name="vurdkombinasjon" type="studinfo:Vurdkombinasjon" minOccurs="0"
-        maxOccurs="unbounded"/>
+      <xs:element name="vurdform" minOccurs="0" type="xs:string"/>
+      <xs:element name="vurdkombtype" minOccurs="0" type="xs:string"/>
+      <xs:element name="forstegang" minOccurs="0" type="xs:string"/>
+      <xs:element name="sistegang" minOccurs="0" type="xs:string"/>
+      <xs:element name="brok" minOccurs="0" type="xs:string"/>
+      <xs:element name="varighet" minOccurs="0" type="xs:string"/>
+      <xs:element name="karregelkode" minOccurs="0" type="xs:integer"/>
+      <xs:element name="karregel" minOccurs="0" type="xs:string"/>
+      <xs:element name="vurdkombforutsetter" minOccurs="0" type="studinfo:Vurdkombforutsetter"/>
+      <xs:element name="vurdkombtider" minOccurs="0" type="studinfo:Vurdkombtider"/>
+      <xs:element name="lovlig-hjelpemiddel" minOccurs="0" type="studinfo:Lovlig-hjelpemiddel"/>
+      <xs:element name="vurdenheter" minOccurs="0" type="studinfo:Vurdenheter"/>
+      <xs:element name="vurdkombinasjon" minOccurs="0" maxOccurs="unbounded" type="studinfo:Vurdkombinasjon"/>
     </xs:sequence>
     <xs:attribute name="niva" use="required" type="xs:integer"/>
   </xs:complexType>
@@ -520,7 +531,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="\d{6}(EO|K|KN)?"/>
+      <xs:pattern value="\d{6}[A-Z]{0,2}"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="FsSemesterkode">
@@ -584,8 +595,8 @@
       <xs:element name="studieprogramkode" type="xs:string"/>
       <xs:element name="arstall-kull" type="xs:integer"/>
       <xs:element name="terminkode-kull" type="studinfo:FsSemester"/>
-      <xs:element name="dato-start" type="xs:date"/>
-      <xs:element name="dato-frist" type="xs:date"/>
+      <xs:element name="dato-start" minOccurs="0" type="xs:date"/>
+      <xs:element name="dato-frist" minOccurs="0" type="xs:date"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Emnekombinasjon-frievalg">

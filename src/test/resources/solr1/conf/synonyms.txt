@@ -1,3 +1,0 @@
-# This files contains synonyms
-ha => har hadde
-er => var

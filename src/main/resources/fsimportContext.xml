@@ -19,66 +19,7 @@
 			<property name="fsServiceStudInfo">
 				<ref bean="fsWsStudInfo"/>
 			</property>
-			
-			<property name="solrServerCourse" ref="solrServerCourse"/>
-      <property name="solrServerProgram" ref="solrServerStudinfo"/>
-      <property name="solrServerSubject" ref="solrServerStudinfo"/>
-			
-			<property name="cpUrl">
-				<bean class="com.corepublish.util.DomainUrl">
-					<constructor-arg index="0" value="${corepublish.url}"/>
-					<constructor-arg index="1" value="${corepublish.domainid}"/>
-				</bean>
-			</property>
-			
-			<property name="cpAccessorHolder">
-				<ref bean="cpAccessorHolder"/>
-			</property>
-						
 		</bean>
-
-		<bean id="cpAccessorHolder" class="com.corepublish.impl.xml.XmlAccessorHolder" init-method="init" destroy-method="destroy">
-		</bean>
-		
-		<bean id="httpClientCourse" class="no.uis.service.fsimport.util.PreemptBasicAuthHttpClient">
-			<constructor-arg index="0"  value="${solr.server.url.evu.nb}"/>
-			<constructor-arg index="1"  value="${solr.server.username}"/>
-			<constructor-arg index="2" value="${solr.server.password}"/>
-		</bean>
-		
-		<bean id="solrServerCourse" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
-			<constructor-arg index="0" value="${solr.server.url.evu.nb}"/>
-			<constructor-arg index="1" ref="httpClientCourse"/>
-			<constructor-arg index="2">
-				<bean class="org.apache.solr.client.solrj.impl.XMLResponseParser"/>
-			</constructor-arg>
-			<property name="soTimeout" value="1000"/>
-			<property name="allowCompression" value="true"/>
-		</bean>
-		
-    <bean id="httpClientStudinfo" class="no.uis.service.fsimport.util.PreemptBasicAuthHttpClient">
-      <constructor-arg index="0"  value="${solr.server.url.studinfo.nb}"/>
-      <constructor-arg index="1"  value="${solr.server.username}"/>
-      <constructor-arg index="2" value="${solr.server.password}"/>
-    </bean>
-    
-    <bean id="solrServerStudinfo" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
-      <constructor-arg index="0" value="${solr.server.url.studinfo.nb}"/>
-      <constructor-arg index="1" ref="httpClientStudinfo"/>
-      <constructor-arg index="2">
-        <bean class="org.apache.solr.client.solrj.impl.XMLResponseParser"/>
-      </constructor-arg>
-      <property name="soTimeout" value="1000"/>
-      <property name="allowCompression" value="true"/>
-    </bean>
-    
-		<jaxws:client id="fsWsCdm" serviceClass="no.usit.fsws.wsdl.cdm.CDMService"
-				address="${fs.ws.cdm.url}" username="${fs.ws.username}" password="${fs.ws.password}">
-
-				<jaxws:properties>
-						<entry key="mtom-enabled" value="true" />
-				</jaxws:properties>
-		</jaxws:client>
 
 		<jaxws:client id="fsWsStudInfo" serviceClass="no.usit.fsws.wsdl.studinfo.StudInfoService"
 			address="${fs.ws.studinfo.url}" username="${fs.ws.username}" password="${fs.ws.password}" >

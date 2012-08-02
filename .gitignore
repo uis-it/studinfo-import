@@ -8,3 +8,4 @@
 /pom.xml.releaseBackup
 /release.properties
 /src/test/resources/solr?/data/
+/src/test/data
