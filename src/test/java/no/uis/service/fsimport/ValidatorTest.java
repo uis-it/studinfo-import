@@ -25,6 +25,8 @@ public class ValidatorTest {
   public void validateAll() throws Exception {
     final String year = System.getProperty("studinfo.year");
     final String semester = System.getProperty("studinfo.semester");
+    System.out.println("Year: " + year);
+    System.out.println("Semester: " + semester);
     if (year != null && semester != null) {
       StudinfoValidator sinfo = new StudinfoValidator();
       final List<String> messages = sinfo.validateAll(year, semester);
