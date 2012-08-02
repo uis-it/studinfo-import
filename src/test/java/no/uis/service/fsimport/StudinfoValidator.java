@@ -13,6 +13,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import no.uis.service.fsimport.ValidationErrorHandler.InfoType;
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
 
 import org.apache.cxf.helpers.IOUtils;
@@ -46,24 +47,29 @@ public class StudinfoValidator {
     if (args.length != 2) {
       printUsage();
     } else {
-      List<String> messages = validateAll(args[0], args[1]);
+      List<String> messages = validateAll(Integer.parseInt(args[0]), args[1], null, null);
       printMessages(messages);
     }
   }
   
-  public List<String> validateAll(String sYear, String semester) throws Exception {
-    int year = Integer.parseInt(sYear);
-    if (!semester.equals("VÅR") && !semester.equals("HØST")) {
-      throw new IllegalArgumentException(semester);
-    }
+  public List<String> validateAll(int year, String semester, InfoType[] infoTypes, String[] langs) throws Exception {
     
     List<String> messages = new ArrayList<String>();
     
-    messages.addAll(validateCourses(semester, year));
+    for (InfoType infoType : infoTypes) {
+      switch(infoType) {
+        case kurs:
+          messages.addAll(validateCourses(semester, year, langs));
+          break;
+        case studieprogram:
+          messages.addAll(validatePrograms(semester, year, langs));
+          break;
+        case emne:
+          messages.addAll(validateSubjects(semester, year, langs));
+          break;
+      }
+    }
 
-    messages.addAll(validatePrograms(semester, year));
-
-    messages.addAll(validateSubjects(semester, year));
     
     return messages;
 }
@@ -74,30 +80,29 @@ public class StudinfoValidator {
     }
   }
 
-  private List<String> validateSubjects(String semester, int year) throws Exception {
+  private List<String> validateSubjects(String semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
-    messages.addAll(validateSubjects(217, year, semester, "B"));
-    messages.addAll(validateSubjects(217, year, semester, "E"));
-    messages.addAll(validateSubjects(217, year, semester, "N"));
+    for (String lang : langs) {
+      messages.addAll(validateSubjects(217, year, semester, lang));
+    }
     
     return messages;
   }
 
-  private List<String> validatePrograms(String semester, int year) throws Exception {
+  private List<String> validatePrograms(String semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
-    messages.addAll(validateStudyPrograms(217, year, semester, "B"));
-    messages.addAll(validateStudyPrograms(217, year, semester, "E"));
-    messages.addAll(validateStudyPrograms(217, year, semester, "N"));
+    for (String lang : langs) {
+      messages.addAll(validateStudyPrograms(217, year, semester, lang));
+    }
     
     return messages;
   }
 
-  private List<String> validateCourses(String semester, int year) throws Exception {
+  private List<String> validateCourses(String semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
-    messages.addAll(validateCourses(217, year, semester, "B"));
-    messages.addAll(validateCourses(217, year, semester, "E"));
-    messages.addAll(validateCourses(217, year, semester, "N"));
-    
+    for (String lang : langs) {
+      messages.addAll(validateCourses(217, year, semester, lang));
+    }
     return messages;
   }
 

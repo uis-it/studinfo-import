@@ -14,7 +14,7 @@ public class UisEksamensdatoTest {
 
   private DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy"); 
   
-  @Test
+  //@Test
   public void checkSimpleData() throws Exception {
     FsEksamensdato dato = FsEksamensdato.valueOf("01.08.2012");
     assertThat(dato, is(notNullValue()));
@@ -29,7 +29,7 @@ public class UisEksamensdatoTest {
     assertThat(dString, is("01.08.2012"));
   }
   
-  @Test
+  //@Test
   public void checkUttak() throws Exception {
     FsEksamensdato dato = FsEksamensdato.valueOf("Uttak: 11.05.2012 Frist innlevering: 15.05.2012 kl. 14:00");
     assertThat(dato, is(notNullValue()));
@@ -50,7 +50,7 @@ public class UisEksamensdatoTest {
     assertThat(dato.getInnleveringTid().getMinutes(), is(0));
   }
   
-  @Test
+  //@Test
   public void checkInnleveringDate() throws Exception {
     FsEksamensdato dato = FsEksamensdato.valueOf("Frist innlevering: 15.05.2012");
     assertThat(dato, is(notNullValue()));
@@ -65,7 +65,7 @@ public class UisEksamensdatoTest {
     assertThat(innlevering, is("15.05.2012"));
   }
   
-  @Test
+  //@Test
   public void checkInnleveringDateTime() throws Exception {
     FsEksamensdato dato = FsEksamensdato.valueOf("Frist innlevering: 15.05.2012 kl. 14:00");
     assertThat(dato, is(notNullValue()));

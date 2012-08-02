@@ -1,7 +1,7 @@
 package no.uis.service.fsimport;
 
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;
@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import no.uis.service.fsimport.ValidationErrorHandler.InfoType;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -23,13 +25,25 @@ public class ValidatorTest {
    */
   @Test
   public void validateAll() throws Exception {
-    final String year = System.getProperty("studinfo.year");
+    final String sYear = System.getProperty("studinfo.year");
     final String semester = System.getProperty("studinfo.semester");
-    System.out.println("Year: " + year);
+    final String sInfoType = System.getProperty("studinfo.type");
+    final String sLang = System.getProperty("studinfo.lang");
+    System.out.println("Year: " + sYear);
     System.out.println("Semester: " + semester);
-    if (year != null && semester != null) {
+    if (sYear != null && semester != null) {
+      
+      int year = Integer.parseInt(sYear);
+      if (!semester.equals("VÅR") && !semester.equals("HØST")) {
+        throw new IllegalArgumentException(semester);
+      }
+      
+      InfoType[] infoTypes = (sInfoType != null ? new InfoType[] {InfoType.valueOf(sInfoType)} : InfoType.values());
+      String[] langs = (sLang != null ? sLang.split(",") : new String[] {"B", "E", "N"});
+
       StudinfoValidator sinfo = new StudinfoValidator();
-      final List<String> messages = sinfo.validateAll(year, semester);
+//      final List<String> messages = sinfo.validateAll(year, semester, infoTypes, langs);
+      final List<String> messages = Arrays.asList(langs);
       assertThat(new ListWrapper(messages), is(emptyList()));
     } else {
       assertTrue(true);
