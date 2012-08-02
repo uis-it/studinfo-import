@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -45,8 +46,8 @@ public class ValidatorTest {
 
       System.out.println("Year: " + sYear);
       System.out.println("Semester: " + semester);
-      System.out.println("Language:" + langs);
-      System.out.println("Types: " + infoTypes);
+      System.out.println("Language:" + Arrays.asList(langs).toString());
+      System.out.println("Types: " + Arrays.asList(infoTypes).toString());
       
       StudinfoValidator sinfo = new StudinfoValidator();
       final List<String> messages = sinfo.validateAll(year, semester, infoTypes, langs);
