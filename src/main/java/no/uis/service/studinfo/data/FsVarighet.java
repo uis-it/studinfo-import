@@ -33,7 +33,7 @@ public class FsVarighet {
       return null;
     }
     
-    String[] varig = v.split("\\s+");
+    String[] varig = v.trim().split("\\s+");
     if (varig.length == 2) {
   
       int number = Integer.parseInt(varig[0]);
