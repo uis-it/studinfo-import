@@ -132,16 +132,6 @@
 	</dependencyManagement>
 	
 	<dependencies>
-	  <!--dependency>
-	   <groupId>no.uis.service.model</groupId>
-	   <artifactId>model-do</artifactId>
-	   <version>${uismodel.version}</version>
-	  </dependency-->
-	  <dependency>
-	   <groupId>javax.persistence</groupId>
-	   <artifactId>persistence-api</artifactId>
-	   <version>1.0</version>
-	  </dependency>
 		<dependency>
 			<groupId>no.uis.service.client</groupId>
 			<artifactId>fs-ws</artifactId>
@@ -157,17 +147,7 @@
 			<artifactId>cxf-rt-transports-http</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
-<!--     <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.1.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpmime</artifactId>
-      <version>4.1.2</version>
-    </dependency>
- -->		<dependency>
+		<dependency>
 		  <groupId>org.easymock</groupId>
 		  <artifactId>easymock</artifactId>
 		  <version>3.0</version>
@@ -186,7 +166,6 @@
 		<dependency>
 		  <groupId>log4j</groupId>
 		  <artifactId>log4j</artifactId>
-		  <!--version>${log4j.version}</version-->
 		</dependency>
 	</dependencies>
 	
@@ -214,10 +193,9 @@
               <bindingDirectory>${basedir}/src/main/xsd</bindingDirectory>
               <generatePackage>no.uis.service.studinfo.data</generatePackage>
               <extension>true</extension>
-              <verbose>false</verbose>
+              <verbose>true</verbose>
               <removeOldOutput>true</removeOldOutput>
               <episode>false</episode>
-              <extension>true</extension>
               <args>
                 <arg>-Xxew</arg>
                 <arg>-Xxew:instantiate lazy</arg>
