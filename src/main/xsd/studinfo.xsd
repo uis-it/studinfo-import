@@ -48,7 +48,7 @@
       <xs:element name="url" minOccurs="0" type="xs:anyURI"/>
       <xs:element name="finansieringsprosent" type="xs:integer"/>
       <xs:element name="heltidsprosent" type="xs:integer"/>
-      <xs:element name="varighet" minOccurs="0" type="xs:string"/>
+      <xs:element name="varighet" minOccurs="0" type="studinfo:Varighet"/>
       <xs:element name="grunnstudium" type="studinfo:YESNOType"/>
       <xs:element name="kulltrinnplan" type="studinfo:YESNOType"/>
       <xs:element name="arbeidsformer" minOccurs="0" type="studinfo:FreeText"/>
@@ -583,6 +583,11 @@
   <xs:simpleType name="FsSemester">
     <xs:restriction base="xs:string">
       <xs:pattern value="(HØST|VÅR)"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Varighet">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d+ (År|Semestre)"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="SprakListe">

@@ -25,8 +25,6 @@ import org.xml.sax.XMLReader;
 
 public class StudinfoValidator {
 
-  private static final Integer INTEGER_1 = Integer.valueOf(1);
-  private static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
   static private org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StudinfoValidator.class);
 
   /**
@@ -126,14 +124,14 @@ public class StudinfoValidator {
       throws Exception
   {
     String studieinfoXml = getBean().getStudieprogramSI(year,
-        semester, INTEGER_1, null, institution, INTEGER_MINUS_ONE, null, null, language);
+        semester, StudInfoImport.INTEGER_1, null, institution, StudInfoImport.INTEGER_MINUS_1, null, null, language);
     
     return validate(studieinfoXml, ValidationErrorHandler.InfoType.studieprogram, year, semester, language);
   }
 
   private List<String> validateSubjects(int institution, int year, String semester, String language) throws Exception {
     String studieinfoXml = getBean().getEmneSI(Integer.valueOf(institution), null, null,
-      INTEGER_MINUS_ONE, null, null, year, semester, language);
+      StudInfoImport.INTEGER_MINUS_1, null, null, year, semester, language);
 
     return validate(studieinfoXml, ValidationErrorHandler.InfoType.emne, year, semester, language);
   }
@@ -141,7 +139,7 @@ public class StudinfoValidator {
   private List<String> validateCourses(int institution, int year, String semester, String language)
       throws Exception
   {
-    String studieinfoXml = getBean().getKursSI(Integer.valueOf(institution), INTEGER_MINUS_ONE, INTEGER_MINUS_ONE, INTEGER_MINUS_ONE, language);
+    String studieinfoXml = getBean().getKursSI(Integer.valueOf(institution), StudInfoImport.INTEGER_MINUS_1, StudInfoImport.INTEGER_MINUS_1, StudInfoImport.INTEGER_MINUS_1, language);
 
     return validate(studieinfoXml, ValidationErrorHandler.InfoType.kurs, year, semester, language);
   }

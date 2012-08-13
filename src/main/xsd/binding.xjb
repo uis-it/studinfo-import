@@ -17,6 +17,7 @@
         <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsDate" adapter="no.uis.service.fsimport.util.CalendarNorwegianAdapter"/>
         <xjc:javaType name="no.uis.service.studinfo.data.FsTime" xmlType="studinfo:FsTime" adapter="no.uis.service.fsimport.util.FsTimeAdapter"/>
         <xjc:javaType name="no.uis.service.studinfo.data.FsEksamensdato" xmlType="studinfo:FsEksamensdato" adapter="no.uis.service.fsimport.util.FsEksamensdatoAdapter"/>
+        <xjc:javaType name="no.uis.service.studinfo.data.FsVarighet" xmlType="studinfo:Varighet" adapter="no.uis.service.fsimport.util.FsVarighetAdapter"/>
 		</jaxb:globalBindings>
 
 		<jaxb:bindings node="/xs:schema" schemaLocation="studinfo.xsd" generateIsSetMethod="true">
