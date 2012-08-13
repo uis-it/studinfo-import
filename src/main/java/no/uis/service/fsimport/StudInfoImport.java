@@ -8,7 +8,20 @@ import no.uis.service.studinfo.data.Studieprogram;
 
 public interface StudInfoImport {
 
-	/**
+	public static final Integer INTEGER_0 = Integer.valueOf(0);
+  public static final Integer INTEGER_1 = Integer.valueOf(1);
+  /**
+   * -1 means all possible values, e.g. all faculties
+   */
+  public static final Integer INTEGER_MINUS_1 = Integer.valueOf(-1);
+  
+  public enum StudinfoType {
+    EMNE,
+    STUDIEPROGRAM,
+    KURS
+  }
+
+  /**
 	 * 
 	 * @param institution - 217 for UiS
 	 * @param year - four digits year
