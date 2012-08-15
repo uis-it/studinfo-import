@@ -587,7 +587,7 @@
   </xs:simpleType>
   <xs:simpleType name="Varighet">
     <xs:restriction base="xs:string">
-      <xs:pattern value="\d+ (År|Semestre|Semesters)"/>
+      <xs:pattern value="\d+ (År|Years|Semestre|Semesters)"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="SprakListe">

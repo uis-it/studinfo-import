@@ -100,7 +100,7 @@ public class ValidatorTest {
         if (!i.hasNext()) {
           return sb.append("\n]").toString();
         }
-        sb.append(", \n");
+        sb.append("\n<br/>, <br/>\n");
       }
     }
     
