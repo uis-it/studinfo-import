@@ -121,7 +121,9 @@ class ValidationErrorHandler extends DefaultHandler implements ErrorHandler {
     switch (infoType) {
       case studieprogram:
         if (contextPath.peek().equals("studieprogramkode")) {
-          contextId = content;
+          if (pathString(contextPath).equals("/fs-studieinfo/studieprogram/studieprogramkode")) {
+            contextId = content;
+          }
         } 
         break;
       case emne:
