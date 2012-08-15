@@ -126,11 +126,22 @@ class ValidationErrorHandler extends DefaultHandler implements ErrorHandler {
         break;
       case emne:
         if (contextPath.peek().equals("emnekode")) {
-          contextId = content;
+          if (pathString(contextPath).equals("/fs-studieinfo/emne/emneid/emnekode")) {
+            contextId = content;
+          }
         }
         break;
       case kurs:
         break;
     }
+  }
+
+  private static String pathString(Stack<String> stack) {
+    StringBuilder sb = new StringBuilder();
+    for (String e : stack) {
+      sb.append('/');
+      sb.append(e);
+    }
+    return sb.toString();
   }
 }
