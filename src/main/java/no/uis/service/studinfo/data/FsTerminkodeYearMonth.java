@@ -16,6 +16,21 @@ public class FsTerminkodeYearMonth implements Serializable {
     this.code = code;
   }
 
+  public int getYear() {
+    return year;
+  }
+
+
+  public int getMonth() {
+    return month;
+  }
+
+
+  public String getCode() {
+    return code;
+  }
+
+
   @Override
   public String toString() {
     return String.format("%04d%02d%s", year, month, code);
