@@ -4,20 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+import no.uis.service.fsimport.StudInfoImport.StudinfoType;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-class ValidationErrorHandler extends DefaultHandler implements ErrorHandler {
+public class ValidationErrorHandler extends DefaultHandler implements ErrorHandler {
   
-  public enum InfoType {
-    studieprogram,
-    emne,
-    kurs
-  }
-
   private List<String> messages = new LinkedList<String>();
   
   private Stack<String> contextPath = new Stack<String>();
@@ -30,11 +26,11 @@ class ValidationErrorHandler extends DefaultHandler implements ErrorHandler {
 
   private final String language;
 
-  private final InfoType infoType;
+  private final StudinfoType infoType;
 
   private String contextId;
   
-  public ValidationErrorHandler(InfoType infoType, int year, String semester, String language) {
+  public ValidationErrorHandler(StudinfoType infoType, int year, String semester, String language) {
     this.infoType = infoType;
     this.year = year;
     this.semester = semester;
@@ -119,21 +115,21 @@ class ValidationErrorHandler extends DefaultHandler implements ErrorHandler {
     String content = new String(ch, start, length);
     currentContent = content;
     switch (infoType) {
-      case studieprogram:
+      case STUDIEPROGRAM:
         if (contextPath.peek().equals("studieprogramkode")) {
           if (pathString(contextPath).equals("/fs-studieinfo/studieprogram/studieprogramkode")) {
             contextId = content;
           }
         } 
         break;
-      case emne:
+      case EMNE:
         if (contextPath.peek().equals("emnekode")) {
           if (pathString(contextPath).equals("/fs-studieinfo/emne/emneid/emnekode")) {
             contextId = content;
           }
         }
         break;
-      case kurs:
+      case KURS:
         break;
     }
   }

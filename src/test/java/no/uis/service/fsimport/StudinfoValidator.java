@@ -13,7 +13,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import no.uis.service.fsimport.ValidationErrorHandler.InfoType;
+import no.uis.service.fsimport.StudInfoImport.StudinfoType;
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
 
 import org.apache.cxf.helpers.IOUtils;
@@ -50,19 +50,19 @@ public class StudinfoValidator {
     }
   }
   
-  public List<String> validateAll(int year, String semester, InfoType[] infoTypes, String[] langs) throws Exception {
+  public List<String> validateAll(int year, String semester, StudinfoType[] infoTypes, String[] langs) throws Exception {
     
     List<String> messages = new ArrayList<String>();
     
-    for (InfoType infoType : infoTypes) {
+    for (StudinfoType infoType : infoTypes) {
       switch(infoType) {
-        case kurs:
+        case KURS:
           messages.addAll(validateCourses(semester, year, langs));
           break;
-        case studieprogram:
+        case STUDIEPROGRAM:
           messages.addAll(validatePrograms(semester, year, langs));
           break;
-        case emne:
+        case EMNE:
           messages.addAll(validateSubjects(semester, year, langs));
           break;
       }
@@ -126,14 +126,14 @@ public class StudinfoValidator {
     String studieinfoXml = getBean().getStudieprogramSI(year,
         semester, StudInfoImport.INTEGER_1, null, institution, StudInfoImport.INTEGER_MINUS_1, null, null, language);
     
-    return validate(studieinfoXml, ValidationErrorHandler.InfoType.studieprogram, year, semester, language);
+    return validate(studieinfoXml, StudinfoType.STUDIEPROGRAM, year, semester, language);
   }
 
   private List<String> validateSubjects(int institution, int year, String semester, String language) throws Exception {
     String studieinfoXml = getBean().getEmneSI(Integer.valueOf(institution), null, null,
       StudInfoImport.INTEGER_MINUS_1, null, null, year, semester, language);
 
-    return validate(studieinfoXml, ValidationErrorHandler.InfoType.emne, year, semester, language);
+    return validate(studieinfoXml, StudinfoType.EMNE, year, semester, language);
   }
 
   private List<String> validateCourses(int institution, int year, String semester, String language)
@@ -141,10 +141,10 @@ public class StudinfoValidator {
   {
     String studieinfoXml = getBean().getKursSI(Integer.valueOf(institution), StudInfoImport.INTEGER_MINUS_1, StudInfoImport.INTEGER_MINUS_1, StudInfoImport.INTEGER_MINUS_1, language);
 
-    return validate(studieinfoXml, ValidationErrorHandler.InfoType.kurs, year, semester, language);
+    return validate(studieinfoXml, StudinfoType.KURS, year, semester, language);
   }
 
-  protected List<String> validate(String studieinfoXml, ValidationErrorHandler.InfoType infoType, int year, String semester, String language) throws Exception {
+  protected List<String> validate(String studieinfoXml, StudinfoType infoType, int year, String semester, String language) throws Exception {
     
     // save xml
     File outFile = new File("target/out", infoType.toString() + year + semester + language + ".xml");

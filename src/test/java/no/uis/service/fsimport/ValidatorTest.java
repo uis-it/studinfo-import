@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import no.uis.service.fsimport.ValidationErrorHandler.InfoType;
+import no.uis.service.fsimport.StudInfoImport.StudinfoType;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -41,7 +41,7 @@ public class ValidatorTest {
         throw new IllegalArgumentException(semester);
       }
       
-      InfoType[] infoTypes = (sInfoType != null ? new InfoType[] {InfoType.valueOf(sInfoType)} : InfoType.values());
+      StudinfoType[] infoTypes = (sInfoType != null ? new StudinfoType[] {StudinfoType.valueOf(sInfoType)} : StudinfoType.values());
       String[] langs = (sLang != null ? sLang.split(",") : new String[] {"B", "E", "N"});
 
       System.out.println("Year: " + sYear);
