@@ -33,35 +33,32 @@ public class StudInfoImportImpl implements StudInfoImport {
   }
   
   @Override
-	public List<Studieprogram> fetchStudyPrograms(int institution, int year, String semester, boolean includeEP,
+	public FsStudieinfo fetchStudyPrograms(int institution, int year, String semester, boolean includeEP,
 			String language) throws Exception {
 
 		Integer medUPinfo = includeEP ? INTEGER_1 : INTEGER_0;
 		String studieinfoXml = fsServiceStudInfo.getStudieprogramSI(year,
 				semester, medUPinfo, null, institution, INTEGER_MINUS_1, null, null, language);
 
-    FsStudieinfo sinfo = unmarshalStudieinfo(studieinfoXml);
-		return sinfo.getStudieprogram();
+    return unmarshalStudieinfo(studieinfoXml);
 	}
 
   @Override
-	public List<Emne> fetchSubjects(int institution, int year, String semester,
+	public FsStudieinfo fetchSubjects(int institution, int year, String semester,
 			String language) throws Exception {
 
 	  String studieinfoXml = fsServiceStudInfo.getEmneSI(Integer.valueOf(institution), null, null,
 				INTEGER_MINUS_1, null, null, year, semester, language);
 
-    FsStudieinfo sinfo = unmarshalStudieinfo(studieinfoXml);
-    return sinfo.getEmne();
+    return unmarshalStudieinfo(studieinfoXml);
   }
 
   @Override
-  public List<Kurs> fetchCourses(int institution, int year, String semester, String language) throws Exception {
+  public FsStudieinfo fetchCourses(int institution, int year, String semester, String language) throws Exception {
 
     String studieinfoXml = fsServiceStudInfo.getKursSI(Integer.valueOf(institution), INTEGER_MINUS_1, INTEGER_MINUS_1, INTEGER_MINUS_1, language);
 
-    FsStudieinfo sinfo = unmarshalStudieinfo(studieinfoXml);
-    return sinfo.getKurs();
+    return unmarshalStudieinfo(studieinfoXml);
   }
 
   protected FsStudieinfo unmarshalStudieinfo(String studieinfoXml) throws JAXBException, SAXException {
