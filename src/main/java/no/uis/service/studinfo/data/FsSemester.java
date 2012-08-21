@@ -3,7 +3,7 @@ package no.uis.service.studinfo.data;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name = "YESNOType")
+@XmlType(name = "FsSemester" , namespace = "http://fsws.usit.no/schemas/studinfo")
 @XmlEnum
 public enum FsSemester {
 
