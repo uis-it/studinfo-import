@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.parsers.SAXParser;
@@ -50,7 +51,7 @@ public class StudinfoValidator {
     }
   }
   
-  public List<String> validateAll(int year, String semester, StudinfoType[] infoTypes, String[] langs) throws Exception {
+  private List<String> validateAll(int year, String semester, StudinfoType[] infoTypes, String[] langs) throws Exception {
     
     List<String> messages = new ArrayList<String>();
     
@@ -120,7 +121,7 @@ public class StudinfoValidator {
     System.out.println(this.getClass().getName() + " YEAR <VÅR | HØST>");
   }
 
-  public List<String> validateStudyPrograms(int institution, int year, String semester, String language)
+  private List<String> validateStudyPrograms(int institution, int year, String semester, String language)
       throws Exception
   {
     String studieinfoXml = getBean().getStudieprogramSI(year,
@@ -179,6 +180,18 @@ public class StudinfoValidator {
       // do nothing. The error is handled in the error handler
     }
     return errorHandler.getMessages();
+  }
+
+  public List<String> fetchAndValidate(int year, String semester, String lang, StudinfoType infoType) throws Exception {
+    switch(infoType) {
+      case EMNE:
+        return validateSubjects(217, year, semester, lang);
+      case KURS:
+        return validateCourses(217, year, semester, lang);
+      case STUDIEPROGRAM:
+        return validateStudyPrograms(217, year, semester, lang);
+    }
+    return Collections.emptyList();
   }
   
 }
