@@ -52,8 +52,7 @@ public class ValidatorTest {
       semester = "VÅR";
     } else if (semester.startsWith("H")) {
       semester = "HØST";
-    }
-    if (!semester.equals("VÅR") && !semester.equals("HØST")) {
+    } else {
       throw new IllegalArgumentException(semester);
     }
     
