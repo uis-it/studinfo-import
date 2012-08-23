@@ -35,13 +35,13 @@
     <xs:sequence>
       <xs:element name="studieprogramkode" type="xs:string"/>
       <xs:element name="studieprogramnavn" type="xs:string"/>
-      <xs:element name="studieprogramnavn_vitn" type="xs:string"/>
+      <xs:element name="studieprogramnavn_vitn" minOccurs="0" type="xs:string"/>
       <xs:element name="studieprogramnavn_en" minOccurs="0" type="xs:string"/>
       <xs:element name="studieprogramnavn_vitn_en" minOccurs="0" type="xs:string"/>
       <xs:element name="studiepoeng" type="xs:integer"/>
       <xs:element name="studieniva" type="xs:string"/>
-      <xs:element name="studienivakode" type="xs:integer"/>
-      <xs:element name="studienivanavn" type="xs:string"/>
+      <xs:element name="studienivakode" minOccurs="0" type="xs:integer"/>
+      <xs:element name="studienivanavn" minOccurs="0" type="xs:string"/>
       <xs:element name="sted" type="studinfo:Sted"/>
       <xs:element name="gradnavn" minOccurs="0" type="xs:string"/>
       <xs:element name="nuskode" type="xs:string"/>
@@ -50,7 +50,7 @@
       <xs:element name="heltidsprosent" type="xs:integer"/>
       <xs:element name="varighet" minOccurs="0" type="studinfo:Varighet"/>
       <xs:element name="grunnstudium" type="studinfo:YESNOType"/>
-      <xs:element name="kulltrinnplan" type="studinfo:YESNOType"/>
+      <xs:element name="kulltrinnplan" minOccurs="0" type="studinfo:YESNOType"/>
       <xs:element name="arbeidsformer" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="fagplan_tekst" minOccurs="0" type="studinfo:FreeText"/>
       <xs:element name="fagplan_URL" minOccurs="0" type="xs:anyURI"/>
@@ -246,8 +246,8 @@
   <xs:complexType name="Krav-sammensetting">
     <xs:sequence>
       <xs:element name="termin-gjelder-fra" type="xs:string"/>
-      <xs:element name="arstall-gjelder-fra" type="xs:gYear"/>
-      <xs:element name="terminkode-gjelder-fra" type="studinfo:FsSemester"/>
+      <xs:element name="arstall-gjelder-fra" minOccurs="0" type="xs:gYear"/>
+      <xs:element name="terminkode-gjelder-fra" minOccurs="0" type="studinfo:FsSemester"/>
       <xs:element name="emnekombinasjon" type="studinfo:Emnekombinasjon"/>
     </xs:sequence>
   </xs:complexType>
@@ -460,15 +460,15 @@
   </xs:complexType>
   <xs:complexType name="Vurdenhet">
     <xs:sequence>
-      <xs:element name="tid" type="studinfo:FsTerminkodeYearMonth"/>
-      <xs:element name="tid-reell" type="studinfo:FsTerminkodeYearMonth"/>
-      <xs:element name="vurdstatus" type="xs:string"/>
-      <xs:element name="dato-eksamen" type="studinfo:FsDate" minOccurs="0"/>
-      <xs:element name="klokkeslett-eksamen-fremmotetid" type="studinfo:FsTime" minOccurs="0"/>
-      <xs:element name="dato-uttak" type="studinfo:FsDate" minOccurs="0"/>
-      <xs:element name="klokkeslett-uttak" type="studinfo:FsTime" minOccurs="0"/>
-      <xs:element name="dato-innlevering" type="studinfo:FsDate" minOccurs="0"/>
-      <xs:element name="klokkeslett-innlevering" type="studinfo:FsTime" minOccurs="0"/>
+      <xs:element name="tid" minOccurs="0" type="studinfo:FsTerminkodeYearMonth"/>
+      <xs:element name="tid-reell" minOccurs="0" type="studinfo:FsTerminkodeYearMonth"/>
+      <xs:element name="vurdstatus" minOccurs="0" type="xs:string"/>
+      <xs:element name="dato-eksamen" minOccurs="0" type="studinfo:FsDate"/>
+      <xs:element name="klokkeslett-eksamen-fremmotetid" minOccurs="0" type="studinfo:FsTime"/>
+      <xs:element name="dato-uttak" minOccurs="0" type="studinfo:FsDate"/>
+      <xs:element name="klokkeslett-uttak" minOccurs="0" type="studinfo:FsTime"/>
+      <xs:element name="dato-innlevering" minOccurs="0" type="studinfo:FsDate"/>
+      <xs:element name="klokkeslett-innlevering" minOccurs="0" type="studinfo:FsTime"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Vurdenheter">
@@ -519,6 +519,14 @@
       <xs:element name="vurdkombforutsetter" minOccurs="0" type="studinfo:Vurdkombforutsetter"/>
       <xs:element name="vurdkombtider" minOccurs="0" type="studinfo:Vurdkombtider"/>
       <xs:element name="lovlig-hjelpemiddel" minOccurs="0" type="studinfo:Lovlig-hjelpemiddel"/>
+      <xs:element name="tid" minOccurs="0" type="studinfo:FsTerminkodeYearMonth"/>
+      <xs:element name="tid-reell" minOccurs="0" type="studinfo:FsTerminkodeYearMonth"/>
+      <xs:element name="vurdstatus" minOccurs="0" type="xs:string"/>
+      <xs:element name="dato-uttak" minOccurs="0" type="studinfo:FsNullableDate"/>
+      <xs:element name="dato-innlevering" minOccurs="0" type="studinfo:FsNullableDate"/>
+      <xs:element name="klokkeslett-innlevering" minOccurs="0" type="studinfo:FsNullableDate"/>
+      <xs:element name="dato-eksamen" minOccurs="0" type="studinfo:FsNullableDate"/>
+      <xs:element name="klokkeslett-eksamen-fremmotetid" minOccurs="0" type="studinfo:FsTime"/>
       <xs:element name="vurdenheter" minOccurs="0" type="studinfo:Vurdenheter"/>
       <xs:element name="vurdkombinasjon" minOccurs="0" maxOccurs="unbounded" type="studinfo:Vurdkombinasjon"/>
     </xs:sequence>
