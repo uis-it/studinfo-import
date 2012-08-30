@@ -15,5 +15,4 @@ public class FsEksamensdatoAdapter extends XmlAdapter<String, FsEksamensdato> {
   public String marshal(FsEksamensdato v) throws Exception {
     return v.toString();
   }
-
 }

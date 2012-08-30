@@ -29,7 +29,6 @@
 		<fsws.version>1.2.0</fsws.version>
 		<component.person.version>1.0.7</component.person.version>
 		<spring.version>3.0.6.RELEASE</spring.version>
-		<solr.version>3.6.0</solr.version>
 		<slf4j.version>1.6.1</slf4j.version>
 		<jetty.version>6.1.26</jetty.version>
 		<log4j.version>1.2.16</log4j.version>
@@ -211,10 +210,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
       </plugin>
 		</plugins>
 		<pluginManagement>
