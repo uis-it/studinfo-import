@@ -10,7 +10,6 @@
 
 		<jaxb:globalBindings generateIsSetMethod="true" localScoping="toplevel" typesafeEnumMemberName="generateName">
 				<jaxb:serializable uid="1" />
-				<!--xjc:javaType name="no.uis.service.studinfo.FreeText" xmlType="studinfo:FreeText" adapter="no.uis.service.fsimport.util.FreeTextAdapter"/-->
         <xjc:javaType name="no.uis.service.studinfo.data.FsSemester" xmlType="studinfo:FsSemester" adapter="no.uis.service.fsimport.util.FsSemesterAdapter"/>
         <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsNullableDate" adapter="no.uis.service.fsimport.util.CalendarJDBCAdapter"/>
         <xjc:javaType name="no.uis.service.studinfo.data.FsTerminkodeYearMonth" xmlType="studinfo:FsTerminkodeYearMonth" adapter="no.uis.service.fsimport.util.FsTerminkodeYMAdapter"/>
@@ -21,25 +20,6 @@
 		</jaxb:globalBindings>
 
 		<jaxb:bindings node="/xs:schema" schemaLocation="studinfo.xsd" generateIsSetMethod="true">
-		
-		  <jaxb:bindings node="xs:complexType[@name='Emne']">
-		    <jaxb:class name="Emne"/>
-		    <jaxb:bindings node="xs:complexContent/xs:extension/xs:sequence">
-			    <jaxb:bindings node="xs:element[@name='læringsutbytte']">
-			      <jaxb:property name="laringsutbytte"/>
-			    </jaxb:bindings>
-			    <jaxb:bindings node="xs:element[@name='åpent_for_tillegg']">
-			      <jaxb:property name="apentForTillegg"/>
-			    </jaxb:bindings>
-		    </jaxb:bindings>
-		  </jaxb:bindings>
-		  
-      <jaxb:bindings node="xs:complexType[@name='Studieprogram']">
-        <jaxb:class name="Studieprogram"/>
-        <jaxb:bindings node="xs:complexContent/xs:extension/xs:sequence/xs:element[@name='læringsutbytte']">
-          <jaxb:property name="laringsutbytte"/>
-        </jaxb:bindings>
-      </jaxb:bindings>
 		
     </jaxb:bindings>		
 </jaxb:bindings>

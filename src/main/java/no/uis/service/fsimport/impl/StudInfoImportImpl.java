@@ -1,28 +1,25 @@
 package no.uis.service.fsimport.impl;
 
+import java.io.File;
 import java.io.StringReader;
-import java.util.List;
+import java.net.URL;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import no.uis.service.fsimport.StudInfoImport;
-import no.uis.service.studinfo.data.Emne;
 import no.uis.service.studinfo.data.FsStudieinfo;
-import no.uis.service.studinfo.data.Kurs;
-import no.uis.service.studinfo.data.Studieprogram;
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 public class StudInfoImportImpl implements StudInfoImport {
 
   private StudInfoService fsServiceStudInfo;
+  private URL schemaUrl;
 
   public void setFsServiceStudInfo(StudInfoService fsServiceStudInfo) {
     this.fsServiceStudInfo = fsServiceStudInfo;
@@ -30,6 +27,10 @@ public class StudInfoImportImpl implements StudInfoImport {
 
   public StudInfoService getFsServiceStudInfo() {
     return this.fsServiceStudInfo;
+  }
+
+  public void setSchemaUrl(URL schemaUrl) {
+    this.schemaUrl = schemaUrl;
   }
   
   @Override
@@ -61,15 +62,30 @@ public class StudInfoImportImpl implements StudInfoImport {
     return unmarshalStudieinfo(studieinfoXml);
   }
 
-  protected FsStudieinfo unmarshalStudieinfo(String studieinfoXml) throws JAXBException, SAXException {
-    JAXBContext jc = JAXBContext.newInstance(FsStudieinfo.class.getPackage().getName());
-    Unmarshaller um = jc.createUnmarshaller();
+  // see http://jarfiller.com/guide/jaxb/xslt.xhtml
+  protected FsStudieinfo unmarshalStudieinfo(String studieinfoXml) throws Exception {
     
-    XMLReader reader = XMLReaderFactory.createXMLReader();
+    TransformerFactory trFactory = TransformerFactory.newInstance();
+    Source schemaSource = new StreamSource(schemaUrl.openStream());
+    Transformer stylesheet = trFactory.newTransformer(schemaSource);
+
+    Source input = new StreamSource(new StringReader(studieinfoXml));
     
-    InputSource is = new InputSource(new StringReader(studieinfoXml));
-    SAXSource source = new SAXSource(reader, is);
+    JAXBContext jc = JAXBContext.newInstance(FsStudieinfo.class);
     
-    return (FsStudieinfo)um.unmarshal(source);
+    File resultFile = File.createTempFile("jaxb", ".xml");
+    Result result = new StreamResult(resultFile);
+    
+    // This doens't work for CData content for some reason
+    //JAXBResult result = new JAXBResult(jc);
+    //return (FsStudieinfo)result.getResult();
+    
+    stylesheet.transform(input, result);
+
+    FsStudieinfo sinfo = (FsStudieinfo)jc.createUnmarshaller().unmarshal(resultFile);
+
+    resultFile.delete();
+    
+    return sinfo;
   }
 }

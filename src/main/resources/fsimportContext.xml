@@ -19,6 +19,7 @@
 			<property name="fsServiceStudInfo">
 				<ref bean="fsWsStudInfo"/>
 			</property>
+			<property name="schemaUrl" value="classpath:fspreprocess.xsl"/>
 		</bean>
 
 		<jaxws:client id="fsWsStudInfo" serviceClass="no.usit.fsws.wsdl.studinfo.StudInfoService"

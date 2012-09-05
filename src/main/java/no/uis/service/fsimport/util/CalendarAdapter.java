@@ -16,6 +16,7 @@ public class CalendarAdapter extends XmlAdapter<String, Calendar> {
     this.format = df;
   }
   
+  @SuppressWarnings("deprecation")
   @Override
   public Calendar unmarshal(String v) throws Exception {
     Date date = format.parse(v);

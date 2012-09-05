@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat;
 
 import no.uis.service.studinfo.data.FsEksamensdato;
 
-import org.junit.Test;
-
 public class UisEksamensdatoTest {
 
   private DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy"); 
