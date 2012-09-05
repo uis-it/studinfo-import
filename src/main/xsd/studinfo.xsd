@@ -32,7 +32,7 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="FsType" abstract="true">
-    <xs:attribute name="sprak" use="required" type="xs:string"/>
+    <xs:attribute name="sprak" use="optional" type="xs:string"/>
   </xs:complexType>
   <xs:complexType name="Studieprogram">
     <xs:complexContent>
