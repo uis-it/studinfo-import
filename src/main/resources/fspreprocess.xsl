@@ -123,6 +123,12 @@
         <xsl:call-template name="freetext"/>
     </xsl:template>
     
+    <xsl:template match="fs:sted">
+        <xsl:element name="{@type}" namespace="http://fsws.usit.no/schemas/studinfo">
+            <xsl:apply-templates select="child::*"/>
+        </xsl:element>        
+    </xsl:template>
+    
     <xsl:template match="fs:list">
         <xsl:variable name="listType">
             <xsl:choose>
@@ -155,7 +161,7 @@
     
     <xsl:template match="fs:fagperson-liste">
         <xsl:element name="fagperson-liste" namespace="http://fsws.usit.no/schemas/studinfo">
-            <xsl:for-each-group select="*" group-starting-with="fs:personid">
+            <xsl:for-each-group select="child::*" group-starting-with="fs:personid">
                 <xsl:element name="fagperson" namespace="http://fsws.usit.no/schemas/studinfo">
                     <xsl:apply-templates select="current-group()"/>
                 </xsl:element>

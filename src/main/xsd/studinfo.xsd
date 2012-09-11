@@ -42,7 +42,8 @@
 		      <xs:element name="studieniva" type="xs:string"/>
 		      <xs:element name="studienivakode" minOccurs="0" type="xs:integer"/>
 		      <xs:element name="studienivanavn" minOccurs="0" type="xs:string"/>
-		      <xs:element name="sted" type="studinfo:Sted"/>
+		      <xs:element name="fagansvarlig" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sted"/>
+		      <xs:element name="adminvarlig" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sted"/>
 		      <xs:element name="gradnavn" minOccurs="0" type="xs:string"/>
 		      <xs:element name="nuskode" type="xs:string"/>
 		      <xs:element name="url" minOccurs="0" type="xs:anyURI"/>
@@ -144,7 +145,8 @@
           <xs:element name="formelle-forkunnskaper" minOccurs="0" type="studinfo:Formelle-forkunnskaper"/>
           <xs:element name="inngar-i-studieprogram" minOccurs="0" type="studinfo:Inngar-i-studieprogram"/>
           <xs:element name="inngar-i-fag" minOccurs="0" type="studinfo:Inngar-i-fag"/>
-          <xs:element name="sted" minOccurs="1" maxOccurs="unbounded" type="studinfo:Sted"/>
+          <xs:element name="fagansvarlig" minOccurs="1" maxOccurs="unbounded" type="studinfo:Sted"/>
+          <xs:element name="adminansvarlig" minOccurs="1" maxOccurs="unbounded" type="studinfo:Sted"/>
           <xs:element name="sprak-liste" minOccurs="0" type="studinfo:SprakListe"/>
           <xs:element name="fagperson-liste" minOccurs="0" type="studinfo:Fagperson-liste"/>
           <xs:element name="dato-eksamen" minOccurs="0" type="xs:string"/>
@@ -206,7 +208,6 @@
       <xs:element name="avdnavn" type="xs:string"/>
       <xs:element name="url" minOccurs="0" type="xs:anyURI"/>
     </xs:sequence>
-    <xs:attribute name="type" use="required" type="xs:string"/>
   </xs:complexType>
   <xs:complexType name="Kursid">
     <xs:sequence>
