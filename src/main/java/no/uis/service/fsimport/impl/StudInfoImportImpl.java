@@ -71,8 +71,6 @@ public class StudInfoImportImpl implements StudInfoImport {
 
     Source input = new StreamSource(new StringReader(studieinfoXml));
     
-    JAXBContext jc = JAXBContext.newInstance(FsStudieinfo.class);
-    
     File resultFile = File.createTempFile("jaxb", ".xml");
     Result result = new StreamResult(resultFile);
     
@@ -82,6 +80,7 @@ public class StudInfoImportImpl implements StudInfoImport {
     
     stylesheet.transform(input, result);
 
+    JAXBContext jc = JAXBContext.newInstance(FsStudieinfo.class);
     FsStudieinfo sinfo = (FsStudieinfo)jc.createUnmarshaller().unmarshal(resultFile);
 
     resultFile.delete();

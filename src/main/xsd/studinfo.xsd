@@ -76,7 +76,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="BasisEmne" abstract="true">
+  <xs:complexType name="BasisEmne">
     <xs:complexContent>
       <xs:extension base="studinfo:FsType">
 		    <xs:sequence>

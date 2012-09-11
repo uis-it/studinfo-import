@@ -93,7 +93,15 @@
         <xsl:call-template name="freetext"/>
     </xsl:template>
     
+    <xsl:template match="fs:abs_forkunnskaper_fritekst">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+    
     <xsl:template match="fs:anb_forkunnskaper">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+    
+    <xsl:template match="fs:anb_forkunnskaper_fritekst">
         <xsl:call-template name="freetext"/>
     </xsl:template>
     

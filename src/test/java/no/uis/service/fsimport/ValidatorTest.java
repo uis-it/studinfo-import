@@ -17,10 +17,11 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.runners.Parameterized2;
+import org.junit.runners.Parameterized2.Parameters;
+import org.junit.runners.Parameterized2.TestName;
 
-@RunWith (Parameterized.class)
+@RunWith (Parameterized2.class)
 public class ValidatorTest {
 
   private int year;
@@ -68,6 +69,21 @@ public class ValidatorTest {
     return params;
   }
 
+  @TestName
+  public static String getTestName(String method, Object[] params) {
+    
+    StringBuilder sb = new StringBuilder();
+    sb.append(method);
+    sb.append('(');
+    for (int i = 0; i < params.length; i++) {
+      if (i > 0) {
+        sb.append(", ");
+      }
+      sb.append(params[i]);
+    }
+    return sb.toString();
+  }
+  
   /**
    * The test is disabled by default. It can be enabled by setting the system properties {@code studinfo.year} and {@code studinfo.semester}. The year
    * is set with the system property {@code studinfo-validate.year}. The semester is set with the system property {@code studinfo-validate.semester}.

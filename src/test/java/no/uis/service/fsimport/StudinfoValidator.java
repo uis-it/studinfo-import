@@ -1,6 +1,7 @@
 package no.uis.service.fsimport;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -9,7 +10,11 @@ import java.util.List;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.Result;
 import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -154,10 +159,20 @@ public class StudinfoValidator {
     } else {
       outFile.getParentFile().mkdirs();
     }
-    final FileWriter outWriter = new FileWriter(outFile);
-    IOUtils.copy(new StringReader(studieinfoXml) , outWriter, 1000);
-    outWriter.flush();
-    outWriter.close();
+    File outBackup = new File("target/out", infoType.toString() + year + semester + language + "_orig.xml");
+    FileWriter backupWriter = new FileWriter(outBackup);
+    IOUtils.copy(new StringReader(studieinfoXml), backupWriter, 10000);
+    backupWriter.flush();
+    backupWriter.close();
+    
+    TransformerFactory trFactory = TransformerFactory.newInstance();
+    Source schemaSource = new StreamSource(getClass().getResourceAsStream("/fspreprocess.xsl"));
+    Transformer stylesheet = trFactory.newTransformer(schemaSource);
+
+    Source input = new StreamSource(new StringReader(studieinfoXml));
+    
+    Result result = new StreamResult(outFile);
+    stylesheet.transform(input, result);
     
     SAXParserFactory factory = SAXParserFactory.newInstance();
     factory.setValidating(false);
@@ -175,7 +190,7 @@ public class StudinfoValidator {
     reader.setErrorHandler(errorHandler);
     reader.setContentHandler(errorHandler);
     try {
-      reader.parse(new InputSource(new StringReader(studieinfoXml)));
+      reader.parse(new InputSource(new FileReader(outFile)));
     } catch(SAXException ex) {
       // do nothing. The error is handled in the error handler
     }
