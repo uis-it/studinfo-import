@@ -175,11 +175,12 @@
 		    <xs:sequence>
 		      <xs:element name="kursid" type="studinfo:Kursid"/>
 		      <xs:element name="kursnavn" type="xs:string"/>
-		      <xs:element name="sted" maxOccurs="unbounded" type="studinfo:Sted"/>
+		      <xs:element name="fagansvarlig" type="studinfo:Sted" minOccurs="0" maxOccurs="unbounded"/>
+		      <xs:element name="adminansvarlig" type="studinfo:Sted" minOccurs="0" maxOccurs="unbounded"/>
 		      <xs:element name="dato-fra" minOccurs="0" type="xs:date"/>
 		      <xs:element name="dato-til" minOccurs="0" type="xs:date"/>
-		      <xs:element name="dato-opptak-fra" type="xs:date"/>
-		      <xs:element name="dato-opptak-til" type="xs:date"/>
+		      <xs:element name="dato-opptak-fra" minOccurs="0" type="xs:date"/>
+		      <xs:element name="dato-opptak-til" minOccurs="0" type="xs:date"/>
 		      <xs:element name="dato-frist-soknad" minOccurs="0" type="xs:date"/>
 		      <xs:element name="url" minOccurs="0" type="xs:anyURI"/>
 		      <xs:element name="varighettimer" minOccurs="0" type="xs:integer"/>
