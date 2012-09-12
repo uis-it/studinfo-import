@@ -43,7 +43,7 @@
 		      <xs:element name="studienivakode" minOccurs="0" type="xs:integer"/>
 		      <xs:element name="studienivanavn" minOccurs="0" type="xs:string"/>
 		      <xs:element name="fagansvarlig" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sted"/>
-		      <xs:element name="adminvarlig" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sted"/>
+		      <xs:element name="adminansvarlig" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sted"/>
 		      <xs:element name="gradnavn" minOccurs="0" type="xs:string"/>
 		      <xs:element name="nuskode" type="xs:string"/>
 		      <xs:element name="url" minOccurs="0" type="xs:anyURI"/>
