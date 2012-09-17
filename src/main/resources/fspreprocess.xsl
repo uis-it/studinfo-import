@@ -123,38 +123,42 @@
         <xsl:call-template name="freetext"/>
     </xsl:template>
     
+    <xsl:template match="fs:kortsam">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+    
     <xsl:template match="fs:sted">
         <xsl:element name="{@type}" namespace="http://fsws.usit.no/schemas/studinfo">
             <xsl:apply-templates select="child::*"/>
         </xsl:element>        
     </xsl:template>
     
+    <xsl:template match="fs:list[@listType = 'numbered']">
+        <xsl:element name="ol" namespace="http://fsws.usit.no/schemas/studinfo">
+            <xsl:apply-templates select="child::node()"/>
+        </xsl:element>    
+    </xsl:template>
+    
     <xsl:template match="fs:list">
-        <xsl:variable name="listType">
-            <xsl:choose>
-                <xsl:when test="@listType = 'numbered'">ol</xsl:when>
-                <xsl:otherwise>ul</xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:element name="{$listType}">
+        <xsl:element name="ul" namespace="http://fsws.usit.no/schemas/studinfo">
             <xsl:apply-templates select="child::node()"/>
         </xsl:element>    
     </xsl:template>
     
     <xsl:template match="fs:listItem">
-        <xsl:element name="li">
+        <xsl:element name="li" namespace="http://fsws.usit.no/schemas/studinfo">
             <xsl:apply-templates select="child::node()"/>
         </xsl:element>
     </xsl:template>
     
     <xsl:template match="fs:bold">
-        <xsl:element name="b">
+        <xsl:element name="b" namespace="http://fsws.usit.no/schemas/studinfo">
             <xsl:apply-templates select="child::node()"/>
         </xsl:element>
     </xsl:template>
     
     <xsl:template match="fs:italic">
-        <xsl:element name="i">
+        <xsl:element name="i" namespace="http://fsws.usit.no/schemas/studinfo">
             <xsl:apply-templates select="child::node()"/>
         </xsl:element>
     </xsl:template>

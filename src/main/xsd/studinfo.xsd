@@ -158,6 +158,7 @@
           <xs:element name="arbeidsformer" minOccurs="0" type="xs:string"/>
           <xs:element name="innhold" minOccurs="0" type="xs:string"/>
           <xs:element name="intro" minOccurs="0" type="xs:string"/>
+          <xs:element name="kortsam" minOccurs="0" type="xs:string"/>
           <xs:element name="litteratur" minOccurs="0" type="xs:string"/>
           <xs:element name="laringsutbytte" minOccurs="0" type="xs:string"/>
           <xs:element name="oblig_undakt_tilleggsinfo" minOccurs="0" type="xs:string"/>
@@ -381,7 +382,7 @@
   <xs:complexType name="Fagperson">
     <xs:sequence>
       <xs:element name="personid" type="xs:integer"/>
-      <xs:element name="fnr" type="xs:integer"/>
+      <xs:element name="fnr" type="xs:string"/>
       <xs:element name="personrolle" type="xs:string"/>
       <xs:element name="personnavn" type="studinfo:Personnavn"/>
       <xs:element name="dato-fra" type="xs:date"/>
