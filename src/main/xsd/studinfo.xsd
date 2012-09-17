@@ -295,7 +295,7 @@
       <xs:element name="terminnr" type="xs:integer"/>
       <xs:element name="terminnavn" type="xs:string"/>
       <xs:element name="studiepoeng" minOccurs="0" type="xs:integer"/>
-      <xs:element name="generer_und" type="xs:string"/>
+      <xs:element name="generer_und" type="studinfo:YESNOType"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Planelement">
