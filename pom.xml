@@ -17,7 +17,7 @@
 	<inceptionYear>2010</inceptionYear>
 
 	<scm>
-		<connection>scm:git:ssh://source01.uis.no/soa-component-fsimport.git</connection>
+		<connection>scm:git:git://source01.uis.no/soa-component-fsimport.git</connection>
 		<developerConnection>scm:git:ssh://git@152.94.3.85/soa-component-fsimport.git</developerConnection>
 		<url>http://source01.uis.no/git/?p=soa-component-fsimport.git</url>
 	</scm>
