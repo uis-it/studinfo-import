@@ -7,11 +7,17 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum FsSemester {
 
-  HOST("HØST"),
-  VAR("VÅR");
+  // The order of these fields is significant, the fields must be sorted in chronological order 
+  VAR("V"+'\u00c5'+"R"),
+  HOST("H"+'\u00d8' +"ST");
   
-  private String val;
+  private final String val;
   
+  /**
+   * There are problems with charatersets when converting from string and the platform encoding doesn't match the editor encoding.
+   * @param str
+   * @param matchString
+   */
   FsSemester(String str) {
     this.val = str;
   }

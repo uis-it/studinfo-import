@@ -22,6 +22,10 @@ public class FsSemesterkode {
     return semester;
   }
 
+  public boolean isValid() {
+    return (year != 0 && semester != null);
+  }
+  
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

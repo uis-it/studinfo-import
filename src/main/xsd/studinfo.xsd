@@ -280,7 +280,7 @@
     <xs:sequence>
       <xs:element name="termin" maxOccurs="unbounded" type="studinfo:Termin"/>
     </xs:sequence>
-    <xs:attribute name="start" use="required" type="xs:string"/>
+    <xs:attribute name="start" use="required" type="studinfo:FsSemester"/>
   </xs:complexType>
   <xs:complexType name="Sprak">
     <xs:sequence>

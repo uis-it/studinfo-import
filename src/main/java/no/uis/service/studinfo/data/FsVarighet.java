@@ -2,25 +2,17 @@ package no.uis.service.studinfo.data;
 
 public class FsVarighet {
 
-  public static enum UNIT {
-    SEMESTER("Semestre"),
-    YEAR("År");
-    
-    private String _name;
+  private static final String AAR = "" + '\u00c5'+"R";
 
-    private UNIT(String name) {
-      this._name = name;
-    }
-    
-    public String toString() {
-      return this._name;
-    }
+  public static enum Unit {
+    SEMESTER,
+    YEAR;
   }
   
   private int number;
-  private UNIT unit;
+  private Unit unit;
   
-  public FsVarighet(int number, UNIT unit) {
+  public FsVarighet(int number, Unit unit) {
     if (unit == null) {
       throw new IllegalArgumentException();
     }
@@ -39,11 +31,11 @@ public class FsVarighet {
       int number = Integer.parseInt(varig[0]);
       String sUnit = varig[1].toUpperCase();
       
-      UNIT unit = null;
+      Unit unit = null;
       if (sUnit.startsWith("SEMEST")) {
-        unit = UNIT.SEMESTER;
-      } else if (sUnit.equals("YEAR") || sUnit.equals("ÅR")) {
-        unit = UNIT.YEAR;
+        unit = Unit.SEMESTER;
+      } else if (sUnit.startsWith("YEAR") || sUnit.equals(AAR)) {
+        unit = Unit.YEAR;
       }
       
       return new FsVarighet(number, unit);
@@ -64,9 +56,14 @@ public class FsVarighet {
     return 0;
   }
 
-  /**
-   * This doesn't produce the English version.
-   */
+  public int getNumber() {
+    return number;
+  }
+
+  public Unit getUnit() {
+    return unit;
+  }
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
