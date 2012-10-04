@@ -2,6 +2,7 @@ package no.uis.service.fsimport.util;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 import no.uis.service.studinfo.data.Emnekombinasjon;
 import no.uis.service.studinfo.data.FsSemester;
@@ -16,12 +17,19 @@ public final class Studinfos {
   public static final String SKIP_SEMESTERS = "skipSemesters";
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Studinfos.class);
   
+  private static ContextPath contextPath = new ContextPath();  
+  
   private Studinfos() {
   }
 
-  public static void cleanUtdanningsplan(Utdanningsplan uplan, int currentYear, FsSemester currentSemester, int maxSemesters) {
-    if (uplan != null && uplan.isSetKravSammensetting()) {
-      cleanKravSammensettings(uplan.getKravSammensetting(), currentYear, currentSemester, maxSemesters);
+  public static void cleanUtdanningsplan(String programCode, Utdanningsplan uplan, int currentYear, FsSemester currentSemester, int maxSemesters) {
+    contextPath.init(programCode);
+    try {
+      if (uplan != null && uplan.isSetKravSammensetting()) {
+        cleanKravSammensettings(uplan.getKravSammensetting(), currentYear, currentSemester, maxSemesters);
+      }
+    } finally {
+      contextPath.remove();
     }
   }
   
@@ -31,7 +39,7 @@ public final class Studinfos {
   public static int getSkipSemesters(int catalogYear, FsSemester catalogSemester, FsSemesterkode semesterkode) {
     
     if (!semesterkode.isValid()) {
-      log.warn("cannot determine validity of 'KravSammensetting'");
+      log.warn(contextPath.getPath() + ": cannot determine validity of 'KravSammensetting'");
       return 0;
     }
 
@@ -55,7 +63,7 @@ public final class Studinfos {
         char semesterChar = terminGjelderFra.charAt(4);
         validFromSemester = semesterChar == 'H' ? FsSemester.HOST : (semesterChar == 'V' ? FsSemester.VAR : null);
       } catch(Exception e) {
-        log.warn(terminGjelderFra, e);
+        log.warn(contextPath.getPath() + ": " + terminGjelderFra, e);
       }
     }
     return new FsSemesterkode(validFromYear, validFromSemester);
@@ -68,14 +76,12 @@ public final class Studinfos {
     Iterator<KravSammensetting> iter = kravSammensetting.iterator();
     while (iter.hasNext()) {
       KravSammensetting kravSammen = iter.next();
-      
       FsSemesterkode semesterkode = getSemesterkode(kravSammen);
       int skipSemesters = getSkipSemesters(currentYear, currentSemester, semesterkode);
       
       kravSammen.addProperty(SEMESTERKODE, semesterkode);
       kravSammen.addProperty(SKIP_SEMESTERS, skipSemesters);
       
-      //maxSemesters -= skipSemesters;
       boolean doRemove = maxSemesters <= skipSemesters;
       if (!doRemove) {
         doRemove = cleanKravSammensetting(kravSammen, currentYear, currentSemester, maxSemesters, skipSemesters);
@@ -97,13 +103,16 @@ public final class Studinfos {
   private static int cleanEmneKombinasjon(Emnekombinasjon ek, int offset, final int skipSemesters) {
 
     int nboEmne = 0;
+    contextPath.push(ek.getEmnekombinasjonskode());
     if (ek.isSetEmne()) {
       Iterator<ProgramEmne> iter = ek.getEmne().iterator();
       while (iter.hasNext()) {
         ProgramEmne emne = iter.next();
+        contextPath.push(emne.getEmneid().getEmnekode());
         if (!isValidEmne(emne, offset, skipSemesters)) {
           iter.remove();
         }
+        contextPath.pop();
       }
       nboEmne += ek.getEmne().size();
     }
@@ -117,6 +126,7 @@ public final class Studinfos {
       }
     }
     
+    contextPath.pop();
     return nboEmne;
   }
   

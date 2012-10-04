@@ -2,9 +2,9 @@ package no.uis.service.fsimport;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 import no.uis.service.fsimport.StudInfoImport.StudinfoType;
+import no.uis.service.fsimport.util.ContextPath;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
@@ -16,7 +16,7 @@ public class ValidationErrorHandler extends DefaultHandler implements ErrorHandl
   
   private List<String> messages = new LinkedList<String>();
   
-  private Stack<String> contextPath = new Stack<String>();
+  private ContextPath contextPath = new ContextPath();
 
   private String currentContent;
   
@@ -117,14 +117,14 @@ public class ValidationErrorHandler extends DefaultHandler implements ErrorHandl
     switch (infoType) {
       case STUDIEPROGRAM:
         if (contextPath.peek().equals("studieprogramkode")) {
-          if (pathString(contextPath).equals("/fs-studieinfo/studieprogram/studieprogramkode")) {
+          if (contextPath.getPath().equals("/fs-studieinfo/studieprogram/studieprogramkode/")) {
             contextId = content;
           }
         } 
         break;
       case EMNE:
         if (contextPath.peek().equals("emnekode")) {
-          if (pathString(contextPath).equals("/fs-studieinfo/emne/emneid/emnekode")) {
+          if (contextPath.getPath().equals("/fs-studieinfo/emne/emneid/emnekode/")) {
             contextId = content;
           }
         }
@@ -132,14 +132,5 @@ public class ValidationErrorHandler extends DefaultHandler implements ErrorHandl
       case KURS:
         break;
     }
-  }
-
-  private static String pathString(Stack<String> stack) {
-    StringBuilder sb = new StringBuilder();
-    for (String e : stack) {
-      sb.append('/');
-      sb.append(e);
-    }
-    return sb.toString();
   }
 }
