@@ -7,7 +7,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum FsSemester {
 
-  // The order of these fields is significant, the fields must be sorted in chronological order 
+  // The order of these fields is significant, the fields must be sorted in chronological order
+  // This cryptic string is necessary to cope with inconsistent file encodings
   VAR("V"+'\u00c5'+"R"),
   HOST("H"+'\u00d8' +"ST");
   
