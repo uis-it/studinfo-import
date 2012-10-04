@@ -24,11 +24,11 @@
 	
 
 	<properties>
-		<cxf.version>2.4.0</cxf.version>
+		<cxf.version>2.6.2</cxf.version>
 		<uismodel.version>1.1.1</uismodel.version>
 		<fsws.version>1.2.0</fsws.version>
 		<component.person.version>1.0.7</component.person.version>
-		<spring.version>3.0.6.RELEASE</spring.version>
+		<spring.version>3.0.7.RELEASE</spring.version>
 		<slf4j.version>1.6.1</slf4j.version>
 		<jetty.version>6.1.26</jetty.version>
 		<log4j.version>1.2.16</log4j.version>
@@ -132,6 +132,11 @@
 			 <artifactId>xml-apis</artifactId>
 			 <version>1.3.03</version>
 			</dependency>
+			<dependency>
+					<groupId>org.codehaus.woodstox</groupId>
+					<artifactId>woodstox-core-asl</artifactId>
+					<version>4.1.1</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	
@@ -175,6 +180,14 @@
 		  <groupId>net.sf.saxon</groupId>
 		  <artifactId>Saxon-HE</artifactId>
 		  <version>9.4</version>
+		</dependency>
+		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
 		</dependency>
 	</dependencies>
 	
