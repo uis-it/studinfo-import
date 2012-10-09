@@ -51,6 +51,11 @@
         <xsl:call-template name="freetext"/>
     </xsl:template>
     
+    <xsl:template match="fs:laringsutbytte">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+    
+    <!-- This can be removed after the tag is renamed and all old studiebok tables are converted to PDF -->
     <xsl:template match="fs:læringsutbytte">
         <xsl:call-template name="freetext">
             <xsl:with-param name="name" select="'laringsutbytte'"/>
@@ -113,6 +118,11 @@
         <xsl:call-template name="freetext"/>
     </xsl:template>
     
+    <xsl:template match="fs:apent_for_tillegg">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+
+    <!-- This can be removed after the tag is renamed and all studiebok tabes are converted to PDF -->
     <xsl:template match="fs:åpent_for_tillegg">
         <xsl:call-template name="freetext">
             <xsl:with-param name="name" select="'apent_for_tillegg'"/>
@@ -124,6 +134,26 @@
     </xsl:template>
     
     <xsl:template match="fs:kortsam">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+    
+    <xsl:template match="fs:p-formkrav">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+    
+    <xsl:template match="fs:p-innhold">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+    
+    <xsl:template match="fs:p-kortintr">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+    
+    <xsl:template match="fs:p-profkval">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+    
+    <xsl:template match="fs:p-studkval">
         <xsl:call-template name="freetext"/>
     </xsl:template>
     
