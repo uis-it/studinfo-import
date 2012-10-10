@@ -2,7 +2,6 @@ package no.uis.service.fsimport.util;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
 import no.uis.service.studinfo.data.Emnekombinasjon;
 import no.uis.service.studinfo.data.FsSemester;
