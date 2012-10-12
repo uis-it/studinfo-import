@@ -2,11 +2,14 @@ package no.uis.service.studinfo.data;
 
 public class FsVarighet {
 
-  private static final String AAR = "" + '\u00c5'+"R";
+  private static final String AAR = new String(new char[] {'\u00e5', 'r'});
 
   public static enum Unit {
+    YEAR,
     SEMESTER,
-    YEAR;
+    DAY,
+    HOUR,
+    MINUTE;
   }
   
   private int number;
@@ -29,13 +32,42 @@ public class FsVarighet {
     if (varig.length == 2) {
   
       int number = Integer.parseInt(varig[0]);
-      String sUnit = varig[1].toUpperCase();
+      String sUnit = varig[1].toLowerCase();
+
+      // fix for file incoding mixup
+      if (AAR.equals(sUnit)) {
+        sUnit = "år";
+      }
       
-      Unit unit = null;
-      if (sUnit.startsWith("SEMEST")) {
-        unit = Unit.SEMESTER;
-      } else if (sUnit.startsWith("YEAR") || sUnit.equals(AAR)) {
-        unit = Unit.YEAR;
+      Unit unit;
+      switch(sUnit) {
+        case "år":
+        case "years":
+          unit = Unit.YEAR;
+          break;
+        
+        case "semestre":
+        case "semesters":
+          unit = Unit.SEMESTER;
+          break;
+          
+        case "dager":
+        case "days":
+          unit = Unit.DAY;
+          break;
+          
+        case "timer":
+        case "hours":
+          unit = Unit.HOUR;
+          break;
+          
+        case "minutter":
+        case "minutes":
+          unit = Unit.MINUTE;
+          break;
+        default:
+          throw new IllegalArgumentException(sUnit);
+            
       }
       
       return new FsVarighet(number, unit);

@@ -431,7 +431,7 @@
     <xs:sequence>
       <xs:element name="eksamensdelnr" type="xs:integer"/>
       <xs:element name="eksamensdelnavn" type="xs:string"/>
-      <xs:element name="varighet" minOccurs="0" type="xs:string"/>
+      <xs:element name="varighet" minOccurs="0" type="studinfo:Varighet"/>
       <xs:element name="eksamensform" minOccurs="0" type="xs:string"/>
       <xs:element name="karaktervekt" minOccurs="0" type="xs:string"/>
       <xs:element name="karregel" minOccurs="0" type="xs:string"/>
@@ -521,7 +521,7 @@
       <xs:element name="forstegang" minOccurs="0" type="xs:string"/>
       <xs:element name="sistegang" minOccurs="0" type="xs:string"/>
       <xs:element name="brok" minOccurs="0" type="xs:string"/>
-      <xs:element name="varighet" minOccurs="0" type="xs:string"/>
+      <xs:element name="varighet" minOccurs="0" type="studinfo:Varighet"/>
       <xs:element name="karregelkode" minOccurs="0" type="xs:integer"/>
       <xs:element name="karregel" minOccurs="0" type="xs:string"/>
       <xs:element name="vurdkombforutsetter" minOccurs="0" type="studinfo:Vurdkombforutsetter"/>
@@ -604,7 +604,7 @@
   </xs:simpleType>
   <xs:simpleType name="Varighet">
     <xs:restriction base="xs:string">
-      <xs:pattern value="\d+ (År|Years|Semestre|Semesters)"/>
+      <xs:pattern value="\d+ (År|Years|Semestre|Semesters|Dager|Days|Timer|Hours|Minutter|Minutes)"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="SprakListe">
