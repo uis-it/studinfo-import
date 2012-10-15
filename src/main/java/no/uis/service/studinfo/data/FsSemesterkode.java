@@ -1,5 +1,8 @@
 package no.uis.service.studinfo.data;
 
+/**
+ * Represents year and semester 
+ */
 public class FsSemesterkode {
 
   private final int year;
@@ -22,10 +25,6 @@ public class FsSemesterkode {
     return semester;
   }
 
-  public boolean isValid() {
-    return (year != 0 && semester != null);
-  }
-  
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
