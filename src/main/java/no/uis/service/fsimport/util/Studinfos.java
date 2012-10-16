@@ -9,6 +9,7 @@ import no.uis.service.studinfo.data.FsYearSemester;
 import no.uis.service.studinfo.data.KravSammensetting;
 import no.uis.service.studinfo.data.ProgramEmne;
 import no.uis.service.studinfo.data.Utdanningsplan;
+import no.uis.service.studinfo.data.Vurdkombinasjon;
 import no.uis.service.studinfo.data.Vurdordning;
 
 public final class Studinfos {
@@ -144,29 +145,50 @@ public final class Studinfos {
     return true;
   }
 
-  public static void cleanVurderingsordning(List<Vurdordning> vurdordnings, List<String> excludeCodes, int year,
-      FsSemester semester)
+  public static void cleanVurderingsordning(List<Vurdordning> vurdordnings, List<String> excludeCodes, FsYearSemester currentYearSemester)
   {
     Iterator<Vurdordning> iter = vurdordnings.iterator();
     while (iter.hasNext()) {
       Vurdordning vo = iter.next();
       if (excludeCodes.contains(vo.getVurdordningid())) {
         iter.remove();
-      } else {
-        FsYearSemester sistegang = vo.getVurdkombinasjon().getSistegang();
-        int skipSemesters = getDiffSemesters(new FsYearSemester(year, semester), sistegang);
-        if (skipSemesters >= 0) {
-          iter.remove();
+      } else if (vo.isSetVurdkombinasjon()) {
+        Vurdkombinasjon vkomb = vo.getVurdkombinasjon();
+        if (excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester)) {
+          vo.setVurdkombinasjon(null);
+        } else {
+          if (vkomb.isSetVurdkombinasjon()) {
+            cleanVurderingsKombinasjon(vkomb.getVurdkombinasjon(), currentYearSemester, excludeCodes);
+          }
         }
       }
     }
   }
   
+  private static void cleanVurderingsKombinasjon(List<Vurdkombinasjon> vurdkombinasjon, FsYearSemester currentYearSemester, List<String> excludeCodes) {
+    Iterator<Vurdkombinasjon> iter = vurdkombinasjon.iterator();
+    while(iter.hasNext()) {
+      Vurdkombinasjon vkomb = iter.next();
+      if (excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester)) {
+        iter.remove();
+      } else if (vkomb.isSetVurdkombinasjon()) {
+        cleanVurderingsKombinasjon(vkomb.getVurdkombinasjon(), currentYearSemester, excludeCodes);
+      }
+    }
+  }
+
+  private static boolean isOldVkomb(Vurdkombinasjon vkomb, FsYearSemester currentYearSemester) {
+    FsYearSemester sistegang = vkomb.getSistegang();
+    if (sistegang != null) {
+      int skipSemesters = getDiffSemesters(currentYearSemester, sistegang);
+      return skipSemesters >= 0;
+    }
+    return false;
+  }
+
   public static boolean isSetAndTrue(Boolean b) {
     if (b != null) {
-      if (b.booleanValue()) {
-        return true;
-      }
+      return b.booleanValue();
     }
     return false;
   }

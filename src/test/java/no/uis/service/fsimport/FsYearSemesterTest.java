@@ -32,6 +32,18 @@ public class FsYearSemesterTest {
   }
   
   @Test
+  public void nullInstantiation() {
+    FsYearSemester v = FsYearSemester.valueOf(null);
+    assertThat(v, is(nullValue()));
+  }
+  
+  @Test
+  public void emptyInstantiation() {
+    FsYearSemester v = FsYearSemester.valueOf(" ");
+    assertThat(v, is(nullValue()));
+  }
+  
+  @Test
   public void testDiffSemesters1() throws Exception {
     FsYearSemester ys1 = FsYearSemester.valueOf("2009V");
     FsYearSemester ys2 = FsYearSemester.valueOf("2008H");
