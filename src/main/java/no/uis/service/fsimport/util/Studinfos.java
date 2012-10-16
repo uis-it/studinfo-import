@@ -13,7 +13,7 @@ import no.uis.service.studinfo.data.Vurdordning;
 
 public final class Studinfos {
 
-  public static final String SEMESTERKODE = "semesterkode";
+  public static final String VALID_FROM = "validFrom";
   public static final String SKIP_SEMESTERS = "skipSemesters";
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Studinfos.class);
   
@@ -47,7 +47,7 @@ public final class Studinfos {
     return diff;
   }
 
-  public static FsYearSemester getSemesterkode(KravSammensetting ks) {
+  public static FsYearSemester getValidFrom(KravSammensetting ks) {
     int validFromYear = 0;
     FsSemester validFromSemester = null;
     if (ks.isSetArstallGjelderFra()) {
@@ -72,10 +72,10 @@ public final class Studinfos {
     Iterator<KravSammensetting> iter = kravSammensetting.iterator();
     while (iter.hasNext()) {
       KravSammensetting kravSammen = iter.next();
-      FsYearSemester semesterkode = getSemesterkode(kravSammen);
-      int skipSemesters = getDiffSemesters(currentSemester, semesterkode);
+      FsYearSemester yearSemester = getValidFrom(kravSammen);
+      int skipSemesters = getDiffSemesters(currentSemester, yearSemester);
       
-      kravSammen.addProperty(SEMESTERKODE, semesterkode);
+      kravSammen.addProperty(VALID_FROM, yearSemester);
       kravSammen.addProperty(SKIP_SEMESTERS, skipSemesters);
       
       boolean doRemove = maxSemesters <= skipSemesters;
@@ -160,5 +160,14 @@ public final class Studinfos {
         }
       }
     }
+  }
+  
+  public static boolean isSetAndTrue(Boolean b) {
+    if (b != null) {
+      if (b.booleanValue()) {
+        return true;
+      }
+    }
+    return false;
   }
 }

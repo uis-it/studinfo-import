@@ -556,7 +556,7 @@
       <xs:documentation>Format: YYYY where X either H(øst) or V(år)</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="\d{4}(H|V)?"/>
+      <xs:pattern value="(\d{4}(H|V))?"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="FsDate">

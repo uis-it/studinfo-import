@@ -35,7 +35,7 @@ public class FsYearSemester {
 
   public static FsYearSemester valueOf(String v) {
     if (v == null || v.length() != 5) {
-      throw new IllegalArgumentException(v);
+      return null;
     }
     int year = Integer.parseInt(v.substring(0, 4));
     FsSemester semester = null;
