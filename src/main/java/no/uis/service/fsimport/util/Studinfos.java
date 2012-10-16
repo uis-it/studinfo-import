@@ -5,10 +5,11 @@ import java.util.List;
 
 import no.uis.service.studinfo.data.Emnekombinasjon;
 import no.uis.service.studinfo.data.FsSemester;
-import no.uis.service.studinfo.data.FsSemesterkode;
+import no.uis.service.studinfo.data.FsYearSemester;
 import no.uis.service.studinfo.data.KravSammensetting;
 import no.uis.service.studinfo.data.ProgramEmne;
 import no.uis.service.studinfo.data.Utdanningsplan;
+import no.uis.service.studinfo.data.Vurdordning;
 
 public final class Studinfos {
 
@@ -21,11 +22,11 @@ public final class Studinfos {
   private Studinfos() {
   }
 
-  public static void cleanUtdanningsplan(String programCode, Utdanningsplan uplan, int currentYear, FsSemester currentSemester, int maxSemesters) {
+  public static void cleanUtdanningsplan(String programCode, Utdanningsplan uplan, FsYearSemester currentSemester, int maxSemesters) {
     contextPath.init(programCode);
     try {
       if (uplan != null && uplan.isSetKravSammensetting()) {
-        cleanKravSammensettings(uplan.getKravSammensetting(), currentYear, currentSemester, maxSemesters);
+        cleanKravSammensettings(uplan.getKravSammensetting(), currentSemester, maxSemesters);
       }
     } finally {
       contextPath.remove();
@@ -33,23 +34,20 @@ public final class Studinfos {
   }
   
   /**
-   * We want only current and future subjects (emner), older ones are skipped.
+   * Calculating the difference between {@code ys1} and {@code ys2}.
+   * Like ys1 - ys2.
+   * @return the difference in semesters
    */
-  public static int getSkipSemesters(int catalogYear, FsSemester catalogSemester, FsSemesterkode semesterkode) {
+  public static int getDiffSemesters(FsYearSemester ys1, FsYearSemester ys2) {
     
-    if (!semesterkode.isValid()) {
-      log.warn(contextPath.getPath() + ": cannot determine validity of 'KravSammensetting'");
-      return 0;
-    }
+    int diff = 2 * (ys1.getYear() - ys2.getYear());
 
-    int skipSemesters = 2 * (catalogYear - semesterkode.getYear());
+    diff += (ys1.getSemester().ordinal() - ys2.getSemester().ordinal());
 
-    skipSemesters += (catalogSemester.ordinal() - semesterkode.getSemester().ordinal());
-
-    return skipSemesters;
+    return diff;
   }
 
-  public static FsSemesterkode getSemesterkode(KravSammensetting ks) {
+  public static FsYearSemester getSemesterkode(KravSammensetting ks) {
     int validFromYear = 0;
     FsSemester validFromSemester = null;
     if (ks.isSetArstallGjelderFra()) {
@@ -65,25 +63,24 @@ public final class Studinfos {
         log.warn(contextPath.getPath() + ": " + terminGjelderFra, e);
       }
     }
-    return new FsSemesterkode(validFromYear, validFromSemester);
+    return new FsYearSemester(validFromYear, validFromSemester);
   }
   
 
-  private static void cleanKravSammensettings(List<KravSammensetting> kravSammensetting, final int currentYear,
-      final FsSemester currentSemester, final int maxSemesters)
+  private static void cleanKravSammensettings(List<KravSammensetting> kravSammensetting, FsYearSemester currentSemester, final int maxSemesters)
   {
     Iterator<KravSammensetting> iter = kravSammensetting.iterator();
     while (iter.hasNext()) {
       KravSammensetting kravSammen = iter.next();
-      FsSemesterkode semesterkode = getSemesterkode(kravSammen);
-      int skipSemesters = getSkipSemesters(currentYear, currentSemester, semesterkode);
+      FsYearSemester semesterkode = getSemesterkode(kravSammen);
+      int skipSemesters = getDiffSemesters(currentSemester, semesterkode);
       
       kravSammen.addProperty(SEMESTERKODE, semesterkode);
       kravSammen.addProperty(SKIP_SEMESTERS, skipSemesters);
       
       boolean doRemove = maxSemesters <= skipSemesters;
       if (!doRemove) {
-        doRemove = cleanKravSammensetting(kravSammen, currentYear, currentSemester, maxSemesters, skipSemesters);
+        doRemove = cleanKravSammensetting(kravSammen, maxSemesters, skipSemesters);
       } 
       if (doRemove) {
         iter.remove();
@@ -91,7 +88,7 @@ public final class Studinfos {
     }
   }
 
-  private static boolean cleanKravSammensetting(KravSammensetting kravSammen, int currentYear, FsSemester currentSemester, int maxSemesters, int skipSemesters) {
+  private static boolean cleanKravSammensetting(KravSammensetting kravSammen, int maxSemesters, int skipSemesters) {
 
     return cleanEmneKombinasjon(kravSammen.getEmnekombinasjon(), 0, skipSemesters) == 0;
   }
@@ -145,5 +142,23 @@ public final class Studinfos {
       return false;
     }
     return true;
+  }
+
+  public static void cleanVurderingsordning(List<Vurdordning> vurdordnings, List<String> excludeCodes, int year,
+      FsSemester semester)
+  {
+    Iterator<Vurdordning> iter = vurdordnings.iterator();
+    while (iter.hasNext()) {
+      Vurdordning vo = iter.next();
+      if (excludeCodes.contains(vo.getVurdordningid())) {
+        iter.remove();
+      } else {
+        FsYearSemester sistegang = vo.getVurdkombinasjon().getSistegang();
+        int skipSemesters = getDiffSemesters(new FsYearSemester(year, semester), sistegang);
+        if (skipSemesters >= 0) {
+          iter.remove();
+        }
+      }
+    }
   }
 }

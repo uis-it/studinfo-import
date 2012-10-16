@@ -16,7 +16,10 @@
         <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsDate" adapter="no.uis.service.fsimport.util.CalendarNorwegianAdapter"/>
         <xjc:javaType name="no.uis.service.studinfo.data.FsTime" xmlType="studinfo:FsTime" adapter="no.uis.service.fsimport.util.FsTimeAdapter"/>
         <xjc:javaType name="no.uis.service.studinfo.data.FsEksamensdato" xmlType="studinfo:FsEksamensdato" adapter="no.uis.service.fsimport.util.FsEksamensdatoAdapter"/>
-        <xjc:javaType name="no.uis.service.studinfo.data.FsVarighet" xmlType="studinfo:Varighet" adapter="no.uis.service.fsimport.util.FsVarighetAdapter"/>
+        <xjc:javaType name="no.uis.service.studinfo.data.FsVarighet" xmlType="studinfo:VarighetProgram" adapter="no.uis.service.fsimport.util.FsVarighetAdapter"/>
+        <xjc:javaType name="no.uis.service.studinfo.data.FsVarighet" xmlType="studinfo:VarighetEmne" adapter="no.uis.service.fsimport.util.FsVarighetAdapter"/>
+        <xjc:javaType name="java.lang.Boolean" xmlType="studinfo:YESNOType" adapter="no.uis.service.fsimport.util.YesNoTypeAdapter"/>
+        <xjc:javaType name="no.uis.service.studinfo.data.FsYearSemester" xmlType="studinfo:FsYearSemester" adapter="no.uis.service.fsimport.util.FsYearSemesterAdapter"/> 
         <xjc:superClass name="no.uis.service.studinfo.data.Extensible"/>
 		</jaxb:globalBindings>
 

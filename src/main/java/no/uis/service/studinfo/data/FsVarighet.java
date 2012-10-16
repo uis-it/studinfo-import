@@ -7,6 +7,8 @@ public class FsVarighet {
   public static enum Unit {
     YEAR,
     SEMESTER,
+    MONTH,
+    WEEK,
     DAY,
     HOUR,
     MINUTE;
@@ -46,17 +48,36 @@ public class FsVarighet {
           unit = Unit.YEAR;
           break;
         
+        case "semester":
         case "semestre":
         case "semesters":
           unit = Unit.SEMESTER;
           break;
+        
+        case "måned":
+        case "måneder":
+        case "month":
+        case "months":
+          unit = Unit.MONTH;
+          break;
           
+        case "uke":
+        case "uker":
+        case "week":
+        case "weeks":
+          unit = Unit.WEEK;
+          break;
+          
+        case "dag":
         case "dager":
+        case "day":
         case "days":
           unit = Unit.DAY;
           break;
           
+        case "time":
         case "timer":
+        case "hour":
         case "hours":
           unit = Unit.HOUR;
           break;

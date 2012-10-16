@@ -49,7 +49,7 @@
 		      <xs:element name="url" minOccurs="0" type="xs:anyURI"/>
 		      <xs:element name="finansieringsprosent" type="xs:integer"/>
 		      <xs:element name="heltidsprosent" type="xs:integer"/>
-		      <xs:element name="varighet" minOccurs="0" type="studinfo:Varighet"/>
+		      <xs:element name="varighet" minOccurs="0" type="studinfo:VarighetProgram"/>
 		      <xs:element name="grunnstudium" type="studinfo:YESNOType"/>
 		      <xs:element name="kulltrinnplan" minOccurs="0" type="studinfo:YESNOType"/>
 		      <xs:element name="arbeidsformer" minOccurs="0" type="xs:string"/>
@@ -267,8 +267,8 @@
       <xs:element name="studieretning" type="xs:string" minOccurs="0"/>
       <xs:element name="studiepoeng-krav" type="xs:integer" minOccurs="0"/>
       <xs:element name="terminnr-relativ-start" type="xs:integer"/>
-      <xs:element name="termin-start-fra" type="studinfo:FsSemesterkode" minOccurs="0"/>
-      <xs:element name="termin-start-til" type="studinfo:FsSemesterkode" minOccurs="0"/>
+      <xs:element name="termin-start-fra" type="studinfo:FsYearSemester" minOccurs="0"/>
+      <xs:element name="termin-start-til" type="studinfo:FsYearSemester" minOccurs="0"/>
       <xs:element name="fargekode" type="xs:string" minOccurs="0"/>
       <xs:element name="veivalg" type="studinfo:YESNOType"/>
       <xs:element name="opptak" type="studinfo:YESNOType" minOccurs="0"/>
@@ -340,8 +340,8 @@
   </xs:complexType>
   <xs:complexType name="Semesterperiode">
     <xs:sequence>
-      <xs:element name="forstegang" type="xs:string"/>
-      <xs:element name="sistegang" minOccurs="0" type="xs:string"/>
+      <xs:element name="forstegang" type="studinfo:FsYearSemester"/>
+      <xs:element name="sistegang" minOccurs="0" type="studinfo:FsYearSemester"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType mixed="true" name="Kravalternativ">
@@ -375,8 +375,8 @@
   <xs:complexType name="Undsemester">
     <xs:sequence>
       <xs:element name="semester" maxOccurs="unbounded" type="studinfo:Semester"/>
-      <xs:element name="forstegang" minOccurs="0" type="xs:string"/>
-      <xs:element name="sistegang" minOccurs="0" type="xs:string"/>
+      <xs:element name="forstegang" minOccurs="0" type="studinfo:FsYearSemester"/>
+      <xs:element name="sistegang" minOccurs="0" type="studinfo:FsYearSemester"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Fagperson-liste">
@@ -431,7 +431,7 @@
     <xs:sequence>
       <xs:element name="eksamensdelnr" type="xs:integer"/>
       <xs:element name="eksamensdelnavn" type="xs:string"/>
-      <xs:element name="varighet" minOccurs="0" type="studinfo:Varighet"/>
+      <xs:element name="varighet" minOccurs="0" type="studinfo:VarighetEmne"/>
       <xs:element name="eksamensform" minOccurs="0" type="xs:string"/>
       <xs:element name="karaktervekt" minOccurs="0" type="xs:string"/>
       <xs:element name="karregel" minOccurs="0" type="xs:string"/>
@@ -498,8 +498,8 @@
       <xs:element name="vurdstatuskode" type="xs:string"/>
       <xs:element name="liketallsaar" type="studinfo:YESNOType"/>
       <xs:element name="oddetallsaar" type="studinfo:YESNOType"/>
-      <xs:element name="forstegang" minOccurs="0" type="xs:string"/>
-      <xs:element name="sistegang" minOccurs="0" type="xs:string"/>
+      <xs:element name="forstegang" minOccurs="0" type="studinfo:FsYearSemester"/>
+      <xs:element name="sistegang" minOccurs="0" type="studinfo:FsYearSemester"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Vurdkomb">
@@ -518,10 +518,10 @@
       <xs:element name="vurdkombnavn" type="xs:string"/>
       <xs:element name="vurdform" minOccurs="0" type="xs:string"/>
       <xs:element name="vurdkombtype" minOccurs="0" type="xs:string"/>
-      <xs:element name="forstegang" minOccurs="0" type="xs:string"/>
-      <xs:element name="sistegang" minOccurs="0" type="xs:string"/>
+      <xs:element name="forstegang" minOccurs="0" type="studinfo:FsYearSemester"/>
+      <xs:element name="sistegang" minOccurs="0" type="studinfo:FsYearSemester"/>
       <xs:element name="brok" minOccurs="0" type="xs:string"/>
-      <xs:element name="varighet" minOccurs="0" type="studinfo:Varighet"/>
+      <xs:element name="varighet" minOccurs="0" type="studinfo:VarighetEmne"/>
       <xs:element name="karregelkode" minOccurs="0" type="xs:integer"/>
       <xs:element name="karregel" minOccurs="0" type="xs:string"/>
       <xs:element name="vurdkombforutsetter" minOccurs="0" type="studinfo:Vurdkombforutsetter"/>
@@ -551,7 +551,7 @@
       <xs:pattern value="\d{6}[A-Z]{0,2}"/>
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="FsSemesterkode">
+  <xs:simpleType name="FsYearSemester">
     <xs:annotation>
       <xs:documentation>Format: YYYY where X either H(øst) or V(år)</xs:documentation>
     </xs:annotation>
@@ -602,9 +602,14 @@
       <xs:pattern value="(HØST|VÅR)"/>
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="Varighet">
+  <xs:simpleType name="VarighetProgram">
     <xs:restriction base="xs:string">
-      <xs:pattern value="\d+ (År|Years|Semestre|Semesters|Dager|Days|Timer|Hours|Minutter|Minutes)"/>
+      <xs:pattern value="\d+ (År|Year(s)?|Semester(s)?|Semestre)"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="VarighetEmne">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d+ (Semester(s)?|Semestre|Måned(er)?|Måneder|Month(s)?|Uke(r)?|Week(s)?|Dag(er)?|Day(s)?|Time(r)?|Hour(s)?|Minutt(er)?|Minute(s)?)"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="SprakListe">
