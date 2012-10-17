@@ -14,10 +14,10 @@ public class FsVarighet {
     MINUTE;
   }
   
-  private int number;
+  private float number;
   private Unit unit;
   
-  public FsVarighet(int number, Unit unit) {
+  public FsVarighet(float number, Unit unit) {
     if (unit == null) {
       throw new IllegalArgumentException();
     }
@@ -33,7 +33,7 @@ public class FsVarighet {
     String[] varig = v.trim().split("\\s+");
     if (varig.length == 2) {
   
-      int number = Integer.parseInt(varig[0]);
+      float number = Float.parseFloat(varig[0]);
       String sUnit = varig[1].toLowerCase();
 
       // fix for file incoding mixup
@@ -98,18 +98,19 @@ public class FsVarighet {
   }
 
   public int getSemesters() {
-    switch (unit)
-      {
-        case YEAR:
-          return number * 2;
+    switch (unit) {
+      case YEAR:
+        return Math.round(number * 2.0f);
 
-        case SEMESTER:
-          return number;
-      }
-    return 0;
+      case SEMESTER:
+        return Math.round(number);
+        
+      default:
+        throw new UnsupportedOperationException("Cannot convert " + unit.toString());
+    }
   }
 
-  public int getNumber() {
+  public float getNumber() {
     return number;
   }
 

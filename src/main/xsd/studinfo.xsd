@@ -609,7 +609,7 @@
   </xs:simpleType>
   <xs:simpleType name="VarighetEmne">
     <xs:restriction base="xs:string">
-      <xs:pattern value="\d+ (Semester(s)?|Semestre|Måned(er)?|Måneder|Month(s)?|Uke(r)?|Veke(r)?|Week(s)?|Dag(er)?|Day(s)?|Time(r)?|Hour(s)?|Minutt(er)?|Minute(s)?)"/>
+      <xs:pattern value="\d+(\.\d+)? (Semester(s)?|Semestre|Måned(er)?|Måneder|Month(s)?|Uke(r)?|Veke(r)?|Week(s)?|Dag(er)?|Day(s)?|Time(r)?|Hour(s)?|Minutt(er)?|Minute(s)?)"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="SprakListe">
