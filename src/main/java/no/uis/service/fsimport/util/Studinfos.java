@@ -169,7 +169,9 @@ public final class Studinfos {
     Iterator<Vurdkombinasjon> iter = vurdkombinasjon.iterator();
     while(iter.hasNext()) {
       Vurdkombinasjon vkomb = iter.next();
-      if (excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester)) {
+      if (vkomb.getNiva().intValue() > 2) {
+        iter.remove();
+      } else if (excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester)) {
         iter.remove();
       } else if (vkomb.isSetVurdkombinasjon()) {
         cleanVurderingsKombinasjon(vkomb.getVurdkombinasjon(), currentYearSemester, excludeCodes);
