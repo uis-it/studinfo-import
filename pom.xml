@@ -236,49 +236,5 @@
         </executions>
       </plugin>
 		</plugins>
-		<pluginManagement>
-				<plugins>
-				  <plugin>
-		        <groupId>org.codehaus.mojo</groupId>
-		        <artifactId>exec-maven-plugin</artifactId>
-		        <version>1.2.1</version>
-				  </plugin>
-				  <plugin>
-		        <groupId>org.jvnet.jaxb2.maven2</groupId>
-		        <artifactId>maven-jaxb2-plugin</artifactId>
-		        <version>0.8.1</version>
-				  </plugin>
-						<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-						<plugin>
-								<groupId>org.eclipse.m2e</groupId>
-								<artifactId>
-										lifecycle-mapping
-								</artifactId>
-								<version>1.0.0</version>
-								<configuration>
-										<lifecycleMappingMetadata>
-												<pluginExecutions>
-														<pluginExecution>
-																<pluginExecutionFilter>
-																		<groupId>org.jvnet.jaxb2.maven2</groupId>
-																		<artifactId>maven-jaxb2-plugin</artifactId>
-																		<versionRange>[0.7.4,1.0.0)
-																		</versionRange>
-																		<goals>
-																				<goal>generate</goal>
-																		</goals>
-																</pluginExecutionFilter>
-																<action>
-									                <configurator>
-									                    <id>org.omadac.m2e.jaxb.jaxbConfigurator</id>
-									                </configurator>
-																</action>
-														</pluginExecution>
-												</pluginExecutions>
-										</lifecycleMappingMetadata>
-								</configuration>
-						</plugin>
-				</plugins>
-		</pluginManagement>
 	</build>
 </project>
