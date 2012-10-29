@@ -19,7 +19,7 @@ import no.usit.fsws.wsdl.studinfo.StudInfoService;
 public class StudInfoImportImpl implements StudInfoImport {
 
   private StudInfoService fsServiceStudInfo;
-  private URL schemaUrl;
+  private URL transformerUrl;
 
   public void setFsServiceStudInfo(StudInfoService fsServiceStudInfo) {
     this.fsServiceStudInfo = fsServiceStudInfo;
@@ -29,8 +29,8 @@ public class StudInfoImportImpl implements StudInfoImport {
     return this.fsServiceStudInfo;
   }
 
-  public void setSchemaUrl(URL schemaUrl) {
-    this.schemaUrl = schemaUrl;
+  public void setTransformerUrl(URL transformerUrl) {
+    this.transformerUrl = transformerUrl;
   }
   
   @Override
@@ -66,7 +66,7 @@ public class StudInfoImportImpl implements StudInfoImport {
   protected FsStudieinfo unmarshalStudieinfo(String studieinfoXml) throws Exception {
     
     TransformerFactory trFactory = TransformerFactory.newInstance();
-    Source schemaSource = new StreamSource(schemaUrl.openStream());
+    Source schemaSource = new StreamSource(transformerUrl.openStream());
     Transformer stylesheet = trFactory.newTransformer(schemaSource);
 
     Source input = new StreamSource(new StringReader(studieinfoXml));

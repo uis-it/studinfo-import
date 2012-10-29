@@ -45,7 +45,7 @@
 		      <xs:element name="fagansvarlig" minOccurs="0" type="studinfo:Sted"/>
 		      <xs:element name="adminansvarlig" minOccurs="0" type="studinfo:Sted"/>
 		      <xs:element name="gradnavn" minOccurs="0" type="xs:string"/>
-		      <xs:element name="nuskode" type="xs:string"/>
+		      <xs:element name="nuskode" minOccurs="0" type="xs:string"/>
 		      <xs:element name="url" minOccurs="0" type="xs:anyURI"/>
 		      <xs:element name="finansieringsprosent" type="xs:integer"/>
 		      <xs:element name="heltidsprosent" type="xs:integer"/>
