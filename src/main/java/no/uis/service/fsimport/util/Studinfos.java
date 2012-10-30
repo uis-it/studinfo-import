@@ -194,4 +194,16 @@ public final class Studinfos {
     }
     return false;
   }
+
+  public static FsYearSemester getStartYearSemester(FsYearSemester currentSemester) {
+    
+    int year = currentSemester.getYear();
+    FsSemester semester = currentSemester.getSemester();
+    
+    if (semester.equals(FsSemester.VAR)) {
+      semester = FsSemester.HOST;
+      year--;
+    }
+    return new FsYearSemester(year, semester);
+  }
 }
