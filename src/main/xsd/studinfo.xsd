@@ -78,6 +78,7 @@
 		      <xs:element name="sprak-liste" minOccurs="0" type="studinfo:SprakListe"/>
 		      <xs:element name="utdanningsplan" type="studinfo:Utdanningsplan"/>
 		      <xs:element name="planforslag" minOccurs="0" type="studinfo:Planforslag"/>
+		      <xs:element name="termin-siste-opptak" minOccurs="0" type="studinfo:FsYearSemester"/>
 		    </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -134,6 +135,8 @@
           <xs:element name="status-privatist" type="studinfo:YESNOType"/>
           <xs:element name="studieniva" type="xs:string"/>
           <xs:element name="nuskode" minOccurs="0" type="xs:string"/>
+          <xs:element name="enkeltemneopptak" type="studinfo:YESNOType"/>
+          <xs:element name="studierettkrav" type="studinfo:YESNOType"/>
           <xs:element name="status_oblig" type="studinfo:YESNOType"/>
           <xs:element name="obligund" minOccurs="0" type="studinfo:Obligund"/>
           <xs:element name="undervisningssemester" minOccurs="0" type="xs:string"/>
@@ -148,7 +151,7 @@
           <xs:element name="eksamenssemester" minOccurs="0" type="xs:string"/>
           <xs:element name="anbefalte-forkunnskaper" minOccurs="0" type="xs:string"/>
           <xs:element name="formelle-forkunnskaper" minOccurs="0" type="studinfo:Formelle-forkunnskaper"/>
-          <xs:element name="inngar-i-studieprogram" minOccurs="0" type="studinfo:Inngar-i-studieprogram"/>
+          <xs:element name="inngar-i-studieprogram" minOccurs="0" maxOccurs="unbounded" type="studinfo:Inngar-i-studieprogram"/>
           <xs:element name="inngar-i-fag" minOccurs="0" type="studinfo:Inngar-i-fag"/>
           <xs:element name="fagansvarlig" minOccurs="0" type="studinfo:Sted"/>
           <xs:element name="adminansvarlig" minOccurs="0" type="studinfo:Sted"/>
@@ -268,9 +271,10 @@
       <xs:element name="studiepoeng-krav" type="xs:integer" minOccurs="0"/>
       <xs:element name="terminnr-relativ-start" type="xs:integer"/>
       <xs:element name="termin-start-fra" type="studinfo:FsYearSemester" minOccurs="0"/>
-      <xs:element name="termin-start-til" type="studinfo:FsYearSemester" minOccurs="0"/>
+      <xs:element name="termin-start-til"  minOccurs="0" type="studinfo:FsYearSemester"/>
       <xs:element name="fargekode" type="xs:string" minOccurs="0"/>
       <xs:element name="veivalg" type="studinfo:YESNOType"/>
+      <xs:element name="valg-alle-emner" type="studinfo:YESNOType"/>
       <xs:element name="opptak" type="studinfo:YESNOType" minOccurs="0"/>
       <xs:element name="emne" type="studinfo:ProgramEmne" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="planelement" type="studinfo:Planelement" minOccurs="0"/>
@@ -412,7 +416,8 @@
   </xs:complexType>
   <xs:complexType name="Inngar-i-studieprogram">
     <xs:sequence>
-      <xs:element name="studieprogramkode" maxOccurs="unbounded" type="xs:string"/>
+      <xs:element name="studieprogramkode" type="xs:string"/>
+      <xs:element name="studieprogramnavn" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Inngar-i-fag">

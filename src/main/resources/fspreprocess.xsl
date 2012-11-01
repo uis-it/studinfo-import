@@ -201,9 +201,6 @@
                 </xsl:element>
             </xsl:for-each-group>
         </xsl:element>
-        <!--xsl:element name="fagperson-liste">
-            <xsl:apply-templates select="fs:personid"/>
-        </xsl:element-->
     </xsl:template>
     
     <xsl:template match="fs:redregel">
@@ -216,14 +213,14 @@
             </xsl:for-each-group>
         </xsl:element>
     </xsl:template>
-    
-    <!--xsl:template match="fs:personid">
-        <xsl:element name="person" inherit-namespaces="no">
-            <xsl:element name="personid"><xsl:value-of select="."></xsl:value-of></xsl:element>
-            <xsl:copy-of select="." copy-namespaces="no"/>
-            <xsl:apply-templates select="key('fagperson-fields', generate-id())"/>
-        </xsl:element>    
-    </xsl:template-->
+
+    <xsl:template match="fs:inngar-i-studieprogram">
+        <xsl:for-each-group select="child::*" group-starting-with="fs:studieprogramkode">
+            <xsl:element name="inngar-i-studieprogram" namespace="http://fsws.usit.no/schemas/studinfo">
+                <xsl:apply-templates select="current-group()"/>
+            </xsl:element>
+        </xsl:for-each-group>
+    </xsl:template>
     
     <xsl:template name="freetext">
         <xsl:param name="name" select="name()"/>
