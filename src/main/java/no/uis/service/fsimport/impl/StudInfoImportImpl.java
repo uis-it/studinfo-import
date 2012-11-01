@@ -1,8 +1,11 @@
 package no.uis.service.fsimport.impl;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.Reader;
 import java.io.StringReader;
 import java.net.URL;
+import java.util.concurrent.FutureTask;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.transform.Result;
@@ -66,24 +69,43 @@ public class StudInfoImportImpl implements StudInfoImport {
   protected FsStudieinfo unmarshalStudieinfo(String studieinfoXml) throws Exception {
     
     TransformerFactory trFactory = TransformerFactory.newInstance();
-    Source schemaSource = new StreamSource(transformerUrl.openStream());
-    Transformer stylesheet = trFactory.newTransformer(schemaSource);
-
-    Source input = new StreamSource(new StringReader(studieinfoXml));
+    Reader unmarshalSource = null;
+    Runnable cleanupTask = null; 
     
-    File resultFile = File.createTempFile("jaxb", ".xml");
-    Result result = new StreamResult(resultFile);
-    
-    // This doens't work for CData content for some reason
-    //JAXBResult result = new JAXBResult(jc);
-    //return (FsStudieinfo)result.getResult();
-    
-    stylesheet.transform(input, result);
+    if (transformerUrl != null) {
+      Source schemaSource = new StreamSource(transformerUrl.openStream());
+      Transformer stylesheet = trFactory.newTransformer(schemaSource);
+  
+      Source input = new StreamSource(new StringReader(studieinfoXml));
+      
+      final File resultFile = File.createTempFile("jaxb", ".xml");
+      
+      cleanupTask = new Runnable() {
+        @Override
+        public void run() {
+          resultFile.delete();
+        }
+      };
+      Result result = new StreamResult(resultFile);
+      
+      // This doens't work for CData content for some reason
+      //JAXBResult result = new JAXBResult(jc);
+      //return (FsStudieinfo)result.getResult();
+      
+      stylesheet.transform(input, result);
+      unmarshalSource = new FileReader(resultFile);
+    } else {
+      unmarshalSource = new StringReader(studieinfoXml);
+    }
 
     JAXBContext jc = JAXBContext.newInstance(FsStudieinfo.class);
-    FsStudieinfo sinfo = (FsStudieinfo)jc.createUnmarshaller().unmarshal(resultFile);
-
-    resultFile.delete();
+    FsStudieinfo sinfo = (FsStudieinfo)jc.createUnmarshaller().unmarshal(unmarshalSource);
+    
+    unmarshalSource.close();
+    
+    if (cleanupTask != null) {
+      cleanupTask.run();
+    }
     
     return sinfo;
   }
