@@ -1,7 +1,9 @@
 package no.uis.service.fsimport.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.net.URL;
@@ -93,7 +95,7 @@ public class StudInfoImportImpl implements StudInfoImport {
       //return (FsStudieinfo)result.getResult();
       
       stylesheet.transform(input, result);
-      unmarshalSource = new FileReader(resultFile);
+      unmarshalSource = new InputStreamReader(new FileInputStream(resultFile), "UTF-8");
     } else {
       unmarshalSource = new StringReader(studieinfoXml);
     }

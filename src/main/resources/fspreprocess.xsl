@@ -11,8 +11,6 @@
     
     <xsl:namespace-alias stylesheet-prefix="#default" result-prefix="fs"/>
     
-    <!--xsl:key name="fagperson-fields" match="fs:fagperson-liste/*[not(self::fs:personid)]" use="generate-id(preceding-sibling::fs:personid[1])"/-->
-
     <xsl:template match="/fs:fs-studieinfo">
         <xsl:copy copy-namespaces="yes">
             <xsl:apply-templates select="node()|@*"/>
@@ -193,16 +191,6 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="fs:fagperson-liste">
-        <xsl:element name="fagperson-liste" namespace="http://fsws.usit.no/schemas/studinfo">
-            <xsl:for-each-group select="child::*" group-starting-with="fs:personid">
-                <xsl:element name="fagperson" namespace="http://fsws.usit.no/schemas/studinfo">
-                    <xsl:apply-templates select="current-group()"/>
-                </xsl:element>
-            </xsl:for-each-group>
-        </xsl:element>
-    </xsl:template>
-    
     <xsl:template match="fs:redregel">
         <xsl:element name="redregel" namespace="http://fsws.usit.no/schemas/studinfo">
             <xsl:apply-templates select="*[not(self::fs:emneid|self::fs:emnenavn)]"/>
@@ -213,15 +201,6 @@
             </xsl:for-each-group>
         </xsl:element>
     </xsl:template>
-
-    <xsl:template match="fs:inngar-i-studieprogram">
-        <xsl:for-each-group select="child::*" group-starting-with="fs:studieprogramkode">
-            <xsl:element name="inngar-i-studieprogram" namespace="http://fsws.usit.no/schemas/studinfo">
-                <xsl:apply-templates select="current-group()"/>
-            </xsl:element>
-        </xsl:for-each-group>
-    </xsl:template>
-    
     <xsl:template name="freetext">
         <xsl:param name="name" select="name()"/>
         <xsl:element name="{$name}" namespace="http://fsws.usit.no/schemas/studinfo">
