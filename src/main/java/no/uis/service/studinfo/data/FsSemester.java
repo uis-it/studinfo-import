@@ -23,9 +23,16 @@ public enum FsSemester {
     this.val = str;
   }
   
+  /**
+   * Convert a string to {@link FsSemester}.
+   * The string can be given as the {@link FsSemester#name()} or the {@link #val} property.
+   * 
+   * @param str
+   * @return
+   */
   public static FsSemester stringToUisSemester(String str) {
     for (FsSemester sem : FsSemester.values()) {
-      if (sem.val.equals(str)) {
+      if (sem.val.equals(str) || sem.name().equals(str)) {
         return sem;
       }
     }
