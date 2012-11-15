@@ -19,19 +19,11 @@ public class Extensible implements Serializable {
   }
 
   @SuppressWarnings("unchecked")
-  public <T> T getProperty(String propName) {
+  public <T> T property(String propName) {
     if (isSetProperties()) {
       return (T)properties.get(propName);
     }
     return null;
-  }
-  
-  public int getIntProperty(String propName) {
-    Integer i = getProperty(propName);
-    if (i == null) {
-      return Integer.MIN_VALUE;
-    }
-    return i.intValue();
   }
   
   public Map<String, Object> getProperties() {
