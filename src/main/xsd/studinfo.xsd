@@ -527,8 +527,8 @@
       <xs:element name="sistegang" minOccurs="0" type="studinfo:FsYearSemester"/>
       <xs:element name="brok" minOccurs="0" type="xs:string"/>
       <xs:element name="varighet" minOccurs="0" type="studinfo:VarighetEmne"/>
-      <xs:element name="vurdering" type="studinfo:YESNOType" default="N"/>
-      <xs:element name="alle-kandidater" minOccurs="0" type="studinfo:YESNOType" default="N"/>
+      <xs:element name="vurdering" minOccurs="0" type="studinfo:YESNOType"/>
+      <xs:element name="alle-kandidater" minOccurs="0" type="studinfo:YESNOType"/>
       <xs:element name="karregelkode" minOccurs="0" type="xs:integer"/>
       <xs:element name="karregel" minOccurs="0" type="xs:string"/>
       <xs:element name="vurdkombforutsetter" minOccurs="0" type="studinfo:Vurdkombforutsetter"/>

@@ -74,7 +74,7 @@ public final class Studinfos {
     while (iter.hasNext()) {
       KravSammensetting kravSammen = iter.next();
       FsYearSemester yearSemester = getValidFrom(kravSammen);
-      int skipSemesters = getDiffSemesters(currentSemester, yearSemester);
+      Integer skipSemesters = getDiffSemesters(currentSemester, yearSemester);
       
       kravSammen.addProperty(VALID_FROM, yearSemester);
       kravSammen.addProperty(SKIP_SEMESTERS, skipSemesters);
@@ -169,9 +169,7 @@ public final class Studinfos {
     Iterator<Vurdkombinasjon> iter = vurdkombinasjon.iterator();
     while(iter.hasNext()) {
       Vurdkombinasjon vkomb = iter.next();
-      if (vkomb.getNiva().intValue() > 2) {
-        iter.remove();
-      } else if (excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester)) {
+      if (excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester) || !isSetAndTrue(vkomb.isVurdering())) {
         iter.remove();
       } else if (vkomb.isSetVurdkombinasjon()) {
         cleanVurderingsKombinasjon(vkomb.getVurdkombinasjon(), currentYearSemester, excludeCodes);
