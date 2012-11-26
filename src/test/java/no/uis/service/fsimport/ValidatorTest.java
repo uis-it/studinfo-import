@@ -7,10 +7,10 @@ import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import no.uis.service.fsimport.StudInfoImport.StudinfoType;
+import no.uis.service.studinfo.data.FsSemester;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -25,11 +25,11 @@ import org.junit.runners.Parameterized2.TestName;
 public class ValidatorTest {
 
   private int year;
-  private String semester;
+  private FsSemester semester;
   private StudinfoType infoType;
   private String lang;
 
-  public ValidatorTest(int year, String semester, StudinfoType infoType, String lang) {
+  public ValidatorTest(int year, FsSemester semester, StudinfoType infoType, String lang) {
     this.year = year;
     this.semester = semester;
     this.infoType = infoType;
@@ -39,7 +39,7 @@ public class ValidatorTest {
   @Parameters
   public static List<Object[]> configParams() {
     final String sYear = System.getProperty("studinfo.year");
-    String semester = System.getProperty("studinfo.semester");
+    FsSemester semester = FsSemester.stringToUisSemester(System.getProperty("studinfo.semester"));
     final String sInfoType = System.getProperty("studinfo.type");
     final String sLang = System.getProperty("studinfo.lang");
 
@@ -48,14 +48,6 @@ public class ValidatorTest {
     }
     
     int year = Integer.parseInt(sYear);
-
-    if (semester.startsWith("V")) {
-      semester = "VÅR";
-    } else if (semester.startsWith("H")) {
-      semester = "HØST";
-    } else {
-      throw new IllegalArgumentException(semester);
-    }
     
     StudinfoType[] infoTypes = (sInfoType != null ? new StudinfoType[] {StudinfoType.valueOf(sInfoType)} : StudinfoType.values());
     String[] langs = (sLang != null ? sLang.split(",") : new String[] {"B", "E", "N"});
@@ -81,6 +73,7 @@ public class ValidatorTest {
       }
       sb.append(params[i]);
     }
+    sb.append(')');
     return sb.toString();
   }
   
@@ -90,10 +83,9 @@ public class ValidatorTest {
    */
   @Test
   public void validate() throws Exception {
-    //System.out.format("%d_%s_%s_%s\n", year, semester, lang, infoType.toString());
     StudinfoValidator validator = new StudinfoValidator();
     List<String> messages = validator.fetchAndValidate(year, semester, lang, infoType);
-    assertThat(new ListWrapper(messages), is(emptyList()));
+    assertThat(new ListWrapper(messages), is(emptyCollection()));
   }
   
   private static class IsEmptyCollection extends BaseMatcher<Collection<?>> {
@@ -109,7 +101,7 @@ public class ValidatorTest {
     }
   }
 
-  private static Matcher<Collection<?>> emptyList() {
+  private static Matcher<Collection<?>> emptyCollection() {
     return new IsEmptyCollection();
   }
 
@@ -125,21 +117,18 @@ public class ValidatorTest {
     
     @Override
     public String toString() {
-      Iterator<?> i = iterator();
-      if (!i.hasNext()) {
+      if (isEmpty()) {
         return "[]";
       }
 
       StringBuilder sb = new StringBuilder();
       sb.append("[\n");
-      for (;;) {
-        Object e = i.next();
-        sb.append(e == this ? "(this Collection)" : e);
-        if (!i.hasNext()) {
-          return sb.append("\n]").toString();
-        }
+      for (String elem : this) {
+        sb.append(elem);
         sb.append("\n,\n");
       }
+      sb.append(']');
+      return sb.toString();
     }
     
   }

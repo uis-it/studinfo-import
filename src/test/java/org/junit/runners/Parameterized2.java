@@ -7,6 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.runner.Runner;
@@ -104,7 +105,7 @@ public class Parameterized2 extends Suite {
 
     @Override
     protected String getName() {
-      return String.format("[%s]", fParameterSetNumber);
+      return Arrays.toString(fParameterList.get(fParameterSetNumber));
     }
 
     @Override

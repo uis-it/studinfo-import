@@ -5,6 +5,7 @@ import java.util.List;
 
 import no.uis.service.fsimport.StudInfoImport.StudinfoType;
 import no.uis.service.fsimport.util.ContextPath;
+import no.uis.service.studinfo.data.FsSemester;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
@@ -22,7 +23,7 @@ public class ValidationErrorHandler extends DefaultHandler implements ErrorHandl
   
   private final int year;
 
-  private final String semester;
+  private final FsSemester semester;
 
   private final String language;
 
@@ -30,7 +31,7 @@ public class ValidationErrorHandler extends DefaultHandler implements ErrorHandl
 
   private String contextId;
   
-  public ValidationErrorHandler(StudinfoType infoType, int year, String semester, String language) {
+  public ValidationErrorHandler(StudinfoType infoType, int year, FsSemester semester, String language) {
     this.infoType = infoType;
     this.year = year;
     this.semester = semester;

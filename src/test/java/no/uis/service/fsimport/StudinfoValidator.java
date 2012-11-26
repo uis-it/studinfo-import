@@ -20,6 +20,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import no.uis.service.fsimport.StudInfoImport.StudinfoType;
+import no.uis.service.studinfo.data.FsSemester;
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
 
 import org.apache.cxf.helpers.IOUtils;
@@ -51,12 +52,14 @@ public class StudinfoValidator {
     if (args.length != 2) {
       printUsage();
     } else {
-      List<String> messages = validateAll(Integer.parseInt(args[0]), args[1], null, null);
+      int year = Integer.parseInt(args[0]);
+      FsSemester semester = FsSemester.stringToUisSemester(args[1]);
+      List<String> messages = validateAll(year, semester, null, null);
       printMessages(messages);
     }
   }
   
-  private List<String> validateAll(int year, String semester, StudinfoType[] infoTypes, String[] langs) throws Exception {
+  private List<String> validateAll(int year, FsSemester semester, StudinfoType[] infoTypes, String[] langs) throws Exception {
     
     List<String> messages = new ArrayList<String>();
     
@@ -84,7 +87,7 @@ public class StudinfoValidator {
     }
   }
 
-  private List<String> validateSubjects(String semester, int year, String[] langs) throws Exception {
+  private List<String> validateSubjects(FsSemester semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
     for (String lang : langs) {
       messages.addAll(validateSubjects(217, year, semester, lang));
@@ -93,7 +96,7 @@ public class StudinfoValidator {
     return messages;
   }
 
-  private List<String> validatePrograms(String semester, int year, String[] langs) throws Exception {
+  private List<String> validatePrograms(FsSemester semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
     for (String lang : langs) {
       messages.addAll(validateStudyPrograms(217, year, semester, lang));
@@ -102,7 +105,7 @@ public class StudinfoValidator {
     return messages;
   }
 
-  private List<String> validateCourses(String semester, int year, String[] langs) throws Exception {
+  private List<String> validateCourses(FsSemester semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
     for (String lang : langs) {
       messages.addAll(validateCourses(217, year, semester, lang));
@@ -126,23 +129,23 @@ public class StudinfoValidator {
     System.out.println(this.getClass().getName() + " YEAR <VÅR | HØST>");
   }
 
-  private List<String> validateStudyPrograms(int institution, int year, String semester, String language)
+  private List<String> validateStudyPrograms(int institution, int year, FsSemester semester, String language)
       throws Exception
   {
     String studieinfoXml = getBean().getStudieprogramSI(year,
-        semester, StudInfoImport.INTEGER_1, null, institution, StudInfoImport.INTEGER_MINUS_1, null, null, language);
+        semester.toString(), StudInfoImport.INTEGER_1, null, institution, StudInfoImport.INTEGER_MINUS_1, null, null, language);
     
     return validate(studieinfoXml, StudinfoType.STUDIEPROGRAM, year, semester, language);
   }
 
-  private List<String> validateSubjects(int institution, int year, String semester, String language) throws Exception {
+  private List<String> validateSubjects(int institution, int year, FsSemester semester, String language) throws Exception {
     String studieinfoXml = getBean().getEmneSI(Integer.valueOf(institution), null, null,
-      StudInfoImport.INTEGER_MINUS_1, null, null, year, semester, language);
+      StudInfoImport.INTEGER_MINUS_1, null, null, year, semester.toString(), language);
 
     return validate(studieinfoXml, StudinfoType.EMNE, year, semester, language);
   }
 
-  private List<String> validateCourses(int institution, int year, String semester, String language)
+  private List<String> validateCourses(int institution, int year, FsSemester semester, String language)
       throws Exception
   {
     String studieinfoXml = getBean().getKursSI(Integer.valueOf(institution), StudInfoImport.INTEGER_MINUS_1, StudInfoImport.INTEGER_MINUS_1, StudInfoImport.INTEGER_MINUS_1, language);
@@ -150,7 +153,7 @@ public class StudinfoValidator {
     return validate(studieinfoXml, StudinfoType.KURS, year, semester, language);
   }
 
-  protected List<String> validate(String studieinfoXml, StudinfoType infoType, int year, String semester, String language) throws Exception {
+  protected List<String> validate(String studieinfoXml, StudinfoType infoType, int year, FsSemester semester, String language) throws Exception {
     
     // save xml
     File outFile = new File("target/out", infoType.toString() + year + semester + language + ".xml");
@@ -197,7 +200,7 @@ public class StudinfoValidator {
     return errorHandler.getMessages();
   }
 
-  public List<String> fetchAndValidate(int year, String semester, String lang, StudinfoType infoType) throws Exception {
+  public List<String> fetchAndValidate(int year, FsSemester semester, String lang, StudinfoType infoType) throws Exception {
     switch(infoType) {
       case EMNE:
         return validateSubjects(217, year, semester, lang);
