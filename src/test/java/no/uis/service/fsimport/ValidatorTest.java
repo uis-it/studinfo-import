@@ -39,13 +39,14 @@ public class ValidatorTest {
   @Parameters
   public static List<Object[]> configParams() {
     final String sYear = System.getProperty("studinfo.year");
-    FsSemester semester = FsSemester.stringToUisSemester(System.getProperty("studinfo.semester"));
     final String sInfoType = System.getProperty("studinfo.type");
     final String sLang = System.getProperty("studinfo.lang");
+    final String sSemester = System.getProperty("studinfo.semester");
 
-    if (sYear == null || semester == null) {
+    if (sYear == null || sSemester == null) {
       return Collections.emptyList();
     }
+    FsSemester semester = FsSemester.stringToUisSemester(sSemester);
     
     int year = Integer.parseInt(sYear);
     
