@@ -120,7 +120,7 @@
         <xsl:call-template name="freetext"/>
     </xsl:template>
 
-    <!-- This can be removed after the tag is renamed and all studiebok tabes are converted to PDF -->
+    <!-- This can be removed after the tag is renamed and all studiebok tables are converted to PDF -->
     <xsl:template match="fs:åpent_for_tillegg">
         <xsl:call-template name="freetext">
             <xsl:with-param name="name" select="'apent_for_tillegg'"/>
