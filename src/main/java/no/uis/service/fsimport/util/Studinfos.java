@@ -145,6 +145,9 @@ public final class Studinfos {
     return true;
   }
 
+  /**
+   * Remove "obligatorsk undervisning", old subjects. If vurdering is set, "only elements with vurdering == true are considered.
+   */
   public static void cleanVurderingsordning(List<Vurdordning> vurdordnings, List<String> excludeCodes, FsYearSemester currentYearSemester)
   {
     Iterator<Vurdordning> iter = vurdordnings.iterator();
@@ -154,13 +157,7 @@ public final class Studinfos {
         iter.remove();
       } else if (vo.isSetVurdkombinasjon()) {
         Vurdkombinasjon vkomb = vo.getVurdkombinasjon();
-        if (excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester)) {
-          vo.setVurdkombinasjon(null);
-        } else {
-          if (vkomb.isSetVurdkombinasjon()) {
-            cleanVurderingsKombinasjon(vkomb.getVurdkombinasjon(), currentYearSemester, excludeCodes);
-          }
-        }
+        cleanVurderingskombinasjon(vo, vkomb, currentYearSemester, excludeCodes);
       }
     }
   }
@@ -169,14 +166,32 @@ public final class Studinfos {
     Iterator<Vurdkombinasjon> iter = vurdkombinasjon.iterator();
     while(iter.hasNext()) {
       Vurdkombinasjon vkomb = iter.next();
-      if (excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester) || !isSetAndTrue(vkomb.isVurdering())) {
+      cleanVurderingskombinasjon(iter, vkomb, currentYearSemester, excludeCodes);
+    }
+  }
+
+  private static void cleanVurderingskombinasjon(Object parentObject, Vurdkombinasjon vkomb, FsYearSemester currentYearSemester, List<String> excludeCodes) {
+    boolean doClean = excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester);
+
+    if (!doClean && vkomb.isSetVurdering()) {
+      doClean = vkomb.isVurdering();
+    }
+    
+    if (doClean) {
+      if (parentObject instanceof Vurdordning) {
+        Vurdordning vo = (Vurdordning)parentObject;
+        vo.setVurdkombinasjon(null);
+      } else if (parentObject instanceof Iterator) {
+        Iterator<?> iter = (Iterator<?>)parentObject;
         iter.remove();
-      } else if (vkomb.isSetVurdkombinasjon()) {
+      }
+    } else {
+      if (vkomb.isSetVurdkombinasjon()) {
         cleanVurderingsKombinasjon(vkomb.getVurdkombinasjon(), currentYearSemester, excludeCodes);
       }
     }
   }
-
+  
   private static boolean isOldVkomb(Vurdkombinasjon vkomb, FsYearSemester currentYearSemester) {
     FsYearSemester sistegang = vkomb.getSistegang();
     if (sistegang != null) {
