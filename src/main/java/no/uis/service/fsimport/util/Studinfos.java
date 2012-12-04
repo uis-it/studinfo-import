@@ -79,7 +79,7 @@ public final class Studinfos {
       kravSammen.addProperty(VALID_FROM, yearSemester);
       kravSammen.addProperty(SKIP_SEMESTERS, skipSemesters);
       
-      boolean doRemove = maxSemesters <= skipSemesters;
+      boolean doRemove = skipSemesters < 0 || maxSemesters <= skipSemesters;
       if (!doRemove) {
         doRemove = cleanKravSammensetting(kravSammen, maxSemesters, skipSemesters);
       } 
