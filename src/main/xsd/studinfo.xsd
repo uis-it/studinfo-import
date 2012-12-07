@@ -135,8 +135,8 @@
           <xs:element name="status-privatist" type="studinfo:YESNOType"/>
           <xs:element name="studieniva" type="xs:string"/>
           <xs:element name="nuskode" minOccurs="0" type="xs:string"/>
-          <xs:element name="enkeltemneopptak" type="studinfo:YESNOType"/>
-          <xs:element name="studierettkrav" type="studinfo:YESNOType"/>
+          <xs:element name="enkeltemneopptak" minOccurs="0" type="studinfo:YESNOType"/>
+          <xs:element name="studierettkrav" minOccurs="0" type="studinfo:YESNOType"/>
           <xs:element name="status_oblig" type="studinfo:YESNOType"/>
           <xs:element name="obligund" minOccurs="0" type="studinfo:Obligund"/>
           <xs:element name="undervisningssemester" minOccurs="0" type="xs:string"/>
@@ -417,7 +417,7 @@
   <xs:complexType name="Inngar-i-studieprogram">
     <xs:sequence>
       <xs:element name="studieprogramkode" type="xs:string"/>
-      <xs:element name="studieprogramnavn" type="xs:string"/>
+      <xs:element name="studieprogramnavn" minOccurs="0" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Inngar-i-fag">

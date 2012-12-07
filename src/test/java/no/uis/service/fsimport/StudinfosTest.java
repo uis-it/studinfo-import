@@ -22,6 +22,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import no.uis.service.fsimport.impl.AbstractStudinfoImport;
 import no.uis.service.fsimport.impl.StudInfoImportImpl;
 import no.uis.service.fsimport.util.Studinfos;
 import no.uis.service.studinfo.data.FsSemester;
@@ -58,7 +59,7 @@ public class StudinfosTest {
   @SuppressWarnings("unchecked")
   @Test
   public void test() throws Exception {
-    StudInfoImportImpl importer = new ImportMock();
+    AbstractStudinfoImport importer = new ImportMock();
     importer.setTransformerUrl(transformer.getURL());
     
     FsStudieinfo sinfo = importer.fetchStudyPrograms(217, 2013, "VÅR", true, "B");
@@ -75,7 +76,7 @@ public class StudinfosTest {
     assertThat(bdata.getUtdanningsplan().getKravSammensetting().size(), is(3));
   }
   
-  private class ImportMock extends StudInfoImportImpl {
+  private class ImportMock extends AbstractStudinfoImport {
     @Override
     protected Reader fsGetStudieprogram(int institution, int year, String semester, boolean includeEP, String language) {
       try {

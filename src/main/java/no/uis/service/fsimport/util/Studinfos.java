@@ -128,19 +128,21 @@ public final class Studinfos {
   }
   
   private static boolean isValidEmne(ProgramEmne emne, int terminOffset, final int skipSemesters) {
-    int ufra = emne.getUndterminFra().intValue();
-    int util = emne.isSetUndterminTil() ? emne.getUndterminTil().intValue() : ufra;
-    int udefault = emne.isSetUndterminDefault() ? emne.getUndterminDefault().intValue() : 0;
-
-    if (udefault == 0) {
-      udefault = ufra;
-    }
-    ufra += terminOffset;
-    util += terminOffset;
-    udefault += terminOffset;
-
-    if (util <= skipSemesters) {
-      return false;
+    if (emne.isSetUndterminFra()) {
+      int ufra = emne.getUndterminFra().intValue();
+      int util = emne.isSetUndterminTil() ? emne.getUndterminTil().intValue() : ufra;
+      int udefault = emne.isSetUndterminDefault() ? emne.getUndterminDefault().intValue() : 0;
+  
+      if (udefault == 0) {
+        udefault = ufra;
+      }
+      ufra += terminOffset;
+      util += terminOffset;
+      udefault += terminOffset;
+  
+      if (util <= skipSemesters) {
+        return false;
+      }
     }
     return true;
   }
