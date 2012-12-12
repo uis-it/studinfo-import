@@ -130,7 +130,7 @@
     <xs:complexContent>
       <xs:extension base="studinfo:BasisEmne">
         <xs:sequence>
-          <xs:element name="emnenavn_en" type="xs:string"/>
+          <xs:element name="emnenavn_en" minOccurs="0" type="xs:string"/>
           <xs:element name="studiepoeng" type="xs:integer"/>
           <xs:element name="status-privatist" type="studinfo:YESNOType"/>
           <xs:element name="studieniva" type="xs:string"/>
@@ -167,9 +167,11 @@
           <xs:element name="innhold" minOccurs="0" type="xs:string"/>
           <xs:element name="intro" minOccurs="0" type="xs:string"/>
           <xs:element name="kortsam" minOccurs="0" type="xs:string"/>
+          <xs:element name="kvalifik_og_jobbmuligheter" minOccurs="0" type="xs:string"/>
           <xs:element name="litteratur" minOccurs="0" type="xs:string"/>
           <xs:element name="laringsutbytte" minOccurs="0" type="xs:string"/>
           <xs:element name="oblig_undakt_tilleggsinfo" minOccurs="0" type="xs:string"/>
+          <xs:element name="opptakskrav" minOccurs="0" type="xs:string"/>
           <xs:element name="praksis" minOccurs="0" type="xs:string"/>
           <xs:element name="studentevaluering" minOccurs="0" type="xs:string"/>
           <xs:element name="vurdering_tilleggstekst" minOccurs="0" type="xs:string"/>
@@ -394,8 +396,8 @@
       <xs:element name="fnr" type="xs:string"/>
       <xs:element name="personrolle" type="xs:string"/>
       <xs:element name="personnavn" type="studinfo:Personnavn"/>
-      <xs:element name="dato-fra" type="xs:date"/>
-      <xs:element name="dato-til" type="xs:date" minOccurs="0"/>
+      <xs:element name="dato-fra" minOccurs="0" type="xs:date"/>
+      <xs:element name="dato-til" minOccurs="0" type="xs:date"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Lovlig-hjelpemiddel">
@@ -428,20 +430,22 @@
   <xs:complexType name="Eksamensdag">
     <xs:sequence>
       <xs:element name="eksamensdagnr" type="xs:integer"/>
-      <xs:element name="varighet-timer" type="xs:integer"/>
-      <xs:element name="lovlig-hjelpemiddel" type="xs:string"/>
+      <xs:element name="studiepoeng-reduksjon" minOccurs="0" type="xs:string"/>
+      <xs:element name="varighet-timer" minOccurs="0" type="xs:double"/>
+      <xs:element name="lovlig-hjelpemiddel" minOccurs="0" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Eksamensdel">
     <xs:sequence>
       <xs:element name="eksamensdelnr" type="xs:integer"/>
       <xs:element name="eksamensdelnavn" type="xs:string"/>
+      <xs:element name="studiepoeng-reduksjon" minOccurs="0" type="xs:string"/>
       <xs:element name="varighet" minOccurs="0" type="studinfo:VarighetEmne"/>
       <xs:element name="eksamensform" minOccurs="0" type="xs:string"/>
       <xs:element name="karaktervekt" minOccurs="0" type="xs:string"/>
       <xs:element name="karregel" minOccurs="0" type="xs:string"/>
-      <xs:element name="dato-eksamen" type="studinfo:FsEksamensdato" nillable="true"/>
-      <xs:element name="eksamensdag" minOccurs="0" type="studinfo:Eksamensdag"/>
+      <xs:element name="dato-eksamen" minOccurs="0" type="studinfo:FsEksamensdato" nillable="true"/>
+      <xs:element name="eksamensdag" minOccurs="0" maxOccurs="unbounded" type="studinfo:Eksamensdag"/>
       <xs:element name="lovlig-hjelpemiddel" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
@@ -449,19 +453,19 @@
     <xs:sequence>
       <xs:element name="eksamensordningid" type="xs:string"/>
       <xs:element name="eksamensordningnavn" type="xs:string"/>
-      <xs:element name="default" type="studinfo:YESNOType"/>
-      <xs:element name="meld_studentweb" type="studinfo:YESNOType"/>
+      <xs:element name="default" minOccurs="0" type="studinfo:YESNOType"/>
+      <xs:element name="meld_studentweb" minOccurs="0" type="studinfo:YESNOType"/>
       <xs:element name="lovlig-hjelpemiddel" minOccurs="0" type="studinfo:Lovlig-hjelpemiddel"/>
-      <xs:element name="karregel" type="xs:string"/>
+      <xs:element name="karregel" minOccurs="0" type="xs:string"/>
       <xs:element name="dato-eksamen" minOccurs="0" type="xs:string"/>
-      <xs:element name="eksamensdel" maxOccurs="unbounded" type="studinfo:Eksamensdel"/>
+      <xs:element name="eksamensdel" minOccurs="0" maxOccurs="unbounded" type="studinfo:Eksamensdel"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Vurdordning">
     <xs:sequence>
       <xs:element name="vurdordningid" type="xs:string"/>
       <xs:element name="vurdordningnavn" type="xs:string"/>
-      <xs:element name="default" type="studinfo:YESNOType"/>
+      <xs:element name="default" minOccurs="0" type="studinfo:YESNOType"/>
       <xs:element name="meld_studentweb" type="studinfo:YESNOType"/>
       <xs:element name="vurdkombinasjon" type="studinfo:Vurdkombinasjon"/>
     </xs:sequence>

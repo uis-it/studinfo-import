@@ -191,16 +191,6 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="fs:fagperson-liste">
-        <xsl:element name="fagperson-liste" namespace="http://fsws.usit.no/schemas/studinfo">
-            <xsl:for-each-group select="child::*" group-starting-with="fs:personid">
-                <xsl:element name="fagperson" namespace="http://fsws.usit.no/schemas/studinfo">
-                    <xsl:apply-templates select="current-group()"/>
-                </xsl:element>
-            </xsl:for-each-group>
-        </xsl:element>
-    </xsl:template>
-    
     <xsl:template match="fs:redregel">
         <xsl:element name="redregel" namespace="http://fsws.usit.no/schemas/studinfo">
             <xsl:apply-templates select="*[not(self::fs:emneid|self::fs:emnenavn)]"/>
@@ -210,14 +200,6 @@
                 </xsl:element>
             </xsl:for-each-group>
         </xsl:element>
-    </xsl:template>
-    
-    <xsl:template match="fs:inngar-i-studieprogram">
-        <xsl:for-each-group select="child::*" group-starting-with="fs:studieprogramkode">
-            <xsl:element name="inngar-i-studieprogram" namespace="http://fsws.usit.no/schemas/studinfo">
-                <xsl:apply-templates select="current-group()"/>
-            </xsl:element>
-        </xsl:for-each-group>
     </xsl:template>
     
     <xsl:template name="freetext">
