@@ -466,8 +466,8 @@
       <xs:element name="vurdordningid" type="xs:string"/>
       <xs:element name="vurdordningnavn" type="xs:string"/>
       <xs:element name="default" minOccurs="0" type="studinfo:YESNOType"/>
-      <xs:element name="meld_studentweb" type="studinfo:YESNOType"/>
-      <xs:element name="vurdkombinasjon" type="studinfo:Vurdkombinasjon"/>
+      <xs:element name="meld_studentweb" minOccurs="0" type="studinfo:YESNOType"/>
+      <xs:element name="vurdkombinasjon" minOccurs="0" type="studinfo:Vurdkombinasjon"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Vektingsreduksjon">

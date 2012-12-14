@@ -17,7 +17,7 @@
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
 
 		<context:annotation-config/>
-		
+    
 		<bean id="fsStudInfoImport" class="no.uis.service.fsimport.impl.StudInfoImportImpl">
 			<property name="fsServiceStudInfo">
 				<ref bean="fsWsStudInfo"/>
