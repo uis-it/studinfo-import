@@ -47,13 +47,13 @@
 		      <xs:element name="gradnavn" minOccurs="0" type="xs:string"/>
 		      <xs:element name="nuskode" minOccurs="0" type="xs:string"/>
 		      <xs:element name="url" minOccurs="0" type="xs:anyURI"/>
-		      <xs:element name="finansieringsprosent" type="xs:integer"/>
-		      <xs:element name="heltidsprosent" type="xs:integer"/>
+		      <xs:element name="finansieringsprosent" minOccurs="0" type="xs:integer"/>
+		      <xs:element name="heltidsprosent" minOccurs="0" type="xs:integer"/>
 		      <xs:element name="varighet" minOccurs="0" type="studinfo:VarighetProgram"/>
-		      <xs:element name="grunnstudium" type="studinfo:YESNOType"/>
+		      <xs:element name="grunnstudium" minOccurs="0" type="studinfo:YESNOType"/>
 		      <xs:element name="kulltrinnplan" minOccurs="0" type="studinfo:YESNOType"/>
 		      <xs:element name="arbeidsformer" minOccurs="0" type="xs:string"/>
-		      <xs:element name="fagplan_tekst" minOccurs="0" type="xs:string"/>
+		      <xs:element name="fagplan_tekst" minOccurs="0" maxOccurs="2" type="xs:string"/>
 		      <xs:element name="fagplan_URL" minOccurs="0" type="xs:anyURI"/>
 		      <xs:element name="innhold" minOccurs="0" type="xs:string"/>
 		      <xs:element name="intro" minOccurs="0" type="xs:string"/>
@@ -68,7 +68,7 @@
           <xs:element name="p-kortintr" minOccurs="0" type="xs:string"/>
           <xs:element name="p-profkval" minOccurs="0" type="xs:string"/>
           <xs:element name="p-studkval" minOccurs="0" type="xs:string"/>
-		      <xs:element name="rammeplan_tekst" minOccurs="0" type="xs:string"/>
+		      <xs:element name="rammeplan_tekst" minOccurs="0" maxOccurs="2" type="xs:string"/>
 		      <xs:element name="rammeplan_URL" minOccurs="0" type="xs:anyURI"/>
 		      <xs:element name="studentevaluering" minOccurs="0" type="xs:string"/>
 		      <xs:element name="utenlandsopphold" minOccurs="0" type="xs:string"/>
@@ -106,7 +106,7 @@
     <xs:complexContent>
       <xs:extension base="studinfo:BasisEmne">
         <xs:sequence>
-          <xs:element name="studiepoeng" type="xs:string"/>
+          <xs:element name="studiepoeng" minOccurs="0" type="xs:string"/>
           <xs:element name="undervisningstermin" minOccurs="0" maxOccurs="unbounded" type="studinfo:Undervisningstermin"/>
           <xs:element name="sorteringsrekkefolge" minOccurs="0" type="xs:integer"/>
           <xs:element name="valgstatus" minOccurs="0" type="xs:string"/>
@@ -268,18 +268,18 @@
     <xs:sequence>
       <xs:element name="emnekombinasjonskode" type="xs:string"/>
       <xs:element name="emnekombinasjonsnavn" type="xs:string"/>
-      <xs:element name="beskrivelse" type="xs:string" minOccurs="0"/>
-      <xs:element name="studieretning" type="xs:string" minOccurs="0"/>
-      <xs:element name="studiepoeng-krav" type="xs:integer" minOccurs="0"/>
-      <xs:element name="terminnr-relativ-start" type="xs:integer"/>
-      <xs:element name="termin-start-fra" type="studinfo:FsYearSemester" minOccurs="0"/>
+      <xs:element name="beskrivelse" minOccurs="0" type="xs:string"/>
+      <xs:element name="studieretning" minOccurs="0" type="xs:string"/>
+      <xs:element name="studiepoeng-krav" minOccurs="0" type="xs:integer"/>
+      <xs:element name="terminnr-relativ-start" minOccurs="0" type="xs:integer"/>
+      <xs:element name="termin-start-fra" minOccurs="0" type="studinfo:FsYearSemester"/>
       <xs:element name="termin-start-til"  minOccurs="0" type="studinfo:FsYearSemester"/>
-      <xs:element name="fargekode" type="xs:string" minOccurs="0"/>
+      <xs:element name="fargekode" minOccurs="0" type="xs:string"/>
       <xs:element name="veivalg" type="studinfo:YESNOType"/>
-      <xs:element name="valg-alle-emner" type="studinfo:YESNOType"/>
+      <xs:element name="valg-alle-emner" minOccurs="0" type="studinfo:YESNOType"/>
       <xs:element name="opptak" type="studinfo:YESNOType" minOccurs="0"/>
       <xs:element name="emne" type="studinfo:ProgramEmne" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="planelement" type="studinfo:Planelement" minOccurs="0"/>
+      <xs:element name="planelement" minOccurs="0" maxOccurs="unbounded" type="studinfo:Planelement"/>
       <xs:element name="emnekombinasjon-valg" minOccurs="0" maxOccurs="unbounded" type="studinfo:Emnekombinasjon-valg"/>
       <xs:element name="emnekombinasjon-frievalg" minOccurs="0" maxOccurs="unbounded" type="studinfo:Emnekombinasjon-frievalg"/>
       <xs:element name="emnekombinasjon" type="studinfo:Emnekombinasjon" minOccurs="0"
@@ -315,7 +315,7 @@
       <xs:element name="planelementnavn" type="xs:string"/>
       <xs:element name="planelementnavn-en" minOccurs="0" type="xs:string"/>
       <xs:element name="sorteringsrekkefolge" minOccurs="0" type="xs:integer"/>
-      <xs:element name="valgstatus" type="xs:string"/>
+      <xs:element name="valgstatus" minOccurs="0" type="xs:string"/>
       <xs:sequence minOccurs="0">
         <xs:element name="undtermin-fra" type="xs:integer"/>
         <xs:element name="undtermin-til" type="xs:integer"/>
@@ -325,6 +325,7 @@
   </xs:complexType>
   <xs:complexType name="Planforslag">
     <xs:sequence>
+      <xs:element name="beskrivelse" minOccurs="0" type="xs:string"/>
       <xs:element name="emnekombinasjonsnavn" type="xs:string"/>
       <xs:element name="termin-start" minOccurs="0" type="xs:string"/>
       <xs:element name="emne" maxOccurs="unbounded" type="studinfo:PlanEmne"/>

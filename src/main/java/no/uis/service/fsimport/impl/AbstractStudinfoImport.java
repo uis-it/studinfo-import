@@ -48,7 +48,9 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
   	try {
   	  return unmarshalStudieinfo(studieinfoXml);
   	} finally {
-  	  studieinfoXml.close();
+  	  if (studieinfoXml != null) {
+  	    studieinfoXml.close();
+  	  }
   	}
   }
 
@@ -77,7 +79,9 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
    * @param studieinfoXml the Reader is not closed in this method.
    */
   protected FsStudieinfo unmarshalStudieinfo(Reader studieinfoXml) throws Exception {
-    
+    if (studieinfoXml == null) {
+      return null;
+    }
     TransformerFactory trFactory = TransformerFactory.newInstance();
     Reader unmarshalSource = null;
     List<Runnable> cleanupTasks = new ArrayList<Runnable>(2); 
