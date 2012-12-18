@@ -8,6 +8,7 @@ import no.uis.service.studinfo.data.FsSemester;
 import no.uis.service.studinfo.data.FsYearSemester;
 import no.uis.service.studinfo.data.KravSammensetting;
 import no.uis.service.studinfo.data.ProgramEmne;
+import no.uis.service.studinfo.data.Studieprogram;
 import no.uis.service.studinfo.data.Utdanningsplan;
 import no.uis.service.studinfo.data.Vurdkombinasjon;
 import no.uis.service.studinfo.data.Vurdordning;
@@ -220,5 +221,40 @@ public final class Studinfos {
       year--;
     }
     return new FsYearSemester(year, semester);
+  }
+  
+  public static int numberOfSemesters(Studieprogram program) {
+    if (program.isSetVarighet()) {
+      return program.getVarighet().getSemesters();
+    }
+    
+    int maxSemester = 0;
+    if (program.isSetUtdanningsplan()) {
+      for (KravSammensetting krav : program.getUtdanningsplan().getKravSammensetting()) {
+        maxSemester = maxSemester(krav.getEmnekombinasjon(), maxSemester);
+      }
+    }
+    return maxSemester == 0 ? 10 : maxSemester;
+  }
+
+  private static int maxSemester(Emnekombinasjon emnekombinasjon, int maxSemester) {
+    for (ProgramEmne emne : emnekombinasjon.getEmne()) {
+      int newMax=0;
+    
+      if (emne.isSetUndterminTil()) {
+        newMax = emne.getUndterminTil().intValue();
+      } else if (emne.isSetUndterminFra()) {
+        newMax = emne.getUndterminFra().intValue();
+      }
+      if (newMax > maxSemester) {
+        maxSemester = newMax;
+      }
+    }
+    if (emnekombinasjon.isSetEmnekombinasjon()) {
+      for (Emnekombinasjon ekChild : emnekombinasjon.getEmnekombinasjon()) {
+        maxSemester = maxSemester(ekChild, maxSemester);
+      }
+    }
+    return maxSemester;
   }
 }
