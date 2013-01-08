@@ -14,19 +14,29 @@ public class FsEksamensdato {
   private final Calendar uttak;
   private final Calendar innleveringDato;
   private final FsTime innleveringTid;
+  private final String text;
   
   // taken from the XSD restriction
   private static final Pattern PATTERN = Pattern.compile("((Uttak\\: \\d{2}\\.\\d{2}\\.\\d{4} )?(Frist innlevering\\: )?(\\d{2}\\.\\d{2}\\.\\d{4})( kl\\. \\d{2}\\:\\d{2})?)?");
   private static final CalendarAdapter dateAdapter = new CalendarNorwegianAdapter();
   private static final FsTimeAdapter timeAdapter = new FsTimeAdapter();
   
-  public FsEksamensdato(Calendar dato, Calendar uttak, Calendar innleveringDato, FsTime innleveringTid) {
+  public FsEksamensdato(Calendar dato, Calendar uttak, Calendar innleveringDato, FsTime innleveringTid, String text) {
     this.dato = dato;
     this.uttak = uttak;
     this.innleveringDato = innleveringDato;
     this.innleveringTid = innleveringTid;
+    this.text = text;
   }
 
+  public FsEksamensdato() {
+    this.dato = null;
+    this.uttak = null;
+    this.innleveringDato = null;
+    this.innleveringTid = null;
+    this.text = null;
+  }
+  
   public Calendar getDato() {
     return dato;
   }
@@ -45,31 +55,7 @@ public class FsEksamensdato {
   
   @Override
   public String toString() {
-    
-    try {
-      if (dato != null) {
-          return dateAdapter.marshal(dato);
-      }
-      StringBuilder sb = new StringBuilder();
-      if (uttak != null) {
-        sb.append("Uttak: ");
-        sb.append(dateAdapter.marshal(uttak));
-      }
-      if (innleveringDato != null) {
-        if (sb.length() > 0) {
-          sb.append(' ');
-        }
-        sb.append("Frist innlevering: ");
-        sb.append(dateAdapter.marshal(innleveringDato));
-      }
-      if (innleveringTid != null) {
-        sb.append(" kl. ");
-        sb.append(innleveringTid.toString());
-      }
-      return sb.toString();
-    } catch(Exception e) {
-      throw new RuntimeException(e);
-    }
+    return text;
   }
   
   public static FsEksamensdato valueOf(String v) throws Exception {
@@ -92,30 +78,33 @@ public class FsEksamensdato {
     Calendar uttak = null;
     Calendar innleveringDato = null;
     FsTime innleveringTid = null;
-    if (nonZero < 2 || nonZero > 5) {
-      throw new IllegalArgumentException(v);
-    }
-    if (nonZero == 2) {
-      // 01.08.2012
-      dato = dateAdapter.unmarshal(groups[3]);
-    } else {
-      // TODO optimize
-      if (nonZero == 3) {
+    
+    switch(nonZero) {
+      case 2:
+        // 01.08.2012
+        dato = dateAdapter.unmarshal(groups[3]);
+        break;
+      case 3:
         // Frist innlevering: 12.04.2012
         innleveringDato = dateAdapter.unmarshal(groups[3]);
-      }
-      if (nonZero == 4) {
+        break;
+      case 4:
         // Frist innlevering: 01.06.2012 kl. 14:00
         innleveringDato = dateAdapter.unmarshal(groups[3]);
         innleveringTid = timeAdapter.unmarshal(groups[4].substring(4).trim());
-      }
-      if (nonZero == 5) {
+        break;
+      case 5:
         // Uttak: 11.05.2012 Frist innlevering: 15.05.2012 kl. 14:00
         uttak = dateAdapter.unmarshal(groups[1].substring(6).trim());
         innleveringDato = dateAdapter.unmarshal(groups[3].trim());
         innleveringTid = timeAdapter.unmarshal(groups[4].substring(4).trim());
-      }
+        break;
+      
+      default:
+        break;
+        
     }
-    return new FsEksamensdato(dato, uttak, innleveringDato, innleveringTid);
+
+    return new FsEksamensdato(dato, uttak, innleveringDato, innleveringTid, v);
   }
 }
