@@ -15,6 +15,7 @@ import no.uis.service.studinfo.data.Vurdordning;
 
 public final class Studinfos {
 
+  public static final String DEFAULT_VURDKOMB_BROK = "1/1";
   public static final String VALID_FROM = "validFrom";
   public static final String SKIP_SEMESTERS = "skipSemesters";
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Studinfos.class);
@@ -189,6 +190,9 @@ public final class Studinfos {
         iter.remove();
       }
     } else {
+      if (!vkomb.isSetBrok()) {
+    	  vkomb.setBrok(DEFAULT_VURDKOMB_BROK);
+      }
       if (vkomb.isSetVurdkombinasjon()) {
         cleanVurderingsKombinasjon(vkomb.getVurdkombinasjon(), currentYearSemester, excludeCodes);
       }
