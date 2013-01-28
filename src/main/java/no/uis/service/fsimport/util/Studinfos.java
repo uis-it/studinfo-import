@@ -178,7 +178,7 @@ public final class Studinfos {
     boolean doClean = excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester);
 
     if (!doClean && vkomb.isSetVurdering()) {
-      doClean = vkomb.isVurdering();
+      doClean = !vkomb.isVurdering();
     }
     
     if (doClean) {
