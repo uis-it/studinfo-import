@@ -1,29 +1,17 @@
 package no.uis.service.fsimport;
 
-import static org.junit.Assert.*;
-import static org.junit.Assume.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.matchers.JUnitMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assume.assumeNoException;
+import static org.junit.Assume.assumeNotNull;
+import static org.junit.Assume.assumeThat;
+import static org.junit.matchers.JUnitMatchers.hasItems;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringReader;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 
 import no.uis.service.fsimport.impl.AbstractStudinfoImport;
-import no.uis.service.fsimport.impl.StudInfoImportImpl;
 import no.uis.service.fsimport.util.Studinfos;
 import no.uis.service.studinfo.data.FsSemester;
 import no.uis.service.studinfo.data.FsStudieinfo;
@@ -32,14 +20,9 @@ import no.uis.service.studinfo.data.Studieprogram;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.core.io.ClassRelativeResourceLoader;
 import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 public class StudinfosTest {
 
@@ -62,7 +45,7 @@ public class StudinfosTest {
     AbstractStudinfoImport importer = new ImportMock();
     importer.setTransformerUrl(transformer.getURL());
     
-    FsStudieinfo sinfo = importer.fetchStudyPrograms(217, 2013, "VÃ…R", true, "B");
+    FsStudieinfo sinfo = importer.fetchStudyPrograms(217, 2013, "VÅR", true, "B");
 
     assumeNotNull(sinfo);
     

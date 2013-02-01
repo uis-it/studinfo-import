@@ -202,6 +202,14 @@
         </xsl:element>
     </xsl:template>
     
+    <xsl:template match="fs:meld_studentweb">
+        <xsl:if test="text()">
+            <xsl:copy>
+                <xsl:value-of select="."/>
+            </xsl:copy>
+        </xsl:if>
+    </xsl:template>
+    
     <xsl:template name="freetext">
         <xsl:param name="name" select="name()"/>
         <xsl:element name="{$name}" namespace="http://fsws.usit.no/schemas/studinfo">

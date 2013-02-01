@@ -13,10 +13,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import net.sf.saxon.lib.FeatureKeys;
 import no.uis.service.fsimport.StudInfoImport;
 import no.uis.service.studinfo.data.FsStudieinfo;
 
@@ -82,12 +82,16 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
     if (studieinfoXml == null) {
       return null;
     }
-    TransformerFactory trFactory = TransformerFactory.newInstance();
     Reader unmarshalSource = null;
     List<Runnable> cleanupTasks = new ArrayList<Runnable>(2); 
     
     try {
       if (transformerUrl != null) {
+//        TransformerFactory trFactory = TransformerFactory.newInstance();
+        net.sf.saxon.TransformerFactoryImpl trFactory = new net.sf.saxon.TransformerFactoryImpl();
+//    trFactory.setAttribute(FeatureKeys.ENTITY_RESOLVER_CLASS, "no.uis.service.fsimport.impl.EntityResolver");
+        trFactory.setAttribute(FeatureKeys.SOURCE_PARSER_CLASS, "no.uis.service.fsimport.impl.SourceParser");
+        //trFactory.setAttribute("http://apache.org/xml/properties/internal/entity-manager", "no.uis.service.fsimport.impl.EntityManager");
         Source schemaSource = new StreamSource(transformerUrl.openStream());
         Transformer stylesheet = trFactory.newTransformer(schemaSource);
     
