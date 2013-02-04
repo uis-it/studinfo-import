@@ -2,9 +2,13 @@ package no.uis.service.studinfo.data;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import no.uis.service.fsimport.util.FsSemesterAdapter;
 
 @XmlType(name = "FsSemester" , namespace = "http://fsws.usit.no/schemas/studinfo")
 @XmlEnum
+@XmlJavaTypeAdapter(value=FsSemesterAdapter.class)
 public enum FsSemester {
 
   // The order of these fields is significant, the fields must be sorted in chronological order
