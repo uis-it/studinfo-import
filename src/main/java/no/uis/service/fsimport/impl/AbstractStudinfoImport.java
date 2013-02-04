@@ -25,6 +25,8 @@ import org.apache.log4j.Logger;
 public abstract class AbstractStudinfoImport implements StudInfoImport {
 
   private URL transformerUrl;
+  
+  private String xmlSourceParser;
 
   protected abstract Reader fsGetKurs(int institution, String language);
 
@@ -40,6 +42,10 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
 
   public void setTransformerUrl(URL transformerUrl) {
     this.transformerUrl = transformerUrl;
+  }
+
+  public void setXmlSourceParser(String xmlSourceParser) {
+    this.xmlSourceParser = xmlSourceParser;
   }
 
   public FsStudieinfo fetchStudyPrograms(int institution, int year, String semester, boolean includeEP, String language) throws Exception {
@@ -87,11 +93,10 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
     
     try {
       if (transformerUrl != null) {
-//        TransformerFactory trFactory = TransformerFactory.newInstance();
         net.sf.saxon.TransformerFactoryImpl trFactory = new net.sf.saxon.TransformerFactoryImpl();
-//    trFactory.setAttribute(FeatureKeys.ENTITY_RESOLVER_CLASS, "no.uis.service.fsimport.impl.EntityResolver");
-        trFactory.setAttribute(FeatureKeys.SOURCE_PARSER_CLASS, "no.uis.service.fsimport.impl.SourceParser");
-        //trFactory.setAttribute("http://apache.org/xml/properties/internal/entity-manager", "no.uis.service.fsimport.impl.EntityManager");
+        if (this.xmlSourceParser != null) {
+          trFactory.setAttribute(FeatureKeys.SOURCE_PARSER_CLASS, this.xmlSourceParser);
+        }
         Source schemaSource = new StreamSource(transformerUrl.openStream());
         Transformer stylesheet = trFactory.newTransformer(schemaSource);
     

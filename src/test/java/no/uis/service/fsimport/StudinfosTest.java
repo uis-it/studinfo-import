@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import no.uis.service.fsimport.impl.AbstractStudinfoImport;
+import no.uis.service.fsimport.impl.SkippingAmpersandParser;
 import no.uis.service.fsimport.util.Studinfos;
 import no.uis.service.studinfo.data.FsSemester;
 import no.uis.service.studinfo.data.FsStudieinfo;
@@ -44,8 +45,9 @@ public class StudinfosTest {
   public void test() throws Exception {
     AbstractStudinfoImport importer = new ImportMock();
     importer.setTransformerUrl(transformer.getURL());
+    importer.setXmlSourceParser(SkippingAmpersandParser.class.getName());
     
-    FsStudieinfo sinfo = importer.fetchStudyPrograms(217, 2013, "VÅR", true, "B");
+    FsStudieinfo sinfo = importer.fetchStudyPrograms(217, 2013, FsSemester.VAR.toString(), true, "B");
 
     assumeNotNull(sinfo);
     

@@ -4,9 +4,9 @@ import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.parsers.XIncludeAwareParserConfiguration;
 import org.xml.sax.SAXException;
 
-public class SourceParser extends SAXParser {
+public class SkippingAmpersandParser extends SAXParser {
 
-  public SourceParser() throws SAXException {
+  public SkippingAmpersandParser() throws SAXException {
     super(new ParserConfig());
   }
 
