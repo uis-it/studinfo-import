@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>no.uis.service.component</groupId>
@@ -13,7 +14,7 @@
 		<artifactId>parent-pom</artifactId>
 		<version>1.2.2</version>
 	</parent>
-	
+
 	<inceptionYear>2010</inceptionYear>
 
 	<scm>
@@ -21,7 +22,7 @@
 		<developerConnection>scm:git:ssh://git@152.94.3.85/soa-component-fsimport.git</developerConnection>
 		<url>http://source01.uis.no/git/?p=soa-component-fsimport.git</url>
 	</scm>
-	
+
 
 	<properties>
 		<cxf.version>2.6.2</cxf.version>
@@ -35,49 +36,53 @@
 		<jaxb.version>2.2.5</jaxb.version>
 	</properties>
 
-  <profiles>
-    <profile>
-      <id>windows</id>
-      <activation>
-        <os><family>windows</family></os>
-      </activation>
-      <properties>
-        <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-      </properties>
-    </profile>
-    <profile>
-      <id>unix</id>
-      <activation>
-        <os><family>unix</family></os>
-      </activation>
-      <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      </properties>
-    </profile>
-  </profiles>
-  
+	<profiles>
+		<profile>
+			<id>windows</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+			</properties>
+		</profile>
+		<profile>
+			<id>unix</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<properties>
+				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-beans</artifactId>
-				<version>${spring.version}</version>			
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
-				<version>${spring.version}</version>			
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-asm</artifactId>
-				<version>${spring.version}</version>			
+				<version>${spring.version}</version>
 			</dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-web</artifactId>
-        <version>${spring.version}</version>      
-      </dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>commons-collections</groupId>
 				<artifactId>commons-collections</artifactId>
@@ -124,28 +129,28 @@
 				<version>2.4</version>
 			</dependency>
 			<dependency>
-			 <groupId>log4j</groupId>
-			 <artifactId>log4j</artifactId>
-			 <version>${log4j.version}</version>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
 			</dependency>
 			<dependency>
-			 <groupId>xml-apis</groupId>
-			 <artifactId>xml-apis</artifactId>
-			 <version>1.3.03</version>
+				<groupId>xml-apis</groupId>
+				<artifactId>xml-apis</artifactId>
+				<version>1.4.01</version>
 			</dependency>
 			<dependency>
-					<groupId>org.codehaus.woodstox</groupId>
-					<artifactId>woodstox-core-asl</artifactId>
-					<version>4.1.4</version>
+				<groupId>org.codehaus.woodstox</groupId>
+				<artifactId>woodstox-core-asl</artifactId>
+				<version>4.1.4</version>
 			</dependency>
 			<dependency>
 				<groupId>xerces</groupId>
 				<artifactId>xercesImpl</artifactId>
-				<version>2.11.0</version>
+				<version>2.10.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>no.uis.service.client</groupId>
@@ -163,10 +168,10 @@
 			<version>${cxf.version}</version>
 		</dependency>
 		<dependency>
-		  <groupId>org.easymock</groupId>
-		  <artifactId>easymock</artifactId>
-		  <version>3.0</version>
-		  <scope>test</scope>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>3.0</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -175,84 +180,84 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		  <groupId>org.slf4j</groupId>
-		  <artifactId>slf4j-log4j12</artifactId>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<dependency>
-		  <groupId>log4j</groupId>
-		  <artifactId>log4j</artifactId>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 		</dependency>
 		<dependency>
-		  <groupId>net.sf.saxon</groupId>
-		  <artifactId>Saxon-HE-uis</artifactId>
-		  <version>9.4.0.6</version>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>9.4.0.6</version>
 		</dependency>
 		<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-beans</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
 		</dependency>
 		<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
 		</dependency>
-		<!--dependency>
+		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>
-		</dependency-->
+		</dependency>
 	</dependencies>
-	
+
 	<distributionManagement>
 		<site>
 			<id>source01.uis.no</id>
 			<url>dav:https://source01.uis.no/maven-site/${project.groupId}/${project.artifactId}/${project.version}</url>
 		</site>
 	</distributionManagement>
-	
+
 	<build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.jvnet.jaxb2.maven2</groupId>
-          <artifactId>maven-jaxb2-plugin</artifactId>
-          <version>0.8.2</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.jvnet.jaxb2.maven2</groupId>
+					<artifactId>maven-jaxb2-plugin</artifactId>
+					<version>0.8.2</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
-      <plugin>
-        <groupId>org.jvnet.jaxb2.maven2</groupId>
-        <artifactId>maven-jaxb2-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>generate-sources</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-            <configuration>
-              <schemaDirectory>${basedir}/src/main/xsd</schemaDirectory>
-              <bindingDirectory>${basedir}/src/main/xsd</bindingDirectory>
-              <generatePackage>no.uis.service.studinfo.data</generatePackage>
-              <extension>true</extension>
-              <verbose>true</verbose>
-              <removeOldOutput>true</removeOldOutput>
-              <episode>false</episode>
-              <args>
-                <arg>-Xxew</arg>
-                <arg>-Xxew:instantiate lazy</arg>
-                <arg>-Xxew:delete</arg>
-              </args>
-              <plugins>
-                <plugin>
-                  <groupId>com.github.jaxb-xew-plugin</groupId>
-                  <artifactId>jaxb-xew-plugin</artifactId>
-                  <version>1.0</version>
-                </plugin>
-              </plugins>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaDirectory>${basedir}/src/main/xsd</schemaDirectory>
+							<bindingDirectory>${basedir}/src/main/xsd</bindingDirectory>
+							<generatePackage>no.uis.service.studinfo.data</generatePackage>
+							<extension>true</extension>
+							<verbose>true</verbose>
+							<removeOldOutput>true</removeOldOutput>
+							<episode>false</episode>
+							<args>
+								<arg>-Xxew</arg>
+								<arg>-Xxew:instantiate lazy</arg>
+								<arg>-Xxew:delete</arg>
+							</args>
+							<plugins>
+								<plugin>
+									<groupId>com.github.jaxb-xew-plugin</groupId>
+									<artifactId>jaxb-xew-plugin</artifactId>
+									<version>1.0</version>
+								</plugin>
+							</plugins>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>
