@@ -34,6 +34,7 @@
 		<jetty.version>6.1.26</jetty.version>
 		<log4j.version>1.2.16</log4j.version>
 		<jaxb.version>2.2.5</jaxb.version>
+		<xmlapis.version>1.4.01</xmlapis.version>
 	</properties>
 
 	<profiles>
@@ -136,7 +137,7 @@
 			<dependency>
 				<groupId>xml-apis</groupId>
 				<artifactId>xml-apis</artifactId>
-				<version>1.4.01</version>
+				<version>${xmlapis.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.codehaus.woodstox</groupId>
