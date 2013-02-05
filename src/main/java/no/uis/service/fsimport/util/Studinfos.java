@@ -1,12 +1,19 @@
 package no.uis.service.fsimport.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import no.uis.service.component.studinfopdf.convert.StringConverterUtil;
+import no.uis.service.studinfo.data.Emne;
 import no.uis.service.studinfo.data.Emnekombinasjon;
 import no.uis.service.studinfo.data.FsSemester;
 import no.uis.service.studinfo.data.FsYearSemester;
 import no.uis.service.studinfo.data.KravSammensetting;
+import no.uis.service.studinfo.data.Obligoppgave;
 import no.uis.service.studinfo.data.ProgramEmne;
 import no.uis.service.studinfo.data.Studieprogram;
 import no.uis.service.studinfo.data.Utdanningsplan;
@@ -25,7 +32,7 @@ public final class Studinfos {
   private Studinfos() {
   }
 
-  public static void cleanUtdanningsplan(String programCode, Utdanningsplan uplan, FsYearSemester currentSemester, int maxSemesters) {
+  public static void cleanUtdanningsplan(Utdanningsplan uplan, String programCode, FsYearSemester currentSemester, int maxSemesters) {
     contextPath.init(programCode);
     try {
       if (uplan != null && uplan.isSetKravSammensetting()) {
@@ -151,19 +158,39 @@ public final class Studinfos {
 
   /**
    * Remove "obligatorsk undervisning", old subjects. If vurdering is set, "only elements with vurdering == true are considered.
+   * 
+   * @return List of codes that are removed from the vurderingsordning (compulsory ones) 
    */
-  public static void cleanVurderingsordning(List<Vurdordning> vurdordnings, List<String> excludeCodes, FsYearSemester currentYearSemester)
+  public static List<String> cleanVurderingsordning(Emne emne, FsYearSemester currentYearSemester)
   {
-    Iterator<Vurdordning> iter = vurdordnings.iterator();
-    while (iter.hasNext()) {
-      Vurdordning vo = iter.next();
-      if (excludeCodes.contains(vo.getVurdordningid())) {
-        iter.remove();
-      } else if (vo.isSetVurdkombinasjon()) {
-        Vurdkombinasjon vkomb = vo.getVurdkombinasjon();
-        cleanVurderingskombinasjon(vo, vkomb, currentYearSemester, excludeCodes);
+    List<String> excludeCodes;
+    if (emne.isSetVurdordning()) {
+      // There is no attribute on vurdkombinasjon that tells us if it is compulsory
+      if (emne.isSetObligund()) {
+        List<Obligoppgave> obligund = emne.getObligund();
+        excludeCodes = new ArrayList<String>(obligund.size());
+        for (Obligoppgave oo : obligund) {
+          excludeCodes.add(oo.getNr());
+        }
+      } else {
+        excludeCodes = Collections.emptyList();
       }
+    
+      Iterator<Vurdordning> iter = emne.getVurdordning().iterator();
+      while (iter.hasNext()) {
+        Vurdordning vo = iter.next();
+        if (excludeCodes.contains(vo.getVurdordningid())) {
+          iter.remove();
+        } else if (vo.isSetVurdkombinasjon()) {
+          Vurdkombinasjon vkomb = vo.getVurdkombinasjon();
+          cleanVurderingskombinasjon(vo, vkomb, currentYearSemester, excludeCodes);
+        }
+      }
+    } else {
+      excludeCodes = Collections.emptyList();
     }
+    
+    return excludeCodes;
   }
   
   private static void cleanVurderingsKombinasjon(List<Vurdkombinasjon> vurdkombinasjon, FsYearSemester currentYearSemester, List<String> excludeCodes) {
@@ -241,6 +268,74 @@ public final class Studinfos {
     return maxSemester == 0 ? 10 : maxSemester;
   }
 
+  public static Map<String, Object> forkunnskap(Emne emne) {
+    Map<String, Object> forkunnskap = null;
+    if (emne.isSetFormelleForkunnskaper() || emne.isSetAbsForkunnskaperFritekst()) {
+      forkunnskap = new HashMap<String, Object>(); 
+      if (emne.isSetFormelleForkunnskaper()) {
+        forkunnskap.put("alternatives", emne.getFormelleForkunnskaper());
+        emne.setFormelleForkunnskaper(null);
+      }
+      if (emne.isSetAbsForkunnskaperFritekst()) {
+        forkunnskap.put("text", emne.getAbsForkunnskaperFritekst());
+        emne.setAbsForkunnskaperFritekst(null);
+      }
+    }
+    return forkunnskap;
+  }
+
+  public static Map<String, Object> anbefalteForkunnskaper(Emne emne) {
+    Map<String, Object> anbForkunn = null;
+    if (emne.isSetAnbefalteForkunnskaper() || emne.isSetAnbForkunnskaperFritekst()) {
+      anbForkunn = new HashMap<String, Object>();
+      
+      if (emne.isSetAnbefalteForkunnskaper()) {
+        anbForkunn.put("forkunnskaper", emne.getAnbefalteForkunnskaper());
+        emne.setAnbefalteForkunnskaper(null);
+      }
+      if (emne.isSetAnbForkunnskaperFritekst()) {
+        anbForkunn.put("text", emne.getAnbForkunnskaperFritekst());
+        emne.setAnbForkunnskaperFritekst(null);
+      }
+    }
+    return anbForkunn;
+  }
+
+  public static Map<String, Object> obligund(Emne emne) {
+    Map<String, Object> obligund = null;
+    if (emne.isSetObligund() || emne.isSetObligUndaktTilleggsinfo()) {
+      obligund = new HashMap<String, Object>();
+      if (emne.isSetObligund()) {
+        obligund.put("obligund", StringConverterUtil.convert(emne.getObligund()));
+        emne.setObligund(null);
+      }
+      if (emne.isSetObligUndaktTilleggsinfo()) {
+        obligund.put("text", emne.getObligUndaktTilleggsinfo());
+        emne.setObligUndaktTilleggsinfo(null);
+      }
+    }
+    return obligund;
+  }
+  
+  public static Map<String, Object> apenFor(Emne emne) {
+    Map<String, Object> apenFor = null;
+    if (emne.isSetApentForTillegg() || Studinfos.isSetAndTrue(emne.isStatusPrivatist())) {
+      apenFor = new HashMap<String, Object>(); 
+      apenFor.put("privatist", Studinfos.isSetAndTrue(emne.isStatusPrivatist()));
+      emne.setStatusPrivatist(null);
+      if (emne.isSetApentForTillegg()) {
+        apenFor.put("text", emne.getApentForTillegg());
+        emne.setApentForTillegg(null);
+      }
+      
+    } else if (emne.isSetInngarIStudieprogram()) {
+      apenFor = new HashMap<String, Object>(); 
+      String value = StringConverterUtil.convert(emne.getInngarIStudieprogram());
+      apenFor.put("text", value);
+    }
+    return apenFor;
+  }
+  
   private static int maxSemester(Emnekombinasjon emnekombinasjon, int maxSemester) {
     for (ProgramEmne emne : emnekombinasjon.getEmne()) {
       int newMax=0;

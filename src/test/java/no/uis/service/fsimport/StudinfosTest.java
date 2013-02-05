@@ -56,7 +56,7 @@ public class StudinfosTest {
     Studieprogram bdata = sinfo.getStudieprogram().get(0);
     assumeThat(bdata.getStudieprogramkode(), is("B-DATA"));
     
-    Studinfos.cleanUtdanningsplan("B-DATA", bdata.getUtdanningsplan(), new FsYearSemester(2013, FsSemester.VAR), 6);
+    Studinfos.cleanUtdanningsplan(bdata.getUtdanningsplan(), "B-DATA", new FsYearSemester(2013, FsSemester.VAR), 6);
     
     assertThat(bdata.getUtdanningsplan().getKravSammensetting().size(), is(3));
   }
