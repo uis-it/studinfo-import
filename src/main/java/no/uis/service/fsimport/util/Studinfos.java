@@ -328,7 +328,6 @@ public final class Studinfos {
       }
       
     } else if (emne.isSetInngarIStudieprogram()) {
-      apenFor = new HashMap<String, Object>(); 
       String value = StringConverterUtil.convert(emne.getInngarIStudieprogram());
       apenFor.put("text", value);
     }
