@@ -155,6 +155,10 @@
         <xsl:call-template name="freetext"/>
     </xsl:template>
     
+    <xsl:template match="fs:se-introd">
+        <xsl:call-template name="freetext"/>
+    </xsl:template>
+    
     <xsl:template match="fs:sted">
         <xsl:element name="{@type}" namespace="http://fsws.usit.no/schemas/studinfo">
             <xsl:apply-templates select="child::*"/>
