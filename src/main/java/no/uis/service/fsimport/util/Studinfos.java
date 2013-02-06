@@ -318,11 +318,10 @@ public final class Studinfos {
   }
   
   public static Map<String, Object> apenFor(Emne emne) {
-    Map<String, Object> apenFor = null;
+    Map<String, Object> apenFor = new HashMap<String, Object>();
+    apenFor.put("privatist", Studinfos.isSetAndTrue(emne.isStatusPrivatist()));
+    emne.setStatusPrivatist(null);
     if (emne.isSetApentForTillegg() || Studinfos.isSetAndTrue(emne.isStatusPrivatist())) {
-      apenFor = new HashMap<String, Object>(); 
-      apenFor.put("privatist", Studinfos.isSetAndTrue(emne.isStatusPrivatist()));
-      emne.setStatusPrivatist(null);
       if (emne.isSetApentForTillegg()) {
         apenFor.put("text", emne.getApentForTillegg());
         emne.setApentForTillegg(null);
