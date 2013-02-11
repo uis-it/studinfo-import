@@ -23,7 +23,7 @@
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="fs:studieprogram">
+    <xsl:template match="/fs:fs-studieinfo/fs:studieprogram">
         <xsl:copy copy-namespaces="yes">
             <xsl:apply-templates select="@*"/>
             <xsl:apply-templates select="fs:studieprogramkode"/>
@@ -76,7 +76,7 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="fs:emne">
+    <xsl:template match="/fs:fs-studieinfo/fs:emne">
         <xsl:copy copy-namespaces="yes">
             <xsl:apply-templates select="@*"/>
             <xsl:apply-templates select="fs:emneid"/>
