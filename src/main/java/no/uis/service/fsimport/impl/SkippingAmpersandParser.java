@@ -8,6 +8,8 @@ public class SkippingAmpersandParser extends SAXParser {
 
   public SkippingAmpersandParser() throws SAXException {
     super(new ParserConfig());
+//    setProperty("http://apache.org/xml/properties/internal/entity-manager", new EntityManager(createEntities()));
+//    setProperty("http://apache.org/xml/properties/internal/symbol-table", new SymbolTable());
   }
 
   private static class ParserConfig extends XIncludeAwareParserConfiguration {
@@ -19,6 +21,5 @@ public class SkippingAmpersandParser extends SAXParser {
       fProperties.put(ENTITY_MANAGER, fEntityManager);
       addCommonComponent(fEntityManager);
     }
-
   }
 }

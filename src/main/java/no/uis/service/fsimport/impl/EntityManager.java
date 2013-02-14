@@ -1,6 +1,7 @@
 package no.uis.service.fsimport.impl;
 
 import java.io.IOException;
+import java.util.Hashtable;
 
 import org.apache.xerces.impl.Constants;
 import org.apache.xerces.impl.XMLEntityManager;
@@ -10,9 +11,6 @@ public class EntityManager extends XMLEntityManager {
   
   public static final String EMPTY_ENTITY = "XX";
 
-  public EntityManager() {
-  }
-  
   @Override
   public void setScannerVersion(short version) {
     if (version == Constants.XML_VERSION_1_0) {
@@ -31,14 +29,33 @@ public class EntityManager extends XMLEntityManager {
       fEntityScanner.setCurrentEntity(fCurrentEntity);
     }
   } 
-
   
   @Override
   public boolean isDeclaredEntity(String entityName) {
     if (entityName == EMPTY_ENTITY) {
       return true;
     }
-    return super.isDeclaredEntity(entityName);
+    
+    boolean declaredEntity = super.isDeclaredEntity(entityName);
+    if (!declaredEntity) {
+      //String entityValue = "&amp;"+entityName+";";
+      String entityValue = "&#38;"+entityName+";";
+      addInternalEntity(entityName, entityValue);
+      addDeclaredInternalEntity(entityName, entityValue);
+      declaredEntity = true;
+    }
+    return declaredEntity;
+  }
+  
+  @SuppressWarnings("unchecked")
+  private void addDeclaredInternalEntity(String name, String text) {
+    if (fDeclaredEntities == null) {
+      fDeclaredEntities = new Hashtable<Object, Object>();
+    }
+    if (!fDeclaredEntities.containsKey(name)) {
+      Entity entity = new InternalEntity(name, text, fInExternalSubset);
+      fDeclaredEntities.put(name, entity);
+    }
   }
 
   @Override
