@@ -7,7 +7,7 @@
 
     <!-- made with good help from http://stackoverflow.com/questions/12315353/xslt-transform-sequence-with-maxocurs-unbounded-to-nested-elements -->
     
-    <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+    <xsl:output method="xml" encoding="UTF-8" indent="no"/>
     
     <xsl:namespace-alias stylesheet-prefix="#default" result-prefix="fs"/>
     
