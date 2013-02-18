@@ -53,7 +53,7 @@
 		      <xs:element name="grunnstudium" minOccurs="0" type="studinfo:YESNOType"/>
 		      <xs:element name="kulltrinnplan" minOccurs="0" type="studinfo:YESNOType"/>
 		      <xs:element name="arbeidsformer" minOccurs="0" type="xs:string"/>
-		      <xs:element name="fagplan_tekst" minOccurs="0" maxOccurs="2" type="xs:string"/>
+		      <xs:element name="fagplan_tekst" minOccurs="0" maxOccurs="1" type="xs:string"/>
 		      <xs:element name="fagplan_URL" minOccurs="0" type="xs:anyURI"/>
 		      <xs:element name="innhold" minOccurs="0" type="xs:string"/>
 		      <xs:element name="intro" minOccurs="0" type="xs:string"/>
