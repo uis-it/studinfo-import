@@ -1,7 +1,10 @@
 package no.uis.service.fsimport.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Hashtable;
+import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.apache.xerces.impl.Constants;
 import org.apache.xerces.impl.XMLEntityManager;
@@ -9,7 +12,25 @@ import org.apache.xerces.impl.XMLEntityScanner;
 
 public class EntityManager extends XMLEntityManager {
   
-  public static final String EMPTY_ENTITY = "XX";
+  public EntityManager() {
+    addInternalEntities();
+  }
+  
+  private void addInternalEntities() {
+  
+      InputStream entitiesStream = EntityManager.class.getResourceAsStream("/entities.properties");
+      if (entitiesStream == null) {
+        return;
+      }
+      Properties entities = new Properties();
+      try {
+        entities.load(entitiesStream);
+        for (Entry<Object, Object> entity : entities.entrySet()) {
+          addDeclaredInternalEntity(entity.getKey().toString(), entity.getValue().toString());
+        }
+      } catch(IOException e) {
+      }
+  }
 
   @Override
   public void setScannerVersion(short version) {
@@ -32,13 +53,8 @@ public class EntityManager extends XMLEntityManager {
   
   @Override
   public boolean isDeclaredEntity(String entityName) {
-    if (entityName == EMPTY_ENTITY) {
-      return true;
-    }
-    
     boolean declaredEntity = super.isDeclaredEntity(entityName);
     if (!declaredEntity) {
-      //String entityValue = "&amp;"+entityName+";";
       String entityValue = "&#38;"+entityName+";";
       addInternalEntity(entityName, entityValue);
       addDeclaredInternalEntity(entityName, entityValue);
@@ -81,7 +97,7 @@ public class EntityManager extends XMLEntityManager {
       if (name == null) {
         this.oldEntity = fCurrentEntity;
         fCurrentEntity = null;
-        return EMPTY_ENTITY;
+        return "nbsp";
       }
       return name;
     }
