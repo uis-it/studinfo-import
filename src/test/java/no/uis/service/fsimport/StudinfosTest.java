@@ -47,7 +47,7 @@ public class StudinfosTest {
     importer.setTransformerUrl(transformer.getURL());
     importer.setXmlSourceParser(SkippingAmpersandParser.class.getName());
     
-    FsStudieinfo sinfo = importer.fetchStudyPrograms(217, 2013, FsSemester.VAR.toString(), true, "B");
+    FsStudieinfo sinfo = importer.fetchStudyPrograms(217, -1, 2013, FsSemester.VAR.toString(), true, "B");
 
     assumeNotNull(sinfo);
     
@@ -63,7 +63,7 @@ public class StudinfosTest {
   
   private class ImportMock extends AbstractStudinfoImport {
     @Override
-    protected Reader fsGetStudieprogram(int institution, int year, String semester, boolean includeEP, String language) {
+    protected Reader fsGetStudieprogram(int institution, int faculty, int year, String semester, boolean includeEP, String language) {
       try {
         return new InputStreamReader(testData.getInputStream(), "ISO-8859-1");
       } catch(Exception e) {
@@ -73,7 +73,7 @@ public class StudinfosTest {
     }
     
     @Override
-    protected Reader fsGetEmne(int institution, int year, String semester, String language) {
+    protected Reader fsGetEmne(int institution, int faculty, int year, String semester, String language) {
       throw new UnsupportedOperationException();
     }
     
