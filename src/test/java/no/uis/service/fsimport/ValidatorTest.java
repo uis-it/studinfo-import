@@ -24,12 +24,14 @@ import org.junit.runners.Parameterized2.TestName;
 @RunWith (Parameterized2.class)
 public class ValidatorTest {
 
+  private int faculty;
   private int year;
   private FsSemester semester;
   private StudinfoType infoType;
   private String lang;
 
-  public ValidatorTest(int year, FsSemester semester, StudinfoType infoType, String lang) {
+  public ValidatorTest(int faculty, int year, FsSemester semester, StudinfoType infoType, String lang) {
+    this.faculty = faculty;
     this.year = year;
     this.semester = semester;
     this.infoType = infoType;
@@ -38,6 +40,7 @@ public class ValidatorTest {
   
   @Parameters
   public static List<Object[]> configParams() {
+    final String sFaculty = System.getProperty("studinfo.faculties", "-1");
     final String sYear = System.getProperty("studinfo.year");
     final String sInfoType = System.getProperty("studinfo.type");
     final String sLang = System.getProperty("studinfo.lang");
@@ -52,11 +55,18 @@ public class ValidatorTest {
     
     StudinfoType[] infoTypes = (sInfoType != null ? new StudinfoType[] {StudinfoType.valueOf(sInfoType)} : StudinfoType.values());
     String[] langs = (sLang != null ? sLang.split(",") : new String[] {"B", "E", "N"});
+    String[] faculties = sFaculty.split(",");
     
     List<Object[]> params = new ArrayList<Object[]>();
     for (StudinfoType type : infoTypes) {
       for (String lang : langs) {
-        params.add(new Object[] {year, semester, type, lang});
+        if (type.equals(StudinfoType.KURS)) {
+          params.add(new Object[] {-1, year, semester, type, lang});
+        } else {
+          for (String faculty : faculties) {
+            params.add(new Object[] {Integer.valueOf(faculty), year, semester, type, lang});
+          }
+        }
       }
     }
     return params;
@@ -85,7 +95,7 @@ public class ValidatorTest {
   @Test
   public void validate() throws Exception {
     StudinfoValidator validator = new StudinfoValidator();
-    List<String> messages = validator.fetchAndValidate(year, semester, lang, infoType);
+    List<String> messages = validator.fetchAndValidate(faculty, year, semester, lang, infoType);
     assertThat(new ListWrapper(messages), is(emptyCollection()));
   }
   
@@ -131,6 +141,5 @@ public class ValidatorTest {
       sb.append(']');
       return sb.toString();
     }
-    
   }
 }

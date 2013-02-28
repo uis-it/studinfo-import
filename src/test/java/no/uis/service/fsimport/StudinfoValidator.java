@@ -1,9 +1,12 @@
 package no.uis.service.fsimport;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,10 +72,10 @@ public class StudinfoValidator {
           messages.addAll(validateCourses(semester, year, langs));
           break;
         case STUDIEPROGRAM:
-          messages.addAll(validatePrograms(semester, year, langs));
+          messages.addAll(validatePrograms(-1, semester, year, langs));
           break;
         case EMNE:
-          messages.addAll(validateSubjects(semester, year, langs));
+          messages.addAll(validateSubjects(-1, semester, year, langs));
           break;
       }
     }
@@ -87,19 +90,19 @@ public class StudinfoValidator {
     }
   }
 
-  private List<String> validateSubjects(FsSemester semester, int year, String[] langs) throws Exception {
+  private List<String> validateSubjects(int faculty, FsSemester semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
     for (String lang : langs) {
-      messages.addAll(validateSubjects(217, year, semester, lang));
+      messages.addAll(validateSubjects(217, faculty, year, semester, lang));
     }
     
     return messages;
   }
 
-  private List<String> validatePrograms(FsSemester semester, int year, String[] langs) throws Exception {
+  private List<String> validatePrograms(int faculty, FsSemester semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
     for (String lang : langs) {
-      messages.addAll(validateStudyPrograms(217, year, semester, lang));
+      messages.addAll(validateStudyPrograms(faculty, 217, year, semester, lang));
     }
     
     return messages;
@@ -126,21 +129,21 @@ public class StudinfoValidator {
   }
 
   private void printUsage() {
-    System.out.println(this.getClass().getName() + " YEAR <VÅR | HØST>");
+    System.out.println(this.getClass().getName() + " YEAR <V\u00C5R | H\u00D8ST>");
   }
 
-  private List<String> validateStudyPrograms(int institution, int year, FsSemester semester, String language)
+  private List<String> validateStudyPrograms(int institution, int faculty, int year, FsSemester semester, String language)
       throws Exception
   {
     String studieinfoXml = getBean().getStudieprogramSI(year,
-        semester.toString(), StudInfoImport.INTEGER_1, null, institution, StudInfoImport.INTEGER_MINUS_1, null, null, language);
+        semester.toString(), StudInfoImport.INTEGER_1, null, institution, faculty, StudInfoImport.INTEGER_MINUS_1, null, language);
     
     return validate(studieinfoXml, StudinfoType.STUDIEPROGRAM, year, semester, language);
   }
 
-  private List<String> validateSubjects(int institution, int year, FsSemester semester, String language) throws Exception {
+  private List<String> validateSubjects(int institution, int faculty, int year, FsSemester semester, String language) throws Exception {
     String studieinfoXml = getBean().getEmneSI(Integer.valueOf(institution), null, null,
-      StudInfoImport.INTEGER_MINUS_1, null, null, year, semester.toString(), language);
+      faculty, StudInfoImport.INTEGER_MINUS_1, null, year, semester.toString(), language);
 
     return validate(studieinfoXml, StudinfoType.EMNE, year, semester, language);
   }
@@ -163,7 +166,8 @@ public class StudinfoValidator {
       outFile.getParentFile().mkdirs();
     }
     File outBackup = new File("target/out", infoType.toString() + year + semester + language + "_orig.xml");
-    FileWriter backupWriter = new FileWriter(outBackup);
+    Writer backupWriter = new OutputStreamWriter(new FileOutputStream(outBackup), IOUtils.UTF8_CHARSET);
+    backupWriter.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     IOUtils.copy(new StringReader(studieinfoXml), backupWriter, 10000);
     backupWriter.flush();
     backupWriter.close();
@@ -193,21 +197,21 @@ public class StudinfoValidator {
     reader.setErrorHandler(errorHandler);
     reader.setContentHandler(errorHandler);
     try {
-      reader.parse(new InputSource(new FileReader(outFile)));
+      reader.parse(new InputSource(new InputStreamReader(new FileInputStream(outFile), IOUtils.UTF8_CHARSET)));
     } catch(SAXException ex) {
       // do nothing. The error is handled in the error handler
     }
     return errorHandler.getMessages();
   }
 
-  public List<String> fetchAndValidate(int year, FsSemester semester, String lang, StudinfoType infoType) throws Exception {
+  public List<String> fetchAndValidate(int faculty, int year, FsSemester semester, String lang, StudinfoType infoType) throws Exception {
     switch(infoType) {
       case EMNE:
-        return validateSubjects(217, year, semester, lang);
+        return validateSubjects(217, faculty, year, semester, lang);
       case KURS:
         return validateCourses(217, year, semester, lang);
       case STUDIEPROGRAM:
-        return validateStudyPrograms(217, year, semester, lang);
+        return validateStudyPrograms(217, faculty, year, semester, lang);
     }
     return Collections.emptyList();
   }
