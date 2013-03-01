@@ -20,6 +20,7 @@ import net.sf.saxon.lib.FeatureKeys;
 import no.uis.service.fsimport.StudInfoImport;
 import no.uis.service.studinfo.data.FsStudieinfo;
 
+import org.apache.cxf.helpers.IOUtils;
 import org.apache.log4j.Logger;
 
 public abstract class AbstractStudinfoImport implements StudInfoImport {
@@ -30,9 +31,9 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
 
   protected abstract Reader fsGetKurs(int institution, String language);
 
-  protected abstract Reader fsGetEmne(int institution, int year, String semester, String language);
+  protected abstract Reader fsGetEmne(int institution, int faculty, int year, String semester, String language);
 
-  protected abstract Reader fsGetStudieprogram(int institution, int year, String semester, boolean includeEP, String language);
+  protected abstract Reader fsGetStudieprogram(int institution, int faculty, int year, String semester, boolean includeEP, String language);
 
   private static final Logger log = Logger.getLogger(StudInfoImportImpl.class);
 
@@ -48,9 +49,17 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
     this.xmlSourceParser = xmlSourceParser;
   }
 
-  public FsStudieinfo fetchStudyPrograms(int institution, int year, String semester, boolean includeEP, String language) throws Exception {
+  @Override
+  @Deprecated
+  public FsStudieinfo fetchStudyPrograms(int institution, int year, String semester, boolean includeEP, String language)
+      throws Exception
+  {
+    return fetchStudyPrograms(institution, -1, year, semester, includeEP, language);
+  }
+
+  public FsStudieinfo fetchStudyPrograms(int institution, int faculty, int year, String semester, boolean includeEP, String language) throws Exception {
   
-  	Reader studieinfoXml = fsGetStudieprogram(institution, year, semester, includeEP, language);
+  	Reader studieinfoXml = fsGetStudieprogram(institution, faculty, year, semester, includeEP, language);
   	try {
   	  return unmarshalStudieinfo(studieinfoXml);
   	} finally {
@@ -60,9 +69,15 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
   	}
   }
 
+  @Override
+  @Deprecated
   public FsStudieinfo fetchSubjects(int institution, int year, String semester, String language) throws Exception {
+    return fetchSubjects(institution, -1, year, semester, language);
+  }
+
+  public FsStudieinfo fetchSubjects(int institution, int faculty, int year, String semester, String language) throws Exception {
   
-    Reader studieinfoXml = fsGetEmne(institution, year, semester, language);
+    Reader studieinfoXml = fsGetEmne(institution, faculty, year, semester, language);
     try {
       return unmarshalStudieinfo(studieinfoXml);
     } finally {
@@ -70,6 +85,7 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
     }
   }
 
+  @Override
   public FsStudieinfo fetchCourses(int institution, int year, String semester, String language) throws Exception {
   
     Reader studieinfoXml = fsGetKurs(institution, language);
@@ -117,7 +133,7 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
         
         stylesheet.transform(input, result);
         @SuppressWarnings("resource")
-        final Reader _unmarshalSource = new InputStreamReader(new FileInputStream(resultFile), "UTF-8");
+        final Reader _unmarshalSource = new InputStreamReader(new FileInputStream(resultFile), IOUtils.UTF8_CHARSET);
         cleanupTasks.add(new Runnable() {
           @Override public void run() {
             try {
