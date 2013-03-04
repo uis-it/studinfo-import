@@ -6,11 +6,14 @@ import java.util.Hashtable;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.apache.xerces.impl.Constants;
 import org.apache.xerces.impl.XMLEntityManager;
 import org.apache.xerces.impl.XMLEntityScanner;
 
 public class EntityManager extends XMLEntityManager {
+  
+  private static final Logger log = Logger.getLogger(EntityManager.class);
   
   public EntityManager() {
     addInternalEntities();
@@ -59,6 +62,7 @@ public class EntityManager extends XMLEntityManager {
       addInternalEntity(entityName, entityValue);
       addDeclaredInternalEntity(entityName, entityValue);
       declaredEntity = true;
+      log.warn("entity \""+entityName+"\" not dfined");
     }
     return declaredEntity;
   }
