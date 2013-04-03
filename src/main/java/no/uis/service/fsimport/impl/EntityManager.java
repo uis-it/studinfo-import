@@ -62,7 +62,7 @@ public class EntityManager extends XMLEntityManager {
       addInternalEntity(entityName, entityValue);
       addDeclaredInternalEntity(entityName, entityValue);
       declaredEntity = true;
-      log.warn("entity \""+entityName+"\" not dfined");
+      log.warn("entity \""+entityName+"\" not defined");
     }
     return declaredEntity;
   }
