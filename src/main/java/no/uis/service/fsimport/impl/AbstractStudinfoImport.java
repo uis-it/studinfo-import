@@ -26,18 +26,19 @@ import org.apache.log4j.Logger;
 public abstract class AbstractStudinfoImport implements StudInfoImport {
 
   private URL transformerUrl;
-  
+
   private String xmlSourceParser;
 
   public AbstractStudinfoImport() {
     super();
   }
-  
+
   protected abstract Reader fsGetKurs(int institution, String language);
 
   protected abstract Reader fsGetEmne(int institution, int faculty, int year, String semester, String language);
 
-  protected abstract Reader fsGetStudieprogram(int institution, int faculty, int year, String semester, boolean includeEP, String language);
+  protected abstract Reader fsGetStudieprogram(int institution, int faculty, int year, String semester, boolean includeEP,
+      String language);
 
   private static final Logger log = Logger.getLogger(StudInfoImportImpl.class);
 
@@ -57,16 +58,18 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
     return fetchStudyPrograms(institution, -1, year, semester, includeEP, language);
   }
 
-  public FsStudieinfo fetchStudyPrograms(int institution, int faculty, int year, String semester, boolean includeEP, String language) throws Exception {
-  
-  	Reader studieinfoXml = fsGetStudieprogram(institution, faculty, year, semester, includeEP, language);
-  	try {
-  	  return unmarshalStudieinfo(studieinfoXml);
-  	} finally {
-  	  if (studieinfoXml != null) {
-  	    studieinfoXml.close();
-  	  }
-  	}
+  public FsStudieinfo fetchStudyPrograms(int institution, int faculty, int year, String semester, boolean includeEP,
+      String language) throws Exception
+  {
+
+    Reader studieinfoXml = fsGetStudieprogram(institution, faculty, year, semester, includeEP, language);
+    try {
+      return unmarshalStudieinfo(studieinfoXml);
+    } finally {
+      if (studieinfoXml != null) {
+        studieinfoXml.close();
+      }
+    }
   }
 
   @Override
@@ -76,7 +79,7 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
   }
 
   public FsStudieinfo fetchSubjects(int institution, int faculty, int year, String semester, String language) throws Exception {
-  
+
     Reader studieinfoXml = fsGetEmne(institution, faculty, year, semester, language);
     try {
       return unmarshalStudieinfo(studieinfoXml);
@@ -87,7 +90,7 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
 
   @Override
   public FsStudieinfo fetchCourses(int institution, int year, String semester, String language) throws Exception {
-  
+
     Reader studieinfoXml = fsGetKurs(institution, language);
     try {
       return unmarshalStudieinfo(studieinfoXml);
@@ -97,16 +100,16 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
   }
 
   /**
-   * 
-   * @param studieinfoXml the Reader is not closed in this method.
+   * @param studieinfoXml
+   *        the Reader is not closed in this method.
    */
   protected FsStudieinfo unmarshalStudieinfo(Reader studieinfoXml) throws Exception {
     if (studieinfoXml == null) {
       return null;
     }
     Reader unmarshalSource = null;
-    List<Runnable> cleanupTasks = new ArrayList<Runnable>(2); 
-    
+    List<Runnable> cleanupTasks = new ArrayList<Runnable>(2);
+
     try {
       if (transformerUrl != null) {
         net.sf.saxon.TransformerFactoryImpl trFactory = new net.sf.saxon.TransformerFactoryImpl();
@@ -115,27 +118,29 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
         }
         Source schemaSource = new StreamSource(transformerUrl.openStream());
         Transformer stylesheet = trFactory.newTransformer(schemaSource);
-    
+
         Source input = new StreamSource(studieinfoXml);
-        
+
         final File resultFile = File.createTempFile("jaxb", ".xml");
-        
+
         cleanupTasks.add(new Runnable() {
-          @Override public void run() {
+          @Override
+          public void run() {
             resultFile.delete();
           }
         });
         Result result = new StreamResult(resultFile);
-        
+
         // This doens't work for CData content for some reason
-        //JAXBResult result = new JAXBResult(jc);
-        //return (FsStudieinfo)result.getResult();
-        
+        // JAXBResult result = new JAXBResult(jc);
+        // return (FsStudieinfo)result.getResult();
+
         stylesheet.transform(input, result);
         @SuppressWarnings("resource")
         final Reader _unmarshalSource = new InputStreamReader(new FileInputStream(resultFile), IOUtils.UTF8_CHARSET);
         cleanupTasks.add(new Runnable() {
-          @Override public void run() {
+          @Override
+          public void run() {
             try {
               _unmarshalSource.close();
             } catch(IOException e) {
@@ -144,14 +149,14 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
           }
         });
         unmarshalSource = _unmarshalSource;
-        
+
       } else {
         unmarshalSource = studieinfoXml;
       }
-  
+
       JAXBContext jc = JAXBContext.newInstance(FsStudieinfo.class);
       FsStudieinfo sinfo = (FsStudieinfo)jc.createUnmarshaller().unmarshal(unmarshalSource);
-  
+
       return sinfo;
     } finally {
       for (Runnable task : cleanupTasks) {

@@ -8,7 +8,7 @@ import no.uis.service.fsimport.util.FsSemesterAdapter;
 
 @XmlType(name = "FsSemester" , namespace = "http://fsws.usit.no/schemas/studinfo")
 @XmlEnum
-@XmlJavaTypeAdapter(value=FsSemesterAdapter.class)
+@XmlJavaTypeAdapter(value = FsSemesterAdapter.class)
 public enum FsSemester {
 
   // The order of these fields is significant, the fields must be sorted in chronological order

@@ -1,7 +1,7 @@
 package no.uis.service.studinfo.data;
 
 /**
- * Represents year and semester 
+ * Represents year and semester.
  */
 public class FsYearSemester {
 

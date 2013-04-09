@@ -59,9 +59,10 @@ import org.junit.runners.model.TestClass;
  * </p>
  */
 public class Parameterized2 extends Suite {
+  
   /**
    * Annotation for a method which provides parameters to be injected into the
-   * test class constructor by <code>Parameterized</code>
+   * test class constructor by <code>Parameterized</code>.
    */
   @Retention(RetentionPolicy.RUNTIME)
   @Target(ElementType.METHOD)
@@ -78,11 +79,10 @@ public class Parameterized2 extends Suite {
 
     private final List<Object[]> fParameterList;
 
-    TestClassRunnerForParameters(Class<?> type,
-        List<Object[]> parameterList, int i) throws InitializationError {
+    TestClassRunnerForParameters(Class<?> type, List<Object[]> parameterList, int i) throws InitializationError {
       super(type);
-      fParameterList= parameterList;
-      fParameterSetNumber= i;
+      fParameterList = parameterList;
+      fParameterSetNumber = i;
     }
 
     @Override
@@ -142,9 +142,9 @@ public class Parameterized2 extends Suite {
    */
   public Parameterized2(Class<?> klass) throws Throwable {
     super(klass, new ArrayList<Runner>());
-    List<Object[]> parametersList= getParametersList(getTestClass());
+    List<Object[]> parametersList = getParametersList(getTestClass());
     List<Runner> runners = getChildren();
-    for (int i= 0; i < parametersList.size(); i++) {
+    for (int i = 0; i < parametersList.size(); i++) {
       
       runners.add(new TestClassRunnerForParameters(getTestClass().getJavaClass(),
           parametersList, i));
@@ -152,9 +152,7 @@ public class Parameterized2 extends Suite {
   }
 
   @SuppressWarnings("unchecked")
-  private List<Object[]> getParametersList(TestClass klass)
-      throws Throwable 
-  {
+  private List<Object[]> getParametersList(TestClass klass) throws Throwable {
     return (List<Object[]>) getParametersMethod(klass).invokeExplosively(
         null);
   }
@@ -162,9 +160,9 @@ public class Parameterized2 extends Suite {
   private FrameworkMethod getFrameworkMethod(TestClass testClass, Class<? extends Annotation> annotationClass)
       throws Exception 
   {
-    List<FrameworkMethod> methods= testClass.getAnnotatedMethods(annotationClass);
+    List<FrameworkMethod> methods = testClass.getAnnotatedMethods(annotationClass);
     for (FrameworkMethod method : methods) {
-      int modifiers= method.getMethod().getModifiers();
+      int modifiers = method.getMethod().getModifiers();
       if (Modifier.isStatic(modifiers) && Modifier.isPublic(modifiers)) {
         return method;
       }

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-		xmlns:context="http://www.springframework.org/schema/context"
-		xmlns:aop="http://www.springframework.org/schema/aop" 
-		xmlns:tx="http://www.springframework.org/schema/tx"
-		xmlns:jaxws="http://cxf.apache.org/jaxws" 
-		xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
-		xmlns:sec="http://cxf.apache.org/configuration/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security"
 
-		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
@@ -16,27 +13,30 @@
     http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
 
-		<context:annotation-config/>
-    
-		<bean id="fsStudInfoImport" class="no.uis.service.fsimport.impl.StudInfoImportImpl">
-			<property name="fsServiceStudInfo">
-				<ref bean="fsWsStudInfo"/>
-			</property>
-			<property name="transformerUrl" value="classpath:fspreprocess.xsl"/>
-		</bean>
+	<context:annotation-config />
 
-		<jaxws:client id="fsWsStudInfo" serviceClass="no.usit.fsws.wsdl.studinfo.StudInfoService"
-			address="${fs.ws.studinfo.url}" username="${fs.ws.username}" password="${fs.ws.password}" >
-			<jaxws:properties>
-				<entry key="mtom-enabled" value="true" />
-			</jaxws:properties>
-		</jaxws:client>
-		
-		<http-conf:conduit name="{http://fsws.usit.no/wsdl/studinfo}StudInfoServicePort.http-conduit">
-			<http-conf:client ConnectionTimeout="${fs.ws.connection.timeout}"
-				ReceiveTimeout="${fs.ws.receive.timeout}" AllowChunking="false"
-				Connection="Keep-Alive" />
-			<http-conf:tlsClientParameters disableCNCheck="true"/>
-		</http-conf:conduit>	
+	<bean id="fsStudInfoImport" class="no.uis.service.fsimport.impl.StudInfoImportImpl">
+		<property name="fsServiceStudInfo">
+			<ref bean="fsWsStudInfo" />
+		</property>
+		<property name="transformerUrl" value="classpath:fspreprocess.xsl" />
+	</bean>
+
+	<jaxws:client id="fsWsStudInfo"
+		serviceClass="no.usit.fsws.wsdl.studinfo.StudInfoService" address="${fs.ws.studinfo.url}"
+		username="${fs.ws.username}" password="${fs.ws.password}">
+		<jaxws:properties>
+			<entry key="mtom-enabled" value="true" />
+		</jaxws:properties>
+	</jaxws:client>
+
+	<http-conf:conduit
+		name="{http://fsws.usit.no/wsdl/studinfo}StudInfoServicePort.http-conduit">
+		<http-conf:client ConnectionTimeout="${fs.ws.connection.timeout}"
+			ReceiveTimeout="${fs.ws.receive.timeout}" AllowChunking="false"
+			Connection="Keep-Alive" />
+		<http-conf:tlsClientParameters
+			disableCNCheck="true" />
+	</http-conf:conduit>
 </beans>
     

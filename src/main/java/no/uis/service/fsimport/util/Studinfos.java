@@ -26,13 +26,15 @@ public final class Studinfos {
   public static final String VALID_FROM = "validFrom";
   public static final String SKIP_SEMESTERS = "skipSemesters";
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Studinfos.class);
-  
-  private static ContextPath contextPath = new ContextPath();  
-  
+
+  private static ContextPath contextPath = new ContextPath();
+
   private Studinfos() {
   }
 
-  public static void cleanUtdanningsplan(Utdanningsplan uplan, String programCode, FsYearSemester currentSemester, int maxSemesters) {
+  public static void cleanUtdanningsplan(Utdanningsplan uplan, String programCode, FsYearSemester currentSemester,
+      int maxSemesters)
+  {
     contextPath.init(programCode);
     try {
       if (uplan != null && uplan.isSetKravSammensetting()) {
@@ -42,14 +44,14 @@ public final class Studinfos {
       contextPath.remove();
     }
   }
-  
+
   /**
-   * Calculating the difference between {@code ys1} and {@code ys2}.
-   * Like ys1 - ys2.
+   * Calculating the difference between {@code ys1} and {@code ys2}. Like ys1 - ys2.
+   * 
    * @return the difference in semesters
    */
   public static int getDiffSemesters(FsYearSemester ys1, FsYearSemester ys2) {
-    
+
     int diff = 2 * (ys1.getYear() - ys2.getYear());
 
     diff += (ys1.getSemester().ordinal() - ys2.getSemester().ordinal());
@@ -75,23 +77,23 @@ public final class Studinfos {
     }
     return new FsYearSemester(validFromYear, validFromSemester);
   }
-  
 
-  private static void cleanKravSammensettings(List<KravSammensetting> kravSammensetting, FsYearSemester currentSemester, final int maxSemesters)
+  private static void cleanKravSammensettings(List<KravSammensetting> kravSammensetting, FsYearSemester currentSemester,
+      final int maxSemesters)
   {
     Iterator<KravSammensetting> iter = kravSammensetting.iterator();
     while (iter.hasNext()) {
       KravSammensetting kravSammen = iter.next();
       FsYearSemester yearSemester = getValidFrom(kravSammen);
       Integer skipSemesters = getDiffSemesters(currentSemester, yearSemester);
-      
+
       kravSammen.addProperty(VALID_FROM, yearSemester);
       kravSammen.addProperty(SKIP_SEMESTERS, skipSemesters);
-      
+
       boolean doRemove = skipSemesters < 0 || maxSemesters <= skipSemesters;
       if (!doRemove) {
         doRemove = cleanKravSammensetting(kravSammen, maxSemesters, skipSemesters);
-      } 
+      }
       if (doRemove) {
         iter.remove();
       }
@@ -131,24 +133,24 @@ public final class Studinfos {
         nboEmne += cleanEmneKombinasjon(subEk, offset, skipSemesters);
       }
     }
-    
+
     contextPath.pop();
     return nboEmne;
   }
-  
+
   private static boolean isValidEmne(ProgramEmne emne, int terminOffset, final int skipSemesters) {
     if (emne.isSetUndterminFra()) {
       int ufra = emne.getUndterminFra().intValue();
       int util = emne.isSetUndterminTil() ? emne.getUndterminTil().intValue() : ufra;
       int udefault = emne.isSetUndterminDefault() ? emne.getUndterminDefault().intValue() : 0;
-  
+
       if (udefault == 0) {
         udefault = ufra;
       }
       ufra += terminOffset;
       util += terminOffset;
       udefault += terminOffset;
-  
+
       if (util <= skipSemesters) {
         return false;
       }
@@ -159,10 +161,9 @@ public final class Studinfos {
   /**
    * Remove "obligatorsk undervisning", old subjects. If vurdering is set, "only elements with vurdering == true are considered.
    * 
-   * @return List of codes that are removed from the vurderingsordning (compulsory ones) 
+   * @return List of codes that are removed from the vurderingsordning (compulsory ones)
    */
-  public static List<String> cleanVurderingsordning(Emne emne, FsYearSemester currentYearSemester)
-  {
+  public static List<String> cleanVurderingsordning(Emne emne, FsYearSemester currentYearSemester) {
     List<String> excludeCodes;
     if (emne.isSetVurdordning()) {
       // There is no attribute on vurdkombinasjon that tells us if it is compulsory
@@ -175,7 +176,7 @@ public final class Studinfos {
       } else {
         excludeCodes = Collections.emptyList();
       }
-    
+
       Iterator<Vurdordning> iter = emne.getVurdordning().iterator();
       while (iter.hasNext()) {
         Vurdordning vo = iter.next();
@@ -189,25 +190,29 @@ public final class Studinfos {
     } else {
       excludeCodes = Collections.emptyList();
     }
-    
+
     return excludeCodes;
   }
-  
-  private static void cleanVurderingsKombinasjon(List<Vurdkombinasjon> vurdkombinasjon, FsYearSemester currentYearSemester, List<String> excludeCodes) {
+
+  private static void cleanVurderingsKombinasjon(List<Vurdkombinasjon> vurdkombinasjon, FsYearSemester currentYearSemester,
+      List<String> excludeCodes)
+  {
     Iterator<Vurdkombinasjon> iter = vurdkombinasjon.iterator();
-    while(iter.hasNext()) {
+    while (iter.hasNext()) {
       Vurdkombinasjon vkomb = iter.next();
       cleanVurderingskombinasjon(iter, vkomb, currentYearSemester, excludeCodes);
     }
   }
 
-  private static void cleanVurderingskombinasjon(Object parentObject, Vurdkombinasjon vkomb, FsYearSemester currentYearSemester, List<String> excludeCodes) {
+  private static void cleanVurderingskombinasjon(Object parentObject, Vurdkombinasjon vkomb, FsYearSemester currentYearSemester,
+      List<String> excludeCodes)
+  {
     boolean doClean = excludeCodes.contains(vkomb.getVurdkombkode()) || isOldVkomb(vkomb, currentYearSemester);
 
     if (!doClean && vkomb.isSetVurdering()) {
       doClean = !vkomb.isVurdering();
     }
-    
+
     if (doClean) {
       if (parentObject instanceof Vurdordning) {
         Vurdordning vo = (Vurdordning)parentObject;
@@ -218,14 +223,14 @@ public final class Studinfos {
       }
     } else {
       if (!vkomb.isSetBrok()) {
-    	  vkomb.setBrok(DEFAULT_VURDKOMB_BROK);
+        vkomb.setBrok(DEFAULT_VURDKOMB_BROK);
       }
       if (vkomb.isSetVurdkombinasjon()) {
         cleanVurderingsKombinasjon(vkomb.getVurdkombinasjon(), currentYearSemester, excludeCodes);
       }
     }
   }
-  
+
   private static boolean isOldVkomb(Vurdkombinasjon vkomb, FsYearSemester currentYearSemester) {
     FsYearSemester sistegang = vkomb.getSistegang();
     if (sistegang != null) {
@@ -243,22 +248,22 @@ public final class Studinfos {
   }
 
   public static FsYearSemester getStartYearSemester(FsYearSemester currentSemester) {
-    
+
     int year = currentSemester.getYear();
     FsSemester semester = currentSemester.getSemester();
-    
+
     if (semester.equals(FsSemester.VAR)) {
       semester = FsSemester.HOST;
       year--;
     }
     return new FsYearSemester(year, semester);
   }
-  
+
   public static int numberOfSemesters(Studieprogram program) {
     if (program.isSetVarighet()) {
       return program.getVarighet().getSemesters();
     }
-    
+
     int maxSemester = 0;
     if (program.isSetUtdanningsplan()) {
       for (KravSammensetting krav : program.getUtdanningsplan().getKravSammensetting()) {
@@ -271,7 +276,7 @@ public final class Studinfos {
   public static Map<String, Object> forkunnskap(Emne emne) {
     Map<String, Object> forkunnskap = null;
     if (emne.isSetFormelleForkunnskaper() || emne.isSetAbsForkunnskaperFritekst()) {
-      forkunnskap = new HashMap<String, Object>(); 
+      forkunnskap = new HashMap<String, Object>();
       if (emne.isSetFormelleForkunnskaper()) {
         forkunnskap.put("alternatives", emne.getFormelleForkunnskaper());
         emne.setFormelleForkunnskaper(null);
@@ -288,7 +293,7 @@ public final class Studinfos {
     Map<String, Object> anbForkunn = null;
     if (emne.isSetAnbefalteForkunnskaper() || emne.isSetAnbForkunnskaperFritekst()) {
       anbForkunn = new HashMap<String, Object>();
-      
+
       if (emne.isSetAnbefalteForkunnskaper()) {
         anbForkunn.put("forkunnskaper", emne.getAnbefalteForkunnskaper());
         emne.setAnbefalteForkunnskaper(null);
@@ -316,7 +321,7 @@ public final class Studinfos {
     }
     return obligund;
   }
-  
+
   public static Map<String, Object> apenFor(Emne emne) {
     Map<String, Object> apenFor = new HashMap<String, Object>();
     apenFor.put("privatist", Studinfos.isSetAndTrue(emne.isStatusPrivatist()));
@@ -326,18 +331,18 @@ public final class Studinfos {
         apenFor.put("text", emne.getApentForTillegg());
         emne.setApentForTillegg(null);
       }
-      
+
     } else if (emne.isSetInngarIStudieprogram()) {
       String value = StringConverterUtil.convert(emne.getInngarIStudieprogram());
       apenFor.put("text", value);
     }
     return apenFor;
   }
-  
+
   private static int maxSemester(Emnekombinasjon emnekombinasjon, int maxSemester) {
     for (ProgramEmne emne : emnekombinasjon.getEmne()) {
       int newMax = 0;
-    
+
       if (emne.isSetUndterminTil()) {
         newMax = emne.getUndterminTil().intValue();
       } else if (emne.isSetUndterminFra()) {

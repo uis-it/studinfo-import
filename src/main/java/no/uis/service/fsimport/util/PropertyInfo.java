@@ -41,12 +41,17 @@ public class PropertyInfo {
     if (obj == this) {
       return true;
     }
-    if (obj instanceof PropertyInfo == false) {
+    if (!(obj instanceof PropertyInfo)) {
       return false;
     }
     PropertyInfo piOther = (PropertyInfo)obj;
 
-    return Objects.equals(propName, piOther.propName) && Objects.equals(get, piOther.get) && Objects.equals(set, piOther.set)
-      && Objects.equals(isSet, piOther.isSet);
+    return Objects.equals(this.propName, piOther.propName) && Objects.equals(this.get, piOther.get) && Objects.equals(this.set, piOther.set)
+      && Objects.equals(this.isSet, piOther.isSet);
+  }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
   }
 }

@@ -12,7 +12,7 @@
   <property name="severity" value="warning"/>
   <module name="TreeWalker">
     <module name="PackageName">
-      <property name="format" value="no\.uis\.httpdmaintain(\.[a-z][a-zA-Z0-9]+)*$"/>
+      <property name="format" value="no\.uis\.(component\.fsimport|studinfo\.data)(\.[a-z][a-zA-Z0-9]+)*$"/>
     </module>
     <module name="WhitespaceAfter">
       <property name="tokens" value="COMMA,SEMI"/>

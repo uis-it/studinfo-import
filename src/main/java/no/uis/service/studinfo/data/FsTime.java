@@ -53,8 +53,8 @@ public class FsTime {
       return false;
     }
     // check for valid times
-    long sum = hh*60L + mm;
-    if (sum > (24L*60)) {
+    long sum = hh * 60L + mm;
+    if (sum > (24L * 60)) {
       return false;
     }
     return true;
