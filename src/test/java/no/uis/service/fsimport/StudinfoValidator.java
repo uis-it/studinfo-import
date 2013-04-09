@@ -120,7 +120,7 @@ public class StudinfoValidator {
     if (fsWsStudInfo == null) {
       BeanFactory bf = new ClassPathXmlApplicationContext(new String[] {
         "fsStudInfoPropsContext.xml" 
-       ,"fsimportContext.xml"
+       , "fsimportContext.xml"
        });
   
       fsWsStudInfo = bf.getBean("fsWsStudInfo", StudInfoService.class);
