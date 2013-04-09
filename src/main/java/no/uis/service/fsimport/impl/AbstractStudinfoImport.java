@@ -29,6 +29,10 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
   
   private String xmlSourceParser;
 
+  public AbstractStudinfoImport() {
+    super();
+  }
+  
   protected abstract Reader fsGetKurs(int institution, String language);
 
   protected abstract Reader fsGetEmne(int institution, int faculty, int year, String semester, String language);
@@ -36,10 +40,6 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
   protected abstract Reader fsGetStudieprogram(int institution, int faculty, int year, String semester, boolean includeEP, String language);
 
   private static final Logger log = Logger.getLogger(StudInfoImportImpl.class);
-
-  public AbstractStudinfoImport() {
-    super();
-  }
 
   public void setTransformerUrl(URL transformerUrl) {
     this.transformerUrl = transformerUrl;

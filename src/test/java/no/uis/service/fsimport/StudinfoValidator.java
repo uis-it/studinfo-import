@@ -119,8 +119,8 @@ public class StudinfoValidator {
   private synchronized StudInfoService getBean() {
     if (fsWsStudInfo == null) {
       BeanFactory bf = new ClassPathXmlApplicationContext(new String[] {
-        "fsStudInfoPropsContext.xml" 
-       , "fsimportContext.xml"
+        "fsStudInfoPropsContext.xml",
+       "fsimportContext.xml",
        });
   
       fsWsStudInfo = bf.getBean("fsWsStudInfo", StudInfoService.class);

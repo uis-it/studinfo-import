@@ -336,7 +336,7 @@ public final class Studinfos {
   
   private static int maxSemester(Emnekombinasjon emnekombinasjon, int maxSemester) {
     for (ProgramEmne emne : emnekombinasjon.getEmne()) {
-      int newMax=0;
+      int newMax = 0;
     
       if (emne.isSetUndterminTil()) {
         newMax = emne.getUndterminTil().intValue();

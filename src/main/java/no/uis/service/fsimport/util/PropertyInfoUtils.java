@@ -17,6 +17,9 @@ public class PropertyInfoUtils {
   private static final List<String> SKIP_PROPERTIES = Arrays.asList("class", "declaringClass");
   private static final Map<Class<?>, List<PropertyInfo>> cache = new HashMap<Class<?>, List<PropertyInfo>>();
 
+  private PropertyInfoUtils() {
+  }
+  
   public static List<PropertyInfo> getPropertyInfos(Class<?> cls) {
     List<PropertyInfo> infos = cache.get(cls);
     if (infos == null) {
@@ -29,9 +32,6 @@ public class PropertyInfoUtils {
       }
     }
     return infos;
-  }
-
-  private PropertyInfoUtils() {
   }
 
   private static List<PropertyInfo> createPropertyInfos(Class<?> beanClass) {
@@ -52,8 +52,7 @@ public class PropertyInfoUtils {
         String prefix = propMatcher.group(1);
         propNames.add(propName);
 
-        switch (prefix)
-          {
+        switch (prefix) {
             case "get":
             case "is":
             case "has":
@@ -65,7 +64,9 @@ public class PropertyInfoUtils {
             case "isSet":
               isSetters.put(propName, m);
               break;
-          }
+            default:
+              break;
+        }
       }
     }
 

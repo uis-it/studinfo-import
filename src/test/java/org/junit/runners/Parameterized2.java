@@ -73,8 +73,7 @@ public class Parameterized2 extends Suite {
   public static @interface TestName {
   }
   
-  private class TestClassRunnerForParameters extends
-      BlockJUnit4ClassRunner {
+  private class TestClassRunnerForParameters extends BlockJUnit4ClassRunner {
     private final int fParameterSetNumber;
 
     private final List<Object[]> fParameterList;
@@ -154,19 +153,21 @@ public class Parameterized2 extends Suite {
 
   @SuppressWarnings("unchecked")
   private List<Object[]> getParametersList(TestClass klass)
-      throws Throwable {
+      throws Throwable 
+  {
     return (List<Object[]>) getParametersMethod(klass).invokeExplosively(
         null);
   }
 
   private FrameworkMethod getFrameworkMethod(TestClass testClass, Class<? extends Annotation> annotationClass)
-      throws Exception {
-    List<FrameworkMethod> methods= testClass
-        .getAnnotatedMethods(annotationClass);
+      throws Exception 
+  {
+    List<FrameworkMethod> methods= testClass.getAnnotatedMethods(annotationClass);
     for (FrameworkMethod method : methods) {
       int modifiers= method.getMethod().getModifiers();
-      if (Modifier.isStatic(modifiers) && Modifier.isPublic(modifiers))
+      if (Modifier.isStatic(modifiers) && Modifier.isPublic(modifiers)) {
         return method;
+      }
     }
 
     throw new Exception("No public static method annotated with " + annotationClass.getName() + " on class "
@@ -178,7 +179,8 @@ public class Parameterized2 extends Suite {
   }
   
   private FrameworkMethod getParametersMethod(TestClass testClass)
-      throws Exception {
+      throws Exception 
+  {
     return getFrameworkMethod(testClass, Parameters.class);
   }
   
@@ -189,5 +191,4 @@ public class Parameterized2 extends Suite {
     }
     return null;
   }
-
 }
