@@ -27,9 +27,13 @@ import org.apache.xerces.impl.Constants;
 import org.apache.xerces.impl.XMLEntityManager;
 import org.apache.xerces.impl.XMLEntityScanner;
 
+/**
+ * Facilitates parsing of dirty XML. 
+ * @see http://chickensilver.blogspot.no/2013/02/how-to-parse-dirty-xml.html
+ */
 public class EntityManager extends XMLEntityManager {
   
-  private static final Logger log = Logger.getLogger(EntityManager.class);
+  private static final Logger LOG = Logger.getLogger(EntityManager.class);
   
   public EntityManager() {
     addInternalEntities();
@@ -48,7 +52,7 @@ public class EntityManager extends XMLEntityManager {
           addDeclaredInternalEntity(entity.getKey().toString(), entity.getValue().toString());
         }
       } catch(IOException e) {
-        // ignored
+        LOG.info("addInternalEntities", e);
       }
   }
 
@@ -79,7 +83,7 @@ public class EntityManager extends XMLEntityManager {
       addInternalEntity(entityName, entityValue);
       addDeclaredInternalEntity(entityName, entityValue);
       declaredEntity = true;
-      log.warn("entity \""+entityName+"\" not defined");
+      LOG.warn("entity \""+entityName+"\" not defined");
     }
     return declaredEntity;
   }

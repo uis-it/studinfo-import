@@ -11,6 +11,8 @@
 <module name="Checker">
   <property name="severity" value="warning"/>
   <module name="TreeWalker">
+    <property name="tabWidth" value="2"/>
+    <module name="FileContentsHolder"/>
     <module name="PackageName">
       <property name="format" value="no\.uis\.(component\.fsimport|studinfo\.data)(\.[a-z][a-zA-Z0-9]+)*$"/>
     </module>
@@ -196,4 +198,5 @@
   <module name="SuppressionFilter">
     <property name="file" value="${basedir}/checkstyle/checkstyle-suppressions.xml"/>
   </module>
+  <module name="SuppressionCommentFilter"/>
 </module>
