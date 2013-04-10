@@ -12,7 +12,7 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-*/
+ */
 
 package no.uis.service.component.studinfopdf.convert;
 
@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 public abstract class AbstractStringConverter<T> implements StringConverter {
 
   private static final Logger log = Logger.getLogger(AbstractStringConverter.class);
-  
+
   @SuppressWarnings("unchecked")
   @Override
   public String convertToString(Object value) {
@@ -35,6 +35,6 @@ public abstract class AbstractStringConverter<T> implements StringConverter {
     }
     return null;
   }
-  
+
   protected abstract String convert(T value);
 }

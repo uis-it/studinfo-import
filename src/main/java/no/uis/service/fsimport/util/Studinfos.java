@@ -1,3 +1,19 @@
+/*
+ Copyright 2010-2013 University of Stavanger, Norway
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
 package no.uis.service.fsimport.util;
 
 import java.util.ArrayList;
@@ -22,6 +38,8 @@ import no.uis.service.studinfo.data.Vurdordning;
 
 public final class Studinfos {
 
+  public static final int FS_STED_UIS = 217;
+  private static final int DEFAULT_MAX_SEMESTER = 10;
   public static final String DEFAULT_VURDKOMB_BROK = "1/1";
   public static final String VALID_FROM = "validFrom";
   public static final String SKIP_SEMESTERS = "skipSemesters";
@@ -270,7 +288,7 @@ public final class Studinfos {
         maxSemester = maxSemester(krav.getEmnekombinasjon(), maxSemester);
       }
     }
-    return maxSemester == 0 ? 10 : maxSemester;
+    return maxSemester == 0 ? DEFAULT_MAX_SEMESTER : maxSemester;
   }
 
   public static Map<String, Object> forkunnskap(Emne emne) {
@@ -340,23 +358,24 @@ public final class Studinfos {
   }
 
   private static int maxSemester(Emnekombinasjon emnekombinasjon, int maxSemester) {
+    int newMax = maxSemester;
     for (ProgramEmne emne : emnekombinasjon.getEmne()) {
-      int newMax = 0;
+      int currMax = 0;
 
       if (emne.isSetUndterminTil()) {
-        newMax = emne.getUndterminTil().intValue();
+        currMax = emne.getUndterminTil().intValue();
       } else if (emne.isSetUndterminFra()) {
-        newMax = emne.getUndterminFra().intValue();
+        currMax = emne.getUndterminFra().intValue();
       }
-      if (newMax > maxSemester) {
-        maxSemester = newMax;
+      if (currMax > newMax) {
+        newMax = currMax;
       }
     }
     if (emnekombinasjon.isSetEmnekombinasjon()) {
       for (Emnekombinasjon ekChild : emnekombinasjon.getEmnekombinasjon()) {
-        maxSemester = maxSemester(ekChild, maxSemester);
+        newMax = maxSemester(ekChild, newMax);
       }
     }
-    return maxSemester;
+    return newMax;
   }
 }

@@ -23,6 +23,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import no.uis.service.fsimport.StudInfoImport.StudinfoType;
+import no.uis.service.fsimport.util.Studinfos;
 import no.uis.service.studinfo.data.FsSemester;
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
 
@@ -35,8 +36,11 @@ import org.xml.sax.XMLReader;
 
 public class StudinfoValidator {
 
+  private static final int IOBUFFER_SIZE = 10000;
   static private org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StudinfoValidator.class);
 
+  private StudInfoService fsWsStudInfo;
+  
   /**
    * @param args
    */
@@ -49,7 +53,6 @@ public class StudinfoValidator {
     }
   }
 
-  private StudInfoService fsWsStudInfo;
 
   private void validateMain(String[] args) throws Exception {
     if (args.length != 2) {
@@ -93,7 +96,7 @@ public class StudinfoValidator {
   private List<String> validateSubjects(int faculty, FsSemester semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
     for (String lang : langs) {
-      messages.addAll(validateSubjects(217, faculty, year, semester, lang));
+      messages.addAll(validateSubjects(Studinfos.FS_STED_UIS, faculty, year, semester, lang));
     }
     
     return messages;
@@ -102,7 +105,7 @@ public class StudinfoValidator {
   private List<String> validatePrograms(int faculty, FsSemester semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
     for (String lang : langs) {
-      messages.addAll(validateStudyPrograms(faculty, 217, year, semester, lang));
+      messages.addAll(validateStudyPrograms(faculty, Studinfos.FS_STED_UIS, year, semester, lang));
     }
     
     return messages;
@@ -111,7 +114,7 @@ public class StudinfoValidator {
   private List<String> validateCourses(FsSemester semester, int year, String[] langs) throws Exception {
     List<String> messages = new ArrayList<String>();
     for (String lang : langs) {
-      messages.addAll(validateCourses(217, year, semester, lang));
+      messages.addAll(validateCourses(Studinfos.FS_STED_UIS, year, semester, lang));
     }
     return messages;
   }
@@ -168,7 +171,7 @@ public class StudinfoValidator {
     File outBackup = new File("target/out", infoType.toString() + year + semester + language + "_orig.xml");
     Writer backupWriter = new OutputStreamWriter(new FileOutputStream(outBackup), IOUtils.UTF8_CHARSET);
     backupWriter.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-    IOUtils.copy(new StringReader(studieinfoXml), backupWriter, 10000);
+    IOUtils.copy(new StringReader(studieinfoXml), backupWriter, IOBUFFER_SIZE);
     backupWriter.flush();
     backupWriter.close();
     
@@ -205,15 +208,23 @@ public class StudinfoValidator {
   }
 
   public List<String> fetchAndValidate(int faculty, int year, FsSemester semester, String lang, StudinfoType infoType) throws Exception {
+    List<String> result;
     switch(infoType) {
       case EMNE:
-        return validateSubjects(217, faculty, year, semester, lang);
+        result = validateSubjects(Studinfos.FS_STED_UIS, faculty, year, semester, lang);
+        break;
       case KURS:
-        return validateCourses(217, year, semester, lang);
+        result = validateCourses(Studinfos.FS_STED_UIS, year, semester, lang);
+        break;
       case STUDIEPROGRAM:
-        return validateStudyPrograms(217, faculty, year, semester, lang);
+        result = validateStudyPrograms(Studinfos.FS_STED_UIS, faculty, year, semester, lang);
+        break;
+      default:
+        result = Collections.emptyList();
+        break;
     }
-    return Collections.emptyList();
+    
+    return result;
   }
   
 }

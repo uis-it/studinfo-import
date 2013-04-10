@@ -140,7 +140,11 @@
     </module>
     <module name="InnerAssignment"/>
     <module name="JUnitTestCase"/>
-    <module name="MagicNumber"/>
+    <module name="MagicNumber">
+      <property name="severity" value="info"/>
+      <property name="ignoreHashCodeMethod" value="true"/>
+      <property name="ignoreAnnotation" value="true"/>
+    </module>
     <module name="MissingCtor">
       <property name="severity" value="ignore"/>
       <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
