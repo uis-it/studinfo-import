@@ -193,4 +193,7 @@
   </module>
   <module name="FileLength"/>
   <module name="FileTabCharacter"/>
+  <module name="SuppressionFilter">
+    <property name="file" value="${basedir}/checkstyle/checkstyle-suppressions.xml"/>
+  </module>
 </module>

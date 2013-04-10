@@ -48,6 +48,7 @@ public class EntityManager extends XMLEntityManager {
           addDeclaredInternalEntity(entity.getKey().toString(), entity.getValue().toString());
         }
       } catch(IOException e) {
+        // ignored
       }
   }
 

@@ -82,7 +82,6 @@ public class StudinfoValidator {
           break;
       }
     }
-
     
     return messages;
 }

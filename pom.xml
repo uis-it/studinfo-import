@@ -265,6 +265,8 @@
 				<configuration>
 					<configLocation>checkstyle/checkstyle.xml</configLocation>
 					<propertyExpansion>basedir=${basedir}</propertyExpansion>
+                    <suppressionsLocation>checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+                    <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
 				</configuration>
 			</plugin>
 		</plugins>

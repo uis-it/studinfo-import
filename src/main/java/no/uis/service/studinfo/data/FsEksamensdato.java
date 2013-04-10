@@ -26,16 +26,16 @@ import no.uis.service.fsimport.util.FsTimeAdapter;
 
 public class FsEksamensdato {
 
+  // taken from the XSD restriction
+  private static final Pattern PATTERN = Pattern.compile("((Uttak\\: \\d{2}\\.\\d{2}\\.\\d{4} )?(Frist innlevering\\: )?(\\d{2}\\.\\d{2}\\.\\d{4})( kl\\. \\d{2}\\:\\d{2})?)?");
+  private static final CalendarAdapter DATE_ADAPTER = new CalendarNorwegianAdapter();
+  private static final FsTimeAdapter TIME_ADAPTER = new FsTimeAdapter();
+  
   private final Calendar dato;
   private final Calendar uttak;
   private final Calendar innleveringDato;
   private final FsTime innleveringTid;
   private final String text;
-  
-  // taken from the XSD restriction
-  private static final Pattern PATTERN = Pattern.compile("((Uttak\\: \\d{2}\\.\\d{2}\\.\\d{4} )?(Frist innlevering\\: )?(\\d{2}\\.\\d{2}\\.\\d{4})( kl\\. \\d{2}\\:\\d{2})?)?");
-  private static final CalendarAdapter dateAdapter = new CalendarNorwegianAdapter();
-  private static final FsTimeAdapter timeAdapter = new FsTimeAdapter();
   
   public FsEksamensdato(Calendar dato, Calendar uttak, Calendar innleveringDato, FsTime innleveringTid, String text) {
     this.dato = dato;
@@ -98,27 +98,26 @@ public class FsEksamensdato {
     switch(nonZero) {
       case 2:
         // 01.08.2012
-        dato = dateAdapter.unmarshal(groups[3]);
+        dato = DATE_ADAPTER.unmarshal(groups[3]);
         break;
       case 3:
         // Frist innlevering: 12.04.2012
-        innleveringDato = dateAdapter.unmarshal(groups[3]);
+        innleveringDato = DATE_ADAPTER.unmarshal(groups[3]);
         break;
       case 4:
         // Frist innlevering: 01.06.2012 kl. 14:00
-        innleveringDato = dateAdapter.unmarshal(groups[3]);
-        innleveringTid = timeAdapter.unmarshal(groups[4].substring(4).trim());
+        innleveringDato = DATE_ADAPTER.unmarshal(groups[3]);
+        innleveringTid = TIME_ADAPTER.unmarshal(groups[4].substring(4).trim());
         break;
       case 5:
         // Uttak: 11.05.2012 Frist innlevering: 15.05.2012 kl. 14:00
-        uttak = dateAdapter.unmarshal(groups[1].substring(6).trim());
-        innleveringDato = dateAdapter.unmarshal(groups[3].trim());
-        innleveringTid = timeAdapter.unmarshal(groups[4].substring(4).trim());
+        uttak = DATE_ADAPTER.unmarshal(groups[1].substring(6).trim());
+        innleveringDato = DATE_ADAPTER.unmarshal(groups[3].trim());
+        innleveringTid = TIME_ADAPTER.unmarshal(groups[4].substring(4).trim());
         break;
       
       default:
         break;
-        
     }
 
     return new FsEksamensdato(dato, uttak, innleveringDato, innleveringTid, v);

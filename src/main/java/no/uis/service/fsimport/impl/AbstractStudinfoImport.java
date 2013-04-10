@@ -41,6 +41,8 @@ import org.apache.log4j.Logger;
 
 public abstract class AbstractStudinfoImport implements StudInfoImport {
 
+  private static final Logger LOG = Logger.getLogger(StudInfoImportImpl.class);
+  
   private URL transformerUrl;
 
   private String xmlSourceParser;
@@ -55,8 +57,6 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
 
   protected abstract Reader fsGetStudieprogram(int institution, int faculty, int year, String semester, boolean includeEP,
       String language);
-
-  private static final Logger log = Logger.getLogger(StudInfoImportImpl.class);
 
   public void setTransformerUrl(URL transformerUrl) {
     this.transformerUrl = transformerUrl;
@@ -160,7 +160,7 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
             try {
               _unmarshalSource.close();
             } catch(IOException e) {
-              log.warn("closing stream", e);
+              LOG.warn("closing stream", e);
             }
           }
         });

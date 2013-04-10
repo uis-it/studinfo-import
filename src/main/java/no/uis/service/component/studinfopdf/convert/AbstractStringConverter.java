@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 public abstract class AbstractStringConverter<T> implements StringConverter {
 
-  private static final Logger log = Logger.getLogger(AbstractStringConverter.class);
+  private static final Logger LOG = Logger.getLogger(AbstractStringConverter.class);
 
   @SuppressWarnings("unchecked")
   @Override
@@ -31,7 +31,7 @@ public abstract class AbstractStringConverter<T> implements StringConverter {
     try {
       return convert((T)value);
     } catch(Exception ex) {
-      log.warn(value, ex);
+      LOG.warn(value, ex);
     }
     return null;
   }

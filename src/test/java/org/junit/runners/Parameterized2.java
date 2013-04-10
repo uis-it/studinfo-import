@@ -116,6 +116,7 @@ public class Parameterized2 extends Suite {
           return description;
         }
       } catch(Throwable e) {
+        // ignored
       }
       return String.format("%s[%s]", method.getName(),
           fParameterSetNumber);

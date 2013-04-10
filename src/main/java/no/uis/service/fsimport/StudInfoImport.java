@@ -20,15 +20,18 @@ import no.uis.service.studinfo.data.FsStudieinfo;
 
 public interface StudInfoImport {
 
-  public static final Integer INTEGER_0 = Integer.valueOf(0);
-  public static final Integer INTEGER_1 = Integer.valueOf(1);
+  Integer INTEGER_0 = Integer.valueOf(0);
+  Integer INTEGER_1 = Integer.valueOf(1);
+  
   /**
    * -1 means all possible values, e.g. all faculties
    */
-  public static final Integer INTEGER_MINUS_1 = Integer.valueOf(-1);
+  Integer INTEGER_MINUS_1 = Integer.valueOf(-1);
 
   public enum StudinfoType {
-    EMNE, STUDIEPROGRAM, KURS
+    EMNE, 
+    STUDIEPROGRAM, 
+    KURS
   }
 
   /**
@@ -46,7 +49,7 @@ public interface StudInfoImport {
    * @deprecated use {@link #fetchStudyPrograms(int, int, int, String, boolean, String)}
    */
   @Deprecated
-  public FsStudieinfo fetchStudyPrograms(int institution, int year, String semester, boolean includeEP, String language)
+  FsStudieinfo fetchStudyPrograms(int institution, int year, String semester, boolean includeEP, String language)
       throws Exception;
 
   /**
@@ -63,8 +66,9 @@ public interface StudInfoImport {
    * @param language
    *        - one letter language code: (B)okm&aring;l, (N)ynorsk, (E)nglish
    * @throws Exception
+   * 
    */
-  public FsStudieinfo fetchStudyPrograms(int institution, int faculty, int year, String semester, boolean includeEP,
+  FsStudieinfo fetchStudyPrograms(int institution, int faculty, int year, String semester, boolean includeEP,
       String language) throws Exception;
 
   /**
@@ -80,7 +84,7 @@ public interface StudInfoImport {
    * @deprecated use {@link #fetchSubjects(int, int, int, String, String)}
    */
   @Deprecated
-  public FsStudieinfo fetchSubjects(int institution, int year, String semester, String language) throws Exception;
+  FsStudieinfo fetchSubjects(int institution, int year, String semester, String language) throws Exception;
 
   /**
    * @param institution
@@ -95,7 +99,7 @@ public interface StudInfoImport {
    *        - one letter language code: (B)okm&aring;l, (N)ynorsk, (E)nglish
    * @throws Exception
    */
-  public FsStudieinfo fetchSubjects(int institution, int faculty, int year, String semester, String language) throws Exception;
+  FsStudieinfo fetchSubjects(int institution, int faculty, int year, String semester, String language) throws Exception;
 
   /**
    * @param institution
@@ -108,5 +112,5 @@ public interface StudInfoImport {
    *        - one letter language code: (B)okm&aring;l, (N)ynorsk, (E)nglish
    * @throws Exception
    */
-  public FsStudieinfo fetchCourses(int institution, int year, String semester, String language) throws Exception;
+  FsStudieinfo fetchCourses(int institution, int year, String semester, String language) throws Exception;
 }

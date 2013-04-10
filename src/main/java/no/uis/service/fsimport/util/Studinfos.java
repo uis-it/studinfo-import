@@ -36,13 +36,16 @@ import no.uis.service.studinfo.data.Utdanningsplan;
 import no.uis.service.studinfo.data.Vurdkombinasjon;
 import no.uis.service.studinfo.data.Vurdordning;
 
+/**
+ * Utility class for study info. 
+ */
 public final class Studinfos {
 
   public static final int FS_STED_UIS = 217;
-  private static final int DEFAULT_MAX_SEMESTER = 10;
   public static final String DEFAULT_VURDKOMB_BROK = "1/1";
   public static final String VALID_FROM = "validFrom";
   public static final String SKIP_SEMESTERS = "skipSemesters";
+  private static final int DEFAULT_MAX_SEMESTER = 10;
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Studinfos.class);
 
   private static ContextPath contextPath = new ContextPath();
@@ -72,7 +75,7 @@ public final class Studinfos {
 
     int diff = 2 * (ys1.getYear() - ys2.getYear());
 
-    diff += (ys1.getSemester().ordinal() - ys2.getSemester().ordinal());
+    diff += ys1.getSemester().ordinal() - ys2.getSemester().ordinal();
 
     return diff;
   }
