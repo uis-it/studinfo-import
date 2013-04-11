@@ -16,19 +16,52 @@
 
 package no.uis.service.studinfo.data;
 
+/**
+ * Represents a duration.
+ * Consists of a number and a unit.  
+ */
 public class FsVarighet {
 
   /**
-   * Durations in FS. 
+   * Unit for durations in FS. 
    */
   public static enum Unit {
+    /**
+     * a year.
+     */
     YEAR,
+    
+    /**
+     * a semester, a academic year has two semesters.
+     */
     SEMESTER,
+    
+    /**
+     * a month.
+     */
     MONTH,
+    
+    /**
+     * a week.
+     */
     WEEK,
+    
+    /**
+     * a day.
+     */
     DAY,
+    
+    /**
+     * an hour.
+     */
     HOUR,
+    
+    /**
+     * a minute.
+     */
     MINUTE;
+    
+    
   }
   
   private float number;

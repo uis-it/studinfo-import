@@ -24,10 +24,19 @@ import no.uis.service.component.fsimport.util.CalendarAdapter;
 import no.uis.service.component.fsimport.util.CalendarNorwegianAdapter;
 import no.uis.service.component.fsimport.util.FsTimeAdapter;
 
+/**
+ * Tries to represent a exam date.
+ * @see #PATTERN
+ */
 public class FsEksamensdato {
 
   // taken from the XSD restriction
-  private static final Pattern PATTERN = Pattern.compile("((Uttak\\: \\d{2}\\.\\d{2}\\.\\d{4} )?(Frist innlevering\\: )?(\\d{2}\\.\\d{2}\\.\\d{4})( kl\\. \\d{2}\\:\\d{2})?)?");
+  private static final Pattern PATTERN = 
+      Pattern.compile("("
+          + "(Uttak\\: \\d{2}\\.\\d{2}\\.\\d{4} )?"
+          + "(Frist innlevering\\: )?"
+          + "(\\d{2}\\.\\d{2}\\.\\d{4})( kl\\. \\d{2}\\:\\d{2})?"
+          + ")?");
   private static final CalendarAdapter DATE_ADAPTER = new CalendarNorwegianAdapter();
   private static final FsTimeAdapter TIME_ADAPTER = new FsTimeAdapter();
 
