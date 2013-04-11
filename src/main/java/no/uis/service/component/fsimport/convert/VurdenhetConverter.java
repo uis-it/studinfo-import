@@ -14,24 +14,23 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import no.uis.service.studinfo.data.Sted;
+import no.uis.service.studinfo.data.Vurdenhet;
 
-public class StedConverter extends AbstractStringConverter<Sted> {
+public class VurdenhetConverter extends AbstractStringConverter<Vurdenhet> {
 
   @Override
-  protected String convert(Sted value) {
+  protected String convert(Vurdenhet v) {
     StringBuilder sb = new StringBuilder();
-    if (value.getAvdnavn() != null) {
-      sb.append(value.getAvdnavn());
+    if (v.isSetVurdstatus()) {
+      sb.append(v.getVurdstatus());
+      sb.append(": "); //$NON-NLS-1$
     }
-    if (value.getNavn() != null) {
-      if (sb.length() > 0) {
-        sb.append(", "); //$NON-NLS-1$
-      }
-      sb.append(value.getNavn());
-    }
+    sb.append(v.getTidReell().getMonth());
+    sb.append('/');
+    sb.append(v.getTidReell().getYear());
     return sb.toString();
   }
+
 }

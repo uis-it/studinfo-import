@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import no.uis.service.component.studinfopdf.convert.StringConverterUtil;
+import no.uis.service.component.fsimport.convert.StringConverterUtil;
 import no.uis.service.studinfo.data.Emne;
 import no.uis.service.studinfo.data.Emnekombinasjon;
 import no.uis.service.studinfo.data.FsSemester;

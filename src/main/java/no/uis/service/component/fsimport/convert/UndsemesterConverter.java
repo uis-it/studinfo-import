@@ -14,7 +14,7 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
 import java.util.List;
 

@@ -14,9 +14,14 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-public interface StringConverter {
+import no.uis.service.studinfo.data.Kravalternativ;
 
-  String convertToString(Object value);
+public class KravalternativConverter extends AbstractStringConverter<Kravalternativ> {
+
+  @Override
+  protected String convert(Kravalternativ value) {
+    return value.getContent();
+  }
 }

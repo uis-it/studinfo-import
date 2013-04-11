@@ -14,19 +14,20 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import no.uis.service.studinfo.data.InngarIStudieprogram;
+import no.uis.service.studinfo.data.Obligoppgave;
 
-public class InngarIStudieprogramConverter extends AbstractStringConverter<InngarIStudieprogram> {
+public class ObligoppgaveConverter extends AbstractStringConverter<Obligoppgave> {
 
   @Override
-  protected String convert(InngarIStudieprogram value) {
-    if (value.isSetStudieprogramnavn()) {
-      return value.getStudieprogramnavn();
-    }
-
-    return value.getStudieprogramkode();
+  protected String convert(Obligoppgave value) {
+    StringBuilder sb = new StringBuilder();
+    sb.append(value.getValue());
+//    sb.append(" ("); //$NON-NLS-1$
+//    sb.append(value.getNr());
+//    sb.append(')');
+    return sb.toString();
   }
 
 }

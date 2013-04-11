@@ -14,22 +14,14 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import no.uis.service.studinfo.data.Fagperson;
+import java.util.Map;
 
-public class FagpersonConverter extends AbstractStringConverter<Fagperson> {
+public class MapConverter extends AbstractStringConverter<Map<?, ?>> {
 
   @Override
-  protected String convert(Fagperson value) {
-    StringBuilder sb = new StringBuilder();
-    sb.append(value.getPersonnavn().getFornavn());
-    sb.append(' ');
-    sb.append(value.getPersonnavn().getEtternavn());
-    sb.append(" ("); //$NON-NLS-1$
-    sb.append(value.getPersonrolle());
-    sb.append(')');
-    return sb.toString();
+  protected String convert(Map<?, ?> value) {
+    return StringConverterUtil.convert(value.entrySet());
   }
-
 }

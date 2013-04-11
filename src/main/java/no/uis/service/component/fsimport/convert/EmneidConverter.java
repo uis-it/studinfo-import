@@ -14,27 +14,20 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import org.apache.log4j.Logger;
+import no.uis.service.studinfo.data.Emneid;
 
-public abstract class AbstractStringConverter<T> implements StringConverter {
+public class EmneidConverter extends AbstractStringConverter<Emneid> {
 
-  private static final Logger LOG = Logger.getLogger(AbstractStringConverter.class);
-
-  @SuppressWarnings("unchecked")
   @Override
-  public String convertToString(Object value) {
-    if (value == null) {
-      return null;
-    }
-    try {
-      return convert((T)value);
-    } catch(Exception ex) {
-      LOG.warn(value, ex);
-    }
-    return null;
+  protected String convert(Emneid value) {
+    StringBuilder sb = new StringBuilder();
+    // sb.append(value.getInstitusjonsnr().toString());
+    // sb.append('_');
+    sb.append(value.getEmnekode());
+    sb.append('_');
+    sb.append(value.getVersjonskode());
+    return sb.toString();
   }
-
-  protected abstract String convert(T value);
 }

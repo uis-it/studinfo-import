@@ -18,8 +18,9 @@ package no.uis.service.studinfo.data;
 
 public class FsVarighet {
 
-  private static final String AAR = new String(new char[] {'\u00e5', 'r'});
-
+  /**
+   * Durations in FS. 
+   */
   public static enum Unit {
     YEAR,
     SEMESTER,
@@ -41,6 +42,9 @@ public class FsVarighet {
     this.unit = unit;
   }
   
+  /**
+   * Parses a string to number and unit. 
+   */
   public static FsVarighet valueOf(String v) {
     if (v == null || v.trim().isEmpty()) {
       return null;
@@ -52,14 +56,9 @@ public class FsVarighet {
       float number = Float.parseFloat(varig[0]);
       String sUnit = varig[1].toLowerCase();
 
-      // fix for file incoding mixup
-      if (AAR.equals(sUnit)) {
-        sUnit = "år";
-      }
-      
       Unit unit;
       switch(sUnit) {
-        case "år":
+        case "\u00E5r":
         case "years":
           unit = Unit.YEAR;
           break;
@@ -70,8 +69,8 @@ public class FsVarighet {
           unit = Unit.SEMESTER;
           break;
         
-        case "måned":
-        case "måneder":
+        case "m\u00E5ned":
+        case "m\u00E5neder":
         case "month":
         case "months":
           unit = Unit.MONTH;
@@ -104,7 +103,6 @@ public class FsVarighet {
           break;
         default:
           throw new IllegalArgumentException(sUnit);
-            
       }
       
       return new FsVarighet(number, unit);

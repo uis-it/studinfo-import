@@ -14,22 +14,22 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import java.util.Collection;
+import no.uis.service.studinfo.data.Semesterperiode;
 
-public class CollectionConverter extends AbstractStringConverter<Collection<?>> {
+public class SemesterperiodeConverter extends AbstractStringConverter<Semesterperiode> {
 
   @Override
-  protected String convert(Collection<?> value) {
+  protected String convert(Semesterperiode value) {
     StringBuilder sb = new StringBuilder();
-    for (Object object : value) {
-      if (sb.length() > 0) {
-        sb.append(", ");
-      }
-      sb.append(StringConverterUtil.convert(object));
+    if (value.isSetForstegang()) {
+      sb.append(value.getForstegang());
+    }
+    sb.append('-');
+    if (value.isSetSistegang()) {
+      sb.append(value.getSistegang());
     }
     return sb.toString();
   }
-
 }

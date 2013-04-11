@@ -14,15 +14,27 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import java.util.regex.Pattern;
+import org.apache.log4j.Logger;
 
-public class StringStringConverter extends AbstractStringConverter<String> {
+public abstract class AbstractStringConverter<T> implements StringConverter {
 
-  private Pattern pattern = Pattern.compile("\\s+"); //$NON-NLS-1$
+  private static final Logger LOG = Logger.getLogger(AbstractStringConverter.class);
+
+  @SuppressWarnings("unchecked")
   @Override
-  protected String convert(String value) {
-    return pattern.matcher(value).replaceAll(" "); //$NON-NLS-1$ 
+  public String convertToString(Object value) {
+    if (value == null) {
+      return null;
+    }
+    try {
+      return convert((T)value);
+    } catch(Exception ex) {
+      LOG.warn(value, ex);
+    }
+    return null;
   }
+
+  protected abstract String convert(T value);
 }

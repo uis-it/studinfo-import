@@ -14,14 +14,24 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import no.uis.service.studinfo.data.Kravalternativ;
+import no.uis.service.studinfo.data.Sted;
 
-public class KravalternativConverter extends AbstractStringConverter<Kravalternativ> {
+public class StedConverter extends AbstractStringConverter<Sted> {
 
   @Override
-  protected String convert(Kravalternativ value) {
-    return value.getContent();
+  protected String convert(Sted value) {
+    StringBuilder sb = new StringBuilder();
+    if (value.getAvdnavn() != null) {
+      sb.append(value.getAvdnavn());
+    }
+    if (value.getNavn() != null) {
+      if (sb.length() > 0) {
+        sb.append(", "); //$NON-NLS-1$
+      }
+      sb.append(value.getNavn());
+    }
+    return sb.toString();
   }
 }

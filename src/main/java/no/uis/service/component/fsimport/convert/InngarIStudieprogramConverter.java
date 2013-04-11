@@ -14,22 +14,19 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import no.uis.service.studinfo.data.Hjelpemiddel;
+import no.uis.service.studinfo.data.InngarIStudieprogram;
 
-public class HjelpemiddelConverter extends AbstractStringConverter<Hjelpemiddel> {
+public class InngarIStudieprogramConverter extends AbstractStringConverter<InngarIStudieprogram> {
 
   @Override
-  protected String convert(Hjelpemiddel value) {
-    StringBuilder sb = new StringBuilder();
-
-    sb.append(StringConverterUtil.convert(value.getHjelpemiddelnavn()));
-    if (value.isSetHjelpemiddelmerknad() && !value.getHjelpemiddelmerknad().isEmpty()) {
-      sb.append(" ("); //$NON-NLS-1$
-      sb.append(StringConverterUtil.convert(value.getHjelpemiddelmerknad()));
-      sb.append(')');
+  protected String convert(InngarIStudieprogram value) {
+    if (value.isSetStudieprogramnavn()) {
+      return value.getStudieprogramnavn();
     }
-    return sb.toString();
+
+    return value.getStudieprogramkode();
   }
+
 }

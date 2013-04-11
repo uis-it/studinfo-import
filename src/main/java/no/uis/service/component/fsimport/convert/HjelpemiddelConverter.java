@@ -14,23 +14,22 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import no.uis.service.studinfo.data.Vurdenhet;
+import no.uis.service.studinfo.data.Hjelpemiddel;
 
-public class VurdenhetConverter extends AbstractStringConverter<Vurdenhet> {
+public class HjelpemiddelConverter extends AbstractStringConverter<Hjelpemiddel> {
 
   @Override
-  protected String convert(Vurdenhet v) {
+  protected String convert(Hjelpemiddel value) {
     StringBuilder sb = new StringBuilder();
-    if (v.isSetVurdstatus()) {
-      sb.append(v.getVurdstatus());
-      sb.append(": "); //$NON-NLS-1$
+
+    sb.append(StringConverterUtil.convert(value.getHjelpemiddelnavn()));
+    if (value.isSetHjelpemiddelmerknad() && !value.getHjelpemiddelmerknad().isEmpty()) {
+      sb.append(" ("); //$NON-NLS-1$
+      sb.append(StringConverterUtil.convert(value.getHjelpemiddelmerknad()));
+      sb.append(')');
     }
-    sb.append(v.getTidReell().getMonth());
-    sb.append('/');
-    sb.append(v.getTidReell().getYear());
     return sb.toString();
   }
-
 }

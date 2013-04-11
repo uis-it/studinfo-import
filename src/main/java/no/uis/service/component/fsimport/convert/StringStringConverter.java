@@ -14,22 +14,15 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import no.uis.service.studinfo.data.Semesterperiode;
+import java.util.regex.Pattern;
 
-public class SemesterperiodeConverter extends AbstractStringConverter<Semesterperiode> {
+public class StringStringConverter extends AbstractStringConverter<String> {
 
+  private Pattern pattern = Pattern.compile("\\s+"); //$NON-NLS-1$
   @Override
-  protected String convert(Semesterperiode value) {
-    StringBuilder sb = new StringBuilder();
-    if (value.isSetForstegang()) {
-      sb.append(value.getForstegang());
-    }
-    sb.append('-');
-    if (value.isSetSistegang()) {
-      sb.append(value.getSistegang());
-    }
-    return sb.toString();
+  protected String convert(String value) {
+    return pattern.matcher(value).replaceAll(" "); //$NON-NLS-1$ 
   }
 }

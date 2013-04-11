@@ -14,19 +14,21 @@
    limitations under the License.
  */
 
-package no.uis.service.component.studinfopdf.convert;
+package no.uis.service.component.fsimport.convert;
 
-import no.uis.service.studinfo.data.Obligoppgave;
+import java.util.Collection;
 
-public class ObligoppgaveConverter extends AbstractStringConverter<Obligoppgave> {
+public class CollectionConverter extends AbstractStringConverter<Collection<?>> {
 
   @Override
-  protected String convert(Obligoppgave value) {
+  protected String convert(Collection<?> value) {
     StringBuilder sb = new StringBuilder();
-    sb.append(value.getValue());
-//    sb.append(" ("); //$NON-NLS-1$
-//    sb.append(value.getNr());
-//    sb.append(')');
+    for (Object object : value) {
+      if (sb.length() > 0) {
+        sb.append(", ");
+      }
+      sb.append(StringConverterUtil.convert(object));
+    }
     return sb.toString();
   }
 
