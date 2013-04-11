@@ -14,7 +14,7 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.util;
+package no.uis.service.component.fsimport.util;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

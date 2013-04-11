@@ -14,36 +14,21 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.util;
-
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+package no.uis.service.component.fsimport.util;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import no.uis.service.studinfo.data.FsTerminkodeYearMonth;
 
-public class CalendarAdapter extends XmlAdapter<String, Calendar> {
+public class FsTerminkodeYMAdapter extends XmlAdapter<String, FsTerminkodeYearMonth> {
 
-  private final DateFormat format;
-  
-  public CalendarAdapter(DateFormat df) {
-    this.format = df;
-  }
-  
-  @SuppressWarnings("deprecation")
   @Override
-  public Calendar unmarshal(String v) throws Exception {
-    Date date = format.parse(v);
-    Calendar cal = GregorianCalendar.getInstance();
-    cal.clear();
-    cal.set(date.getYear() + 1900, date.getMonth(), date.getDate());
-    return cal;
+  public FsTerminkodeYearMonth unmarshal(String v) throws Exception {
+    return FsTerminkodeYearMonth.valueOf(v);
   }
 
   @Override
-  public String marshal(Calendar v) throws Exception {
-    return format.format(v.getTime());
+  public String marshal(FsTerminkodeYearMonth v) throws Exception {
+    return v.toString();
   }
 }

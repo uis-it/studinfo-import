@@ -14,30 +14,16 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.util;
+package no.uis.service.component.fsimport.impl;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import no.uis.service.studinfo.data.Studieprogram;
 
 
-public class YesNoTypeAdapter extends XmlAdapter<String, Boolean> {
-
-  @Override
-  public Boolean unmarshal(String v) throws Exception {
-    switch (v) {
-      case "J":
-        return Boolean.TRUE;
-      case "N":
-        return Boolean.FALSE;
-      default:
-        throw new IllegalArgumentException(v);
-    }
-  }
+public class AcceptAllStudieprogram implements StudinfoFilter<Studieprogram> {
 
   @Override
-  public String marshal(Boolean v) throws Exception {
-    if (v.booleanValue()) {
-      return "J"; //$NON-NLS-1$
-    }
-    return "N"; //$NON-NLS-1$ 
+  public boolean accept(Studieprogram elem) {
+    return true;
   }
+
 }

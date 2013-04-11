@@ -27,9 +27,9 @@ import static org.junit.matchers.JUnitMatchers.hasItems;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import no.uis.service.fsimport.impl.AbstractStudinfoImport;
-import no.uis.service.fsimport.impl.SkippingAmpersandParser;
-import no.uis.service.fsimport.util.Studinfos;
+import no.uis.service.component.fsimport.impl.AbstractStudinfoImport;
+import no.uis.service.component.fsimport.impl.SkippingAmpersandParser;
+import no.uis.service.component.fsimport.util.Studinfos;
 import no.uis.service.studinfo.data.FsSemester;
 import no.uis.service.studinfo.data.FsStudieinfo;
 import no.uis.service.studinfo.data.FsYearSemester;

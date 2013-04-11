@@ -14,7 +14,7 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.impl;
+package no.uis.service.component.fsimport.impl;
 
 import java.io.IOException;
 import java.io.InputStream;

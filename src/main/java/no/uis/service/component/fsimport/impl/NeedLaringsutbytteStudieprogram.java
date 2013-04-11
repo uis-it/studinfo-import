@@ -14,8 +14,14 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.impl;
+package no.uis.service.component.fsimport.impl;
 
-public interface StudinfoFilter<T> {
-  boolean accept(T elem);
+import no.uis.service.studinfo.data.Studieprogram;
+
+public class NeedLaringsutbytteStudieprogram implements StudinfoFilter<Studieprogram> {
+
+  @Override
+  public boolean accept(Studieprogram prog) {
+    return prog.isSetLaringsutbytte();
+  }
 }

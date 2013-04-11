@@ -16,8 +16,8 @@
 
 package no.uis.service.component.fsimport.convert;
 
-import no.uis.service.fsimport.util.CalendarAdapter;
-import no.uis.service.fsimport.util.CalendarNorwegianAdapter;
+import no.uis.service.component.fsimport.util.CalendarAdapter;
+import no.uis.service.component.fsimport.util.CalendarNorwegianAdapter;
 import no.uis.service.studinfo.data.Datoperiode;
 
 public class DatoperiodeConverter extends AbstractStringConverter<Datoperiode> {

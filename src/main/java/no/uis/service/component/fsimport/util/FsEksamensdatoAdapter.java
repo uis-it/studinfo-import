@@ -14,14 +14,21 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.impl;
+package no.uis.service.component.fsimport.util;
 
-import no.uis.service.studinfo.data.Studieprogram;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class NeedLaringsutbytteStudieprogram implements StudinfoFilter<Studieprogram> {
+import no.uis.service.studinfo.data.FsEksamensdato;
+
+public class FsEksamensdatoAdapter extends XmlAdapter<String, FsEksamensdato> {
 
   @Override
-  public boolean accept(Studieprogram prog) {
-    return prog.isSetLaringsutbytte();
+  public FsEksamensdato unmarshal(String v) throws Exception {
+    return FsEksamensdato.valueOf(v);
+  }
+
+  @Override
+  public String marshal(FsEksamensdato v) throws Exception {
+    return v.toString();
   }
 }

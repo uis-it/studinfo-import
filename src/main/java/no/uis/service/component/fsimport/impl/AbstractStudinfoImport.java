@@ -14,7 +14,7 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.impl;
+package no.uis.service.component.fsimport.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,7 +33,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import net.sf.saxon.lib.FeatureKeys;
-import no.uis.service.fsimport.StudInfoImport;
+import no.uis.service.component.fsimport.StudInfoImport;
 import no.uis.service.studinfo.data.FsStudieinfo;
 
 import org.apache.cxf.helpers.IOUtils;

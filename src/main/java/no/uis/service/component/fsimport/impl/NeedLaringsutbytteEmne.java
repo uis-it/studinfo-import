@@ -14,15 +14,14 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.impl;
+package no.uis.service.component.fsimport.impl;
 
 import no.uis.service.studinfo.data.Emne;
 
-public class AcceptAllEmne implements StudinfoFilter<Emne> {
+public class NeedLaringsutbytteEmne implements StudinfoFilter<Emne> {
 
   @Override
-  public boolean accept(Emne elem) {
-    return true;
+  public boolean accept(Emne emne) {
+    return emne.isSetLaringsutbytte();
   }
-
 }

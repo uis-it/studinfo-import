@@ -14,7 +14,7 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport;
+package no.uis.service.component.fsimport;
 
 import no.uis.service.studinfo.data.FsStudieinfo;
 

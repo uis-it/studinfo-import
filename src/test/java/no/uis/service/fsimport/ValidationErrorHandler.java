@@ -19,8 +19,8 @@ package no.uis.service.fsimport;
 import java.util.LinkedList;
 import java.util.List;
 
-import no.uis.service.fsimport.StudInfoImport.StudinfoType;
-import no.uis.service.fsimport.util.ContextPath;
+import no.uis.service.component.fsimport.StudInfoImport.StudinfoType;
+import no.uis.service.component.fsimport.util.ContextPath;
 import no.uis.service.studinfo.data.FsSemester;
 
 import org.xml.sax.Attributes;

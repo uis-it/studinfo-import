@@ -38,8 +38,9 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import no.uis.service.fsimport.StudInfoImport.StudinfoType;
-import no.uis.service.fsimport.util.Studinfos;
+import no.uis.service.component.fsimport.StudInfoImport;
+import no.uis.service.component.fsimport.StudInfoImport.StudinfoType;
+import no.uis.service.component.fsimport.util.Studinfos;
 import no.uis.service.studinfo.data.FsSemester;
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
 

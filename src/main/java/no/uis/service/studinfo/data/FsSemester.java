@@ -20,7 +20,8 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import no.uis.service.fsimport.util.FsSemesterAdapter;
+import no.uis.service.component.fsimport.util.FsSemesterAdapter;
+
 
 @XmlType(name = "FsSemester" , namespace = "http://fsws.usit.no/schemas/studinfo")
 @XmlEnum

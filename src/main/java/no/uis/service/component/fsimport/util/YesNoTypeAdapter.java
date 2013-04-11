@@ -14,14 +14,30 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.impl;
+package no.uis.service.component.fsimport.util;
 
-import no.uis.service.studinfo.data.Emne;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class NeedLaringsutbytteEmne implements StudinfoFilter<Emne> {
+
+public class YesNoTypeAdapter extends XmlAdapter<String, Boolean> {
 
   @Override
-  public boolean accept(Emne emne) {
-    return emne.isSetLaringsutbytte();
+  public Boolean unmarshal(String v) throws Exception {
+    switch (v) {
+      case "J":
+        return Boolean.TRUE;
+      case "N":
+        return Boolean.FALSE;
+      default:
+        throw new IllegalArgumentException(v);
+    }
+  }
+
+  @Override
+  public String marshal(Boolean v) throws Exception {
+    if (v.booleanValue()) {
+      return "J"; //$NON-NLS-1$
+    }
+    return "N"; //$NON-NLS-1$ 
   }
 }

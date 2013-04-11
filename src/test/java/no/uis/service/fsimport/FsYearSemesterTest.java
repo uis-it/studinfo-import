@@ -18,7 +18,7 @@ package no.uis.service.fsimport;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import no.uis.service.fsimport.util.Studinfos;
+import no.uis.service.component.fsimport.util.Studinfos;
 import no.uis.service.studinfo.data.FsSemester;
 import no.uis.service.studinfo.data.FsYearSemester;
 

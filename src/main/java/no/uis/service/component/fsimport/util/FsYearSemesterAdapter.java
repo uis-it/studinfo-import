@@ -14,14 +14,21 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.util;
+package no.uis.service.component.fsimport.util;
 
-import java.text.SimpleDateFormat;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class CalendarJDBCAdapter extends CalendarAdapter {
-  SimpleDateFormat df = new SimpleDateFormat("yyyy-dd-MM");
+import no.uis.service.studinfo.data.FsYearSemester;
 
-  public CalendarJDBCAdapter() {
-    super(new SimpleDateFormat("yyyy-dd-MM"));
+public class FsYearSemesterAdapter extends XmlAdapter<String, FsYearSemester> {
+
+  @Override
+  public FsYearSemester unmarshal(String v) throws Exception {
+    return FsYearSemester.valueOf(v);
+  }
+
+  @Override
+  public String marshal(FsYearSemester v) throws Exception {
+    return v.toString();
   }
 }

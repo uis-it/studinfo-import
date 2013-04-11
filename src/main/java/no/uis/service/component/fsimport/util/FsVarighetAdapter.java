@@ -14,16 +14,23 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.impl;
+package no.uis.service.component.fsimport.util;
 
-import no.uis.service.studinfo.data.Studieprogram;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import no.uis.service.studinfo.data.FsVarighet;
 
-public class AcceptAllStudieprogram implements StudinfoFilter<Studieprogram> {
+public class FsVarighetAdapter extends XmlAdapter<String, FsVarighet> {
 
   @Override
-  public boolean accept(Studieprogram elem) {
-    return true;
+  public FsVarighet unmarshal(String v) throws Exception {
+    FsVarighet varig = FsVarighet.valueOf(v);
+    return varig;
+  }
+
+  @Override
+  public String marshal(FsVarighet v) throws Exception {
+    return v.toString();
   }
 
 }

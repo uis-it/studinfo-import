@@ -20,9 +20,9 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import no.uis.service.fsimport.util.CalendarAdapter;
-import no.uis.service.fsimport.util.CalendarNorwegianAdapter;
-import no.uis.service.fsimport.util.FsTimeAdapter;
+import no.uis.service.component.fsimport.util.CalendarAdapter;
+import no.uis.service.component.fsimport.util.CalendarNorwegianAdapter;
+import no.uis.service.component.fsimport.util.FsTimeAdapter;
 
 public class FsEksamensdato {
 

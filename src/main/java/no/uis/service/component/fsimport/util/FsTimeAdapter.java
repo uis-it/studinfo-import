@@ -14,21 +14,21 @@
    limitations under the License.
  */
 
-package no.uis.service.fsimport.util;
+package no.uis.service.component.fsimport.util;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import no.uis.service.studinfo.data.FsYearSemester;
+import no.uis.service.studinfo.data.FsTime;
 
-public class FsYearSemesterAdapter extends XmlAdapter<String, FsYearSemester> {
+public class FsTimeAdapter extends XmlAdapter<String, FsTime> {
 
   @Override
-  public FsYearSemester unmarshal(String v) throws Exception {
-    return FsYearSemester.valueOf(v);
+  public FsTime unmarshal(String v) throws Exception {
+    return FsTime.valueOf(v);
   }
 
   @Override
-  public String marshal(FsYearSemester v) throws Exception {
+  public String marshal(FsTime v) throws Exception {
     return v.toString();
   }
 }

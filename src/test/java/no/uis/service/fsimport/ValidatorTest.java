@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import no.uis.service.fsimport.StudInfoImport.StudinfoType;
+import no.uis.service.component.fsimport.StudInfoImport.StudinfoType;
 import no.uis.service.studinfo.data.FsSemester;
 
 import org.hamcrest.BaseMatcher;
