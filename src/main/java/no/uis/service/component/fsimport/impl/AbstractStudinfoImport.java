@@ -39,6 +39,9 @@ import no.uis.service.studinfo.data.FsStudieinfo;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.log4j.Logger;
 
+/**
+ * Abstract class makes it easier to write test code.
+ */
 public abstract class AbstractStudinfoImport implements StudInfoImport {
 
   private static final Logger LOG = Logger.getLogger(StudInfoImportImpl.class);

@@ -19,9 +19,10 @@ package no.uis.service.component.fsimport.util;
 import java.text.SimpleDateFormat;
 
 public class CalendarJDBCAdapter extends CalendarAdapter {
-  SimpleDateFormat df = new SimpleDateFormat("yyyy-dd-MM");
+  private static final String YYYY_DD_MM = "yyyy-dd-MM";
+  SimpleDateFormat df = new SimpleDateFormat(YYYY_DD_MM);
 
   public CalendarJDBCAdapter() {
-    super(new SimpleDateFormat("yyyy-dd-MM"));
+    super(new SimpleDateFormat(YYYY_DD_MM));
   }
 }

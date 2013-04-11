@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.impl;
 
 import no.uis.service.studinfo.data.Emne;
 
+/**
+ * Studinfo filter for subjects that accepts erything.
+ */
 public class AcceptAllEmne implements StudinfoFilter<Emne> {
 
   @Override

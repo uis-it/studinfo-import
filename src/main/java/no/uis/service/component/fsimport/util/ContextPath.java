@@ -21,9 +21,11 @@ import java.util.Stack;
 
 public class ContextPath extends ThreadLocal<Stack<String>> implements Iterable<String> {
 
+  private static final String SLASH = "/";
+
   @Override
   protected Stack<String> initialValue() {
-    return createStack("/");
+    return createStack(SLASH);
   }
 
   public void init(String initElement) {
@@ -49,7 +51,7 @@ public class ContextPath extends ThreadLocal<Stack<String>> implements Iterable<
   
   private Stack<String> createStack(String elem) {
     Stack<String> s = new PathStack();
-    s.add("/" + elem);
+    s.add(SLASH + elem);
     return s;
   }
   
@@ -62,12 +64,10 @@ public class ContextPath extends ThreadLocal<Stack<String>> implements Iterable<
       StringBuilder sb = new StringBuilder();
       for (String elem : this) {
         sb.append(elem);
-        sb.append('/');
+        sb.append(SLASH);
       }
       return sb.toString();
     }
-    
-    
   }
 
   @Override

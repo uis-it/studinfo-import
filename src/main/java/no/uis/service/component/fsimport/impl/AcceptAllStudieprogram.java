@@ -19,6 +19,9 @@ package no.uis.service.component.fsimport.impl;
 import no.uis.service.studinfo.data.Studieprogram;
 
 
+/**
+ * Studinfo filter for study programs that accepts everything.
+ */
 public class AcceptAllStudieprogram implements StudinfoFilter<Studieprogram> {
 
   @Override
