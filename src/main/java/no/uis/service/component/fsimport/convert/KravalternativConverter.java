@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.convert;
 
 import no.uis.service.studinfo.data.Kravalternativ;
 
+/**
+ * Converts a {@link Kravalternativ} to a string.
+ */
 public class KravalternativConverter extends AbstractStringConverter<Kravalternativ> {
 
   @Override

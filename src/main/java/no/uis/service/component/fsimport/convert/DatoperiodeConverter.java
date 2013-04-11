@@ -20,23 +20,24 @@ import no.uis.service.component.fsimport.util.CalendarAdapter;
 import no.uis.service.component.fsimport.util.CalendarNorwegianAdapter;
 import no.uis.service.studinfo.data.Datoperiode;
 
+/**
+ * Converts a {@link Datoperiode} to a string. 
+ * For converting the dates, the {@link CalendarNorwegianAdapter} is used.
+ */
 public class DatoperiodeConverter extends AbstractStringConverter<Datoperiode> {
 
+  private static final String SPACE_HASH_SPACE = " - ";
   private CalendarAdapter calendarAdapter = new CalendarNorwegianAdapter();
 
   @Override
   protected String convert(Datoperiode value) {
     StringBuilder sb = new StringBuilder();
-    try {
-      if (value.isSetFradato()) {
-        sb.append(calendarAdapter.marshal(value.getFradato()));
-      }
-      sb.append(" - "); //$NON-NLS-1$
-      if (value.isSetTildato()) {
-        sb.append(calendarAdapter.marshal(value.getTildato()));
-      }
-    } catch(Exception e) {
-      sb.append(e.getLocalizedMessage());
+    if (value.isSetFradato()) {
+      sb.append(calendarAdapter.marshal(value.getFradato()));
+    }
+    sb.append(SPACE_HASH_SPACE);
+    if (value.isSetTildato()) {
+      sb.append(calendarAdapter.marshal(value.getTildato()));
     }
     return sb.toString();
   }

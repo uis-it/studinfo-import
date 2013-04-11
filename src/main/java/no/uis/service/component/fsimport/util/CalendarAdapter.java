@@ -17,6 +17,7 @@
 package no.uis.service.component.fsimport.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -34,7 +35,7 @@ public class CalendarAdapter extends XmlAdapter<String, Calendar> {
   
   @SuppressWarnings("deprecation")
   @Override
-  public Calendar unmarshal(String v) throws Exception {
+  public Calendar unmarshal(String v) throws ParseException {
     Date date = format.parse(v);
     Calendar cal = GregorianCalendar.getInstance();
     cal.clear();
@@ -43,7 +44,7 @@ public class CalendarAdapter extends XmlAdapter<String, Calendar> {
   }
 
   @Override
-  public String marshal(Calendar v) throws Exception {
+  public String marshal(Calendar v) {
     return format.format(v.getTime());
   }
 }

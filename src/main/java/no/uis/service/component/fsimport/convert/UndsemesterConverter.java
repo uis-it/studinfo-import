@@ -21,12 +21,15 @@ import java.util.List;
 import no.uis.service.studinfo.data.Semester;
 import no.uis.service.studinfo.data.Undsemester;
 
+/**
+ * Converts a {@link Undsemester} to a string.
+ */
 public class UndsemesterConverter extends AbstractStringConverter<Undsemester> {
 
   @Override
   protected String convert(Undsemester value) {
     List<Semester> semesterList = value.getSemester();
-    boolean includeNumber = (semesterList.size() > 1);
+    boolean includeNumber = semesterList.size() > 1;
     
     StringBuilder sb = new StringBuilder();
     
@@ -41,7 +44,7 @@ public class UndsemesterConverter extends AbstractStringConverter<Undsemester> {
       sb.append(semester.getValue());
     }
     boolean needHyphen = true;
-    boolean hasValidPeriod = (value.isSetForstegang() || value.isSetSistegang());
+    boolean hasValidPeriod = value.isSetForstegang() || value.isSetSistegang();
     if (hasValidPeriod) {
       sb.append('(');
     }

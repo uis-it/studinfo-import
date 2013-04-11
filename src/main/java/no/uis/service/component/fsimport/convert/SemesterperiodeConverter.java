@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.convert;
 
 import no.uis.service.studinfo.data.Semesterperiode;
 
+/**
+ * Convert a {@link Semesterperiode} to a string.
+ */
 public class SemesterperiodeConverter extends AbstractStringConverter<Semesterperiode> {
 
   @Override

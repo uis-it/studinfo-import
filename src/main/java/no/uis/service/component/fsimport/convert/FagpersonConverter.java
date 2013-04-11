@@ -18,6 +18,10 @@ package no.uis.service.component.fsimport.convert;
 
 import no.uis.service.studinfo.data.Fagperson;
 
+/**
+ * Converts a {@link Fagperson} to a String.
+ * The result has the form <code><i>firstName</i> <i>lastName</i> (<i>role</i>)</code>.
+ */
 public class FagpersonConverter extends AbstractStringConverter<Fagperson> {
 
   @Override

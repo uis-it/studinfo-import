@@ -18,6 +18,12 @@ package no.uis.service.component.fsimport.convert;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Abstract strong-typed string converter.
+ * Concrete string converters should sub-class this class. 
+ * @param <T>
+ *        - type that needs to be converted to a {@link String}. 
+ */
 public abstract class AbstractStringConverter<T> implements StringConverter {
 
   private static final Logger LOG = Logger.getLogger(AbstractStringConverter.class);

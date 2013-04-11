@@ -18,6 +18,10 @@ package no.uis.service.component.fsimport.convert;
 
 import no.uis.service.studinfo.data.Emneid;
 
+/**
+ * Convert an {@link Emneid} to a String.
+ * The result has the form: <code><i>emneCode</i>_<i>version</i></code>
+ */
 public class EmneidConverter extends AbstractStringConverter<Emneid> {
 
   @Override

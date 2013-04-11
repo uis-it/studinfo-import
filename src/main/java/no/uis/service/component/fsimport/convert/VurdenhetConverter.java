@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.convert;
 
 import no.uis.service.studinfo.data.Vurdenhet;
 
+/**
+ * Converts a {@link Vurdenhet} to a string.
+ */
 public class VurdenhetConverter extends AbstractStringConverter<Vurdenhet> {
 
   @Override

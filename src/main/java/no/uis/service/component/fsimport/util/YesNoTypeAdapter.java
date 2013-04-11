@@ -18,15 +18,20 @@ package no.uis.service.component.fsimport.util;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-
+/**
+ * Converts a FS type J/N to {@link Boolean}.
+ */
 public class YesNoTypeAdapter extends XmlAdapter<String, Boolean> {
+
+  private static final String N = "N";
+  private static final String J = "J";
 
   @Override
   public Boolean unmarshal(String v) throws Exception {
     switch (v) {
-      case "J":
+      case J:
         return Boolean.TRUE;
-      case "N":
+      case N:
         return Boolean.FALSE;
       default:
         throw new IllegalArgumentException(v);
@@ -36,8 +41,8 @@ public class YesNoTypeAdapter extends XmlAdapter<String, Boolean> {
   @Override
   public String marshal(Boolean v) throws Exception {
     if (v.booleanValue()) {
-      return "J"; //$NON-NLS-1$
+      return J; 
     }
-    return "N"; //$NON-NLS-1$ 
+    return N; 
   }
 }

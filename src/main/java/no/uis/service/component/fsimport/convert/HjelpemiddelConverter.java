@@ -18,6 +18,12 @@ package no.uis.service.component.fsimport.convert;
 
 import no.uis.service.studinfo.data.Hjelpemiddel;
 
+/**
+ * Convert a {@link Hjelpemiddel} to a String.
+ * Format: <code><i>hjelpemiddelnavn</i> (<i>hjelpemiddelmerknad</i>)</code>.
+ * @see Hjelpemiddel#getHjelpemiddelnavn()
+ * @see Hjelpemiddel#getHjelpemiddelmerknad()
+ */
 public class HjelpemiddelConverter extends AbstractStringConverter<Hjelpemiddel> {
 
   @Override

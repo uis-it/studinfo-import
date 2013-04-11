@@ -18,6 +18,10 @@ package no.uis.service.component.fsimport.convert;
 
 import java.util.Map;
 
+/**
+ * Converts a Map to a string.
+ * Internally the StringConverterUtil is used on the map's entry set. 
+ */
 public class MapConverter extends AbstractStringConverter<Map<?, ?>> {
 
   @Override

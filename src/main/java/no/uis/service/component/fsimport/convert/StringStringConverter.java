@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.convert;
 
 import java.util.regex.Pattern;
 
+/**
+ * Removes all white spaces and replaces them with a single space. 
+ */
 public class StringStringConverter extends AbstractStringConverter<String> {
 
   private Pattern pattern = Pattern.compile("\\s+"); //$NON-NLS-1$

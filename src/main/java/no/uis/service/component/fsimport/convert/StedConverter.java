@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.convert;
 
 import no.uis.service.studinfo.data.Sted;
 
+/**
+ * Convert a {@link Sted} to a string.
+ */
 public class StedConverter extends AbstractStringConverter<Sted> {
 
   @Override

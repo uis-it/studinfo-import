@@ -18,16 +18,13 @@ package no.uis.service.component.fsimport.convert;
 
 import no.uis.service.studinfo.data.Obligoppgave;
 
+/**
+ * Converts a {@link Obligoppgave} to a string.
+ */
 public class ObligoppgaveConverter extends AbstractStringConverter<Obligoppgave> {
 
   @Override
   protected String convert(Obligoppgave value) {
-    StringBuilder sb = new StringBuilder();
-    sb.append(value.getValue());
-//    sb.append(" ("); //$NON-NLS-1$
-//    sb.append(value.getNr());
-//    sb.append(')');
-    return sb.toString();
+    return value.getValue();
   }
-
 }

@@ -41,10 +41,30 @@ import no.uis.service.studinfo.data.Vurdordning;
  */
 public final class Studinfos {
 
+  /**
+   * FS code for UiS.
+   */
   public static final int FS_STED_UIS = 217;
+  
+  /**
+   * Default fraction for "vurderingskombinasjon".
+   */
   public static final String DEFAULT_VURDKOMB_BROK = "1/1";
-  public static final String VALID_FROM = "validFrom";
-  public static final String SKIP_SEMESTERS = "skipSemesters";
+  
+  /**
+   * Property string "validFrom".
+   */
+  public static final String PROP_VALID_FROM = "validFrom";
+  
+  /**
+   * Property string "skipSemesters".
+   */
+  public static final String PROP_SKIP_SEMESTERS = "skipSemesters";
+  private static final String PROP_PRIVATIST = "privatist";
+  private static final String PROP_OBLIGUND = "obligund";
+  private static final String PROP_FORKUNNSKAPER = "forkunnskaper";
+  private static final String PROP_ALTERNATIVES = "alternatives";
+  private static final String PROP_TEXT = "text";
   private static final int DEFAULT_MAX_SEMESTER = 10;
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Studinfos.class);
 
@@ -108,8 +128,8 @@ public final class Studinfos {
       FsYearSemester yearSemester = getValidFrom(kravSammen);
       Integer skipSemesters = getDiffSemesters(currentSemester, yearSemester);
 
-      kravSammen.addProperty(VALID_FROM, yearSemester);
-      kravSammen.addProperty(SKIP_SEMESTERS, skipSemesters);
+      kravSammen.addProperty(PROP_VALID_FROM, yearSemester);
+      kravSammen.addProperty(PROP_SKIP_SEMESTERS, skipSemesters);
 
       boolean doRemove = skipSemesters < 0 || maxSemesters <= skipSemesters;
       if (!doRemove) {
@@ -133,12 +153,13 @@ public final class Studinfos {
 
     int nboEmne = 0;
     contextPath.push(ek.getEmnekombinasjonskode());
+    int newOffset = offset;
     if (ek.isSetEmne()) {
       Iterator<ProgramEmne> iter = ek.getEmne().iterator();
       while (iter.hasNext()) {
         ProgramEmne emne = iter.next();
         contextPath.push(emne.getEmneid().getEmnekode());
-        if (!isValidEmne(emne, offset, skipSemesters)) {
+        if (!isValidEmne(emne, newOffset, skipSemesters)) {
           iter.remove();
         }
         contextPath.pop();
@@ -148,10 +169,10 @@ public final class Studinfos {
 
     if (ek.isSetEmnekombinasjon()) {
       if (ek.isSetTerminnrRelativStart()) {
-        offset += (ek.getTerminnrRelativStart().intValue() - 1);
+        newOffset += ek.getTerminnrRelativStart().intValue() - 1;
       }
       for (Emnekombinasjon subEk : ek.getEmnekombinasjon()) {
-        nboEmne += cleanEmneKombinasjon(subEk, offset, skipSemesters);
+        nboEmne += cleanEmneKombinasjon(subEk, newOffset, skipSemesters);
       }
     }
 
@@ -299,11 +320,11 @@ public final class Studinfos {
     if (emne.isSetFormelleForkunnskaper() || emne.isSetAbsForkunnskaperFritekst()) {
       forkunnskap = new HashMap<String, Object>();
       if (emne.isSetFormelleForkunnskaper()) {
-        forkunnskap.put("alternatives", emne.getFormelleForkunnskaper());
+        forkunnskap.put(PROP_ALTERNATIVES, emne.getFormelleForkunnskaper());
         emne.setFormelleForkunnskaper(null);
       }
       if (emne.isSetAbsForkunnskaperFritekst()) {
-        forkunnskap.put("text", emne.getAbsForkunnskaperFritekst());
+        forkunnskap.put(PROP_TEXT, emne.getAbsForkunnskaperFritekst());
         emne.setAbsForkunnskaperFritekst(null);
       }
     }
@@ -316,11 +337,11 @@ public final class Studinfos {
       anbForkunn = new HashMap<String, Object>();
 
       if (emne.isSetAnbefalteForkunnskaper()) {
-        anbForkunn.put("forkunnskaper", emne.getAnbefalteForkunnskaper());
+        anbForkunn.put(PROP_FORKUNNSKAPER, emne.getAnbefalteForkunnskaper());
         emne.setAnbefalteForkunnskaper(null);
       }
       if (emne.isSetAnbForkunnskaperFritekst()) {
-        anbForkunn.put("text", emne.getAnbForkunnskaperFritekst());
+        anbForkunn.put(PROP_TEXT, emne.getAnbForkunnskaperFritekst());
         emne.setAnbForkunnskaperFritekst(null);
       }
     }
@@ -332,11 +353,11 @@ public final class Studinfos {
     if (emne.isSetObligund() || emne.isSetObligUndaktTilleggsinfo()) {
       obligund = new HashMap<String, Object>();
       if (emne.isSetObligund()) {
-        obligund.put("obligund", StringConverterUtil.convert(emne.getObligund()));
+        obligund.put(PROP_OBLIGUND, StringConverterUtil.convert(emne.getObligund()));
         emne.setObligund(null);
       }
       if (emne.isSetObligUndaktTilleggsinfo()) {
-        obligund.put("text", emne.getObligUndaktTilleggsinfo());
+        obligund.put(PROP_TEXT, emne.getObligUndaktTilleggsinfo());
         emne.setObligUndaktTilleggsinfo(null);
       }
     }
@@ -345,17 +366,17 @@ public final class Studinfos {
 
   public static Map<String, Object> apenFor(Emne emne) {
     Map<String, Object> apenFor = new HashMap<String, Object>();
-    apenFor.put("privatist", Studinfos.isSetAndTrue(emne.isStatusPrivatist()));
+    apenFor.put(PROP_PRIVATIST, Studinfos.isSetAndTrue(emne.isStatusPrivatist()));
     emne.setStatusPrivatist(null);
     if (emne.isSetApentForTillegg() || Studinfos.isSetAndTrue(emne.isStatusPrivatist())) {
       if (emne.isSetApentForTillegg()) {
-        apenFor.put("text", emne.getApentForTillegg());
+        apenFor.put(PROP_TEXT, emne.getApentForTillegg());
         emne.setApentForTillegg(null);
       }
 
     } else if (emne.isSetInngarIStudieprogram()) {
       String value = StringConverterUtil.convert(emne.getInngarIStudieprogram());
-      apenFor.put("text", value);
+      apenFor.put(PROP_TEXT, value);
     }
     return apenFor;
   }

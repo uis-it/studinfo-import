@@ -31,19 +31,19 @@ public class PropertyInfoUtils {
 
   private static final Pattern PROP_PATTERN = Pattern.compile("(get|set|isSet|is|has)([A-Z].*)");
   private static final List<String> SKIP_PROPERTIES = Arrays.asList("class", "declaringClass");
-  private static final Map<Class<?>, List<PropertyInfo>> cache = new HashMap<Class<?>, List<PropertyInfo>>();
+  private static final Map<Class<?>, List<PropertyInfo>> CACHE = new HashMap<Class<?>, List<PropertyInfo>>();
 
   private PropertyInfoUtils() {
   }
   
   public static List<PropertyInfo> getPropertyInfos(Class<?> cls) {
-    List<PropertyInfo> infos = cache.get(cls);
+    List<PropertyInfo> infos = CACHE.get(cls);
     if (infos == null) {
-      synchronized (cache) {
-        infos = cache.get(cls);
+      synchronized (CACHE) {
+        infos = CACHE.get(cls);
         if (infos == null) {
           infos = createPropertyInfos(cls);
-          cache.put(cls, infos);
+          CACHE.put(cls, infos);
         }
       }
     }

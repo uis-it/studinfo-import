@@ -30,13 +30,13 @@ public class FsEksamensdato {
   private static final Pattern PATTERN = Pattern.compile("((Uttak\\: \\d{2}\\.\\d{2}\\.\\d{4} )?(Frist innlevering\\: )?(\\d{2}\\.\\d{2}\\.\\d{4})( kl\\. \\d{2}\\:\\d{2})?)?");
   private static final CalendarAdapter DATE_ADAPTER = new CalendarNorwegianAdapter();
   private static final FsTimeAdapter TIME_ADAPTER = new FsTimeAdapter();
-  
+
   private final Calendar dato;
   private final Calendar uttak;
   private final Calendar innleveringDato;
   private final FsTime innleveringTid;
   private final String text;
-  
+
   public FsEksamensdato(Calendar dato, Calendar uttak, Calendar innleveringDato, FsTime innleveringTid, String text) {
     this.dato = dato;
     this.uttak = uttak;
@@ -52,7 +52,7 @@ public class FsEksamensdato {
     this.innleveringTid = null;
     this.text = null;
   }
-  
+
   public Calendar getDato() {
     return dato;
   }
@@ -68,21 +68,21 @@ public class FsEksamensdato {
   public FsTime getInnleveringTid() {
     return innleveringTid;
   }
-  
+
   @Override
   public String toString() {
     return text;
   }
-  
+
   public static FsEksamensdato valueOf(String v) throws Exception {
     Matcher m = PATTERN.matcher(v);
-    
+
     if (!m.matches()) {
       throw new IllegalArgumentException(v);
     }
     int nboGroups = m.groupCount();
     String[] groups = new String[nboGroups];
-    
+
     int nonZero = 0;
     for (int i = 0; i < nboGroups; i++) {
       groups[i] = m.group(i + 1);
@@ -94,8 +94,8 @@ public class FsEksamensdato {
     Calendar uttak = null;
     Calendar innleveringDato = null;
     FsTime innleveringTid = null;
-    
-    switch(nonZero) {
+
+    switch (nonZero) {
       case 2:
         // 01.08.2012
         dato = DATE_ADAPTER.unmarshal(groups[3]);
@@ -115,7 +115,7 @@ public class FsEksamensdato {
         innleveringDato = DATE_ADAPTER.unmarshal(groups[3].trim());
         innleveringTid = TIME_ADAPTER.unmarshal(groups[4].substring(4).trim());
         break;
-      
+
       default:
         break;
     }

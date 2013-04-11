@@ -18,6 +18,10 @@ package no.uis.service.component.fsimport.convert;
 
 import java.util.Collection;
 
+/**
+ * Converts a {@link Collection} to a comma-separated list of elements.
+ * The elements are converted by the one registered for the type of each element.
+ */
 public class CollectionConverter extends AbstractStringConverter<Collection<?>> {
 
   @Override

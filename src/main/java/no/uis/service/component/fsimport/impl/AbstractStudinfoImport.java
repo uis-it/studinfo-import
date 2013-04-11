@@ -66,14 +66,6 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
     this.xmlSourceParser = xmlSourceParser;
   }
 
-  @Override
-  @Deprecated
-  public FsStudieinfo fetchStudyPrograms(int institution, int year, String semester, boolean includeEP, String language)
-      throws Exception
-  {
-    return fetchStudyPrograms(institution, -1, year, semester, includeEP, language);
-  }
-
   public FsStudieinfo fetchStudyPrograms(int institution, int faculty, int year, String semester, boolean includeEP,
       String language) throws Exception
   {
@@ -86,12 +78,6 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
         studieinfoXml.close();
       }
     }
-  }
-
-  @Override
-  @Deprecated
-  public FsStudieinfo fetchSubjects(int institution, int year, String semester, String language) throws Exception {
-    return fetchSubjects(institution, -1, year, semester, language);
   }
 
   public FsStudieinfo fetchSubjects(int institution, int faculty, int year, String semester, String language) throws Exception {
@@ -153,18 +139,18 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
 
         stylesheet.transform(input, result);
         @SuppressWarnings("resource")
-        final Reader _unmarshalSource = new InputStreamReader(new FileInputStream(resultFile), IOUtils.UTF8_CHARSET);
+        final Reader tmpSource = new InputStreamReader(new FileInputStream(resultFile), IOUtils.UTF8_CHARSET);
         cleanupTasks.add(new Runnable() {
           @Override
           public void run() {
             try {
-              _unmarshalSource.close();
+              tmpSource.close();
             } catch(IOException e) {
               LOG.warn("closing stream", e);
             }
           }
         });
-        unmarshalSource = _unmarshalSource;
+        unmarshalSource = tmpSource;
 
       } else {
         unmarshalSource = studieinfoXml;

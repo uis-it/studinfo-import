@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.convert;
 
 import no.uis.service.studinfo.data.InngarIStudieprogram;
 
+/**
+ * Converts a {@link InngarIStudieprogram} to a string.
+ */
 public class InngarIStudieprogramConverter extends AbstractStringConverter<InngarIStudieprogram> {
 
   @Override

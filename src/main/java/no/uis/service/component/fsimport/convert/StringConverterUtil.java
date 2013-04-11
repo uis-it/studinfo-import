@@ -19,6 +19,10 @@ package no.uis.service.component.fsimport.convert;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Facilitates conversion from objects to string.
+ * You can register string converters for a given class which are use by this utility.
+ */
 public class StringConverterUtil {
 
   private static StringConverterUtil singleton;

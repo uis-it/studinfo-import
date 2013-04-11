@@ -18,43 +18,50 @@ package no.uis.service.component.fsimport;
 
 import no.uis.service.studinfo.data.FsStudieinfo;
 
+/**
+ * Interface for main service of this library.
+ */
 public interface StudInfoImport {
 
+  /**
+   * {@link Integer} value for 0.
+   */
   Integer INTEGER_0 = Integer.valueOf(0);
+  
+  /**
+   * {@link Integer} value for 1.
+   */
   Integer INTEGER_1 = Integer.valueOf(1);
   
   /**
+   * {@link Integer} value for -1.
    * -1 means all possible values, e.g. all faculties
    */
   Integer INTEGER_MINUS_1 = Integer.valueOf(-1);
 
-  public enum StudinfoType {
+  /**
+   * Type of study information. 
+   */
+  public static enum StudinfoType {
+    /**
+     * Subjects/courses.
+     */
     EMNE, 
-    STUDIEPROGRAM, 
+    
+    /**
+     * Study programme.
+     */
+    STUDIEPROGRAM,
+    
+    /**
+     * Post-graduate courses.
+     */
     KURS
   }
 
   /**
    * @param institution
-   *        - 217 for UiS
-   * @param year
-   *        - four digits year
-   * @param semester
-   *        - H&Oslash;ST/V&Aring;R
-   * @param includeEP
-   *        - include Education Plan (Utdanningsplan)
-   * @param language
-   *        - one letter language code: (B)okm&aring;l, (N)ynorsk, (E)nglish
-   * @throws Exception
-   * @deprecated use {@link #fetchStudyPrograms(int, int, int, String, boolean, String)}
-   */
-  @Deprecated
-  FsStudieinfo fetchStudyPrograms(int institution, int year, String semester, boolean includeEP, String language)
-      throws Exception;
-
-  /**
-   * @param institution
-   *        - 217 for UiS
+   *        - FS code for institution
    * @param faculty
    *        - FS code for faculty
    * @param year
@@ -73,22 +80,7 @@ public interface StudInfoImport {
 
   /**
    * @param institution
-   *        - 217 for UiS
-   * @param year
-   *        - four digits year
-   * @param semester
-   *        - H&Oslash;ST/V&Aring;R
-   * @param language
-   *        - one letter language code: (B)okm&aring;l, (N)ynorsk, (E)nglish
-   * @throws Exception
-   * @deprecated use {@link #fetchSubjects(int, int, int, String, String)}
-   */
-  @Deprecated
-  FsStudieinfo fetchSubjects(int institution, int year, String semester, String language) throws Exception;
-
-  /**
-   * @param institution
-   *        - 217 for UiS
+   *        - FS code for institution
    * @param faculty
    *        - FS code for faculty
    * @param year

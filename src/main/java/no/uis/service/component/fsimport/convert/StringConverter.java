@@ -16,6 +16,10 @@
 
 package no.uis.service.component.fsimport.convert;
 
+/**
+ * Interface for converting an object to a string.
+ * Usually you sub-class {@link AbstractStringConverter}.
+ */
 public interface StringConverter {
 
   String convertToString(Object value);
