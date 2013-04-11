@@ -14,7 +14,7 @@
    limitations under the License.
  */
 // CHECKSTYLE:OFF
-package no.uis.service.fsimport;
+package no.uis.service.component.fsimport;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -14,7 +14,7 @@
    limitations under the License.
  */
 // CHECKSTYLE:OFF
-package no.uis.service.fsimport.data;
+package no.uis.service.component.fsimport.data;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
