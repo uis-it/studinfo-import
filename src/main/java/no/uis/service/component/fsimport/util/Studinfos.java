@@ -41,8 +41,6 @@ import no.uis.service.studinfo.data.Vurdordning;
  */
 public final class Studinfos {
 
-  private static final int YEAR_LEN = 4;
-
   /**
    * FS code for UiS.
    */
@@ -62,6 +60,8 @@ public final class Studinfos {
    * Property string "skipSemesters".
    */
   public static final String PROP_SKIP_SEMESTERS = "skipSemesters";
+
+  private static final int YEAR_LEN = 4;
   private static final String PROP_PRIVATIST = "privatist";
   private static final String PROP_OBLIGUND = "obligund";
   private static final String PROP_FORKUNNSKAPER = "forkunnskaper";
