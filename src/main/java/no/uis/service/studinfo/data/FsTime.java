@@ -73,11 +73,13 @@ public class FsTime {
     if (hh < 0 || mm < 0) {
       return false;
     }
+    // CHECKSTYLE:OFF
     // check for valid times
     long sum = hh * 60L + mm;
-    if (sum > (24L * 60)) {
+    if (sum > (24L * 60L)) {
       return false;
     }
+    // CHECKSTYLE:ON
     return true;
   }
 }

@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class CalendarAdapter extends XmlAdapter<String, Calendar> {
 
+  private static final int DATE_START_YEAR = 1900;
   private final DateFormat format;
   
   public CalendarAdapter(DateFormat df) {
@@ -42,7 +43,7 @@ public class CalendarAdapter extends XmlAdapter<String, Calendar> {
     Date date = format.parse(v);
     Calendar cal = GregorianCalendar.getInstance();
     cal.clear();
-    cal.set(date.getYear() + 1900, date.getMonth(), date.getDate());
+    cal.set(date.getYear() + DATE_START_YEAR, date.getMonth(), date.getDate());
     return cal;
   }
 

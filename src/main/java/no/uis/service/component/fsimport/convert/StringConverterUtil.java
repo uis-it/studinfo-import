@@ -57,16 +57,19 @@ public class StringConverterUtil {
   private StringConverter getConverter(Class<?> valueType) {
     if (valueType != null) {
       StringConverter converter = converters.get(valueType);
-      if (converter != null) {
-        return converter;
-      }
-      for (Class<?> iface : valueType.getInterfaces()) {
-        converter = converters.get(iface);
-        if (converter != null) {
-          return converter;
+      if (converter == null) {
+        for (Class<?> iface : valueType.getInterfaces()) {
+          converter = converters.get(iface);
+          if (converter != null) {
+            break;
+          }
         }
       }
-      return getConverter(valueType.getSuperclass());
+      if (converter != null) {
+        return converter;
+      } else {
+        return getConverter(valueType.getSuperclass());
+      }
     }
     return defaultConverter;
   }

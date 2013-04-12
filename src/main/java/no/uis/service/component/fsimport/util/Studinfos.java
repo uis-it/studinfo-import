@@ -41,6 +41,8 @@ import no.uis.service.studinfo.data.Vurdordning;
  */
 public final class Studinfos {
 
+  private static final int YEAR_LEN = 4;
+
   /**
    * FS code for UiS.
    */
@@ -109,8 +111,8 @@ public final class Studinfos {
     } else if (ks.isSetTerminGjelderFra()) {
       String terminGjelderFra = ks.getTerminGjelderFra();
       try {
-        validFromYear = Integer.parseInt(terminGjelderFra.substring(0, 4));
-        char semesterChar = terminGjelderFra.charAt(4);
+        validFromYear = Integer.parseInt(terminGjelderFra.substring(0, YEAR_LEN));
+        char semesterChar = terminGjelderFra.charAt(YEAR_LEN);
         validFromSemester = semesterChar == 'H' ? FsSemester.HOST : (semesterChar == 'V' ? FsSemester.VAR : null);
       } catch(NumberFormatException | IndexOutOfBoundsException e) {
         log.warn(contextPath.getPath() + ": " + terminGjelderFra, e);
