@@ -7,7 +7,10 @@
              
   <suppress checks=".*"
              files=".*\.(xml|xsl|properties)"/>
-             
+
+  <suppress checks=".*"
+             files="target/.*"/>
+
   <suppress checks=".*"
              files=".*/META-INF/.*"/>
              
