@@ -15,5 +15,5 @@
              files=".*/META-INF/.*"/>
              
   <suppress checks="RegexpHeaderCheck"
-             files="src\/main\/resources\/\.*"/>
+             files="src/main/resources/\.*"/>
 </suppressions>
