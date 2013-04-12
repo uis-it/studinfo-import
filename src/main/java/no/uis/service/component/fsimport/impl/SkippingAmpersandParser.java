@@ -20,6 +20,11 @@ import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.parsers.XIncludeAwareParserConfiguration;
 import org.xml.sax.SAXException;
 
+/**
+ * This class is instantiated by Saxon in {@link AbstractStudinfoImport} via its class name.
+ * The class name is set in the Spring config file.
+ *
+ */
 public class SkippingAmpersandParser extends SAXParser {
 
   public SkippingAmpersandParser() throws SAXException {

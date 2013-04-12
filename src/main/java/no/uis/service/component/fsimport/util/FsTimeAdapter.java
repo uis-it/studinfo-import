@@ -20,6 +20,9 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import no.uis.service.studinfo.data.FsTime;
 
+/**
+ * Marshal/unmarshal {@link FsTime}.
+ */
 public class FsTimeAdapter extends XmlAdapter<String, FsTime> {
 
   @Override

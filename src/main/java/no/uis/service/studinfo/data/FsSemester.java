@@ -22,16 +22,24 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.uis.service.component.fsimport.util.FsSemesterAdapter;
 
-
+/**
+ * Serialized object for 'H&Oslash;ST' / 'V&Aring;R'.
+ * The order of the elements must be chronological.
+ */
 @XmlType(name = "FsSemester" , namespace = "http://fsws.usit.no/schemas/studinfo")
 @XmlEnum
 @XmlJavaTypeAdapter(value = FsSemesterAdapter.class)
 public enum FsSemester {
 
-  // The order of these fields is significant, the fields must be sorted in chronological order
-  // This cryptic string is necessary to cope with inconsistent file encodings
-  VAR("V"+'\u00c5'+"R"),
-  HOST("H"+'\u00d8' +"ST");
+  /**
+   * V&Aring;R.
+   */
+  VAR("V\u00c5R"),
+  
+  /**
+   * H&Oslash;ST.
+   */
+  HOST("H\u00d8ST");
   
   private final String val;
   

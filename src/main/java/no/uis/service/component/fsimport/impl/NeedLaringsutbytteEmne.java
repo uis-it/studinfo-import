@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.impl;
 
 import no.uis.service.studinfo.data.Emne;
 
+/**
+ * Filter that accepts only subjects with learning outcomes ('l&aelig;ringsutbytte'). 
+ */
 public class NeedLaringsutbytteEmne implements StudinfoFilter<Emne> {
 
   @Override

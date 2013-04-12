@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.util;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * Marshal/unmarshal a Date represented as a JDBC date string 'dd.MM.yyyy'. 
+ */
 public class CalendarNorwegianAdapter extends CalendarAdapter {
 
   public CalendarNorwegianAdapter() {

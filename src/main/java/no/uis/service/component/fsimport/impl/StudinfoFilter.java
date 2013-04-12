@@ -16,6 +16,13 @@
 
 package no.uis.service.component.fsimport.impl;
 
+/**
+ * Interface intended to remove subjects and programs from the result set.
+ * E.g. PDF files should only be created for study programs with learning outcome ('l&aelig;ringsutbytte'). 
+ * 
+ * @param <T>
+ *   - type of the element that should be checked
+ */
 public interface StudinfoFilter<T> {
   boolean accept(T elem);
 }

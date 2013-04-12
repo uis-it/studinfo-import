@@ -20,6 +20,9 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import no.uis.service.studinfo.data.FsTerminkodeYearMonth;
 
+/**
+ * Marshal/unmarshal {@link FsTerminkodeYearMonth}.
+ */
 public class FsTerminkodeYMAdapter extends XmlAdapter<String, FsTerminkodeYearMonth> {
 
   @Override

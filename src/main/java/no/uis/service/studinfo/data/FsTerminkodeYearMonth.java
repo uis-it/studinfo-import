@@ -18,6 +18,15 @@ package no.uis.service.studinfo.data;
 
 import java.io.Serializable;
 
+/**
+ * Represents a the string 'yyyyMMC'.
+ * Used e.g. in 'Vurdkombinasjon/tid'. 
+ * <br/>
+ * 
+ * yyyy - year<br/>
+ * MM - month<br/>
+ * C - a code
+ */
 public class FsTerminkodeYearMonth implements Serializable {
 
   private static final long serialVersionUID = 1L;

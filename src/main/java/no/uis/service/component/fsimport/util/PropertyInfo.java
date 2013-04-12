@@ -19,6 +19,9 @@ package no.uis.service.component.fsimport.util;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
+/**
+ * A stripped down version of a BeanInfo.
+ */
 public class PropertyInfo {
 
   private final String propName;

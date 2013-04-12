@@ -24,7 +24,10 @@ import java.util.GregorianCalendar;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-
+/**
+ * Marshal/unmarshal a Date given as {@link Calendar}. 
+ *
+ */
 public class CalendarAdapter extends XmlAdapter<String, Calendar> {
 
   private final DateFormat format;

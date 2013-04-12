@@ -27,6 +27,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Utility for getting property information form an object.
+ */
 public class PropertyInfoUtils {
 
   private static final Pattern PROP_PATTERN = Pattern.compile("(get|set|isSet|is|has)([A-Z].*)");

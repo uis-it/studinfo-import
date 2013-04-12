@@ -20,6 +20,9 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import no.uis.service.studinfo.data.FsVarighet;
 
+/**
+ * Marshal/unmarshal {@link FsVarighet}.
+ */
 public class FsVarighetAdapter extends XmlAdapter<String, FsVarighet> {
 
   @Override

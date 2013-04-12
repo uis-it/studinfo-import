@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.impl;
 
 import no.uis.service.studinfo.data.Studieprogram;
 
+/**
+ * Filter that accepts only study programs with learning outcomes ('l&aelig;ringsutbytte'). 
+ */
 public class NeedLaringsutbytteStudieprogram implements StudinfoFilter<Studieprogram> {
 
   @Override

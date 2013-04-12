@@ -18,6 +18,9 @@ package no.uis.service.component.fsimport.util;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * Marshal/unmarshal a Date represented as a JDBC date string 'yyyy-dd'MM'. 
+ */
 public class CalendarJDBCAdapter extends CalendarAdapter {
   private static final String YYYY_DD_MM = "yyyy-dd-MM";
   SimpleDateFormat df = new SimpleDateFormat(YYYY_DD_MM);

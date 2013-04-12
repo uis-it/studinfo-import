@@ -22,6 +22,10 @@ import java.util.Map;
 
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ * Java object that is base class to all serialized object.
+ * The object can be extended by using {@link #addProperty(String, Object)}. 
+ */
 @XmlTransient
 public class Extensible implements Serializable {
 

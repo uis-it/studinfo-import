@@ -16,6 +16,9 @@
 
 package no.uis.service.studinfo.data;
 
+/**
+ * A time given as String 'HH:mm'.
+ */
 public class FsTime {
   private final int minutes;
   private final int hours;

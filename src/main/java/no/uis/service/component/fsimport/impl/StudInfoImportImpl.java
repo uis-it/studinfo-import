@@ -21,6 +21,9 @@ import java.io.StringReader;
 
 import no.usit.fsws.wsdl.studinfo.StudInfoService;
 
+/**
+ * Implementation that fetches the data, transforms it (if a transformer is given) and de-serializes it to a Java object tree.
+ */
 public class StudInfoImportImpl extends AbstractStudinfoImport {
 
   private StudInfoService fsServiceStudInfo;

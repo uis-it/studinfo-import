@@ -20,6 +20,9 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import no.uis.service.studinfo.data.FsEksamensdato;
 
+/**
+ * Marshal/unmarshal a {@link FsEksamensdato}.
+ */
 public class FsEksamensdatoAdapter extends XmlAdapter<String, FsEksamensdato> {
 
   @Override

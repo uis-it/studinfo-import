@@ -19,6 +19,9 @@ package no.uis.service.component.fsimport.util;
 import java.util.Iterator;
 import java.util.Stack;
 
+/**
+ * Keeps track of the hierarchy of the parsed document.
+ */
 public class ContextPath extends ThreadLocal<Stack<String>> implements Iterable<String> {
 
   private static final String SLASH = "/";
