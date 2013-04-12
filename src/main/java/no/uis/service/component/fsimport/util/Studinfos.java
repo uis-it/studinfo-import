@@ -112,7 +112,7 @@ public final class Studinfos {
         validFromYear = Integer.parseInt(terminGjelderFra.substring(0, 4));
         char semesterChar = terminGjelderFra.charAt(4);
         validFromSemester = semesterChar == 'H' ? FsSemester.HOST : (semesterChar == 'V' ? FsSemester.VAR : null);
-      } catch(Exception e) {
+      } catch(NumberFormatException | IndexOutOfBoundsException e) {
         log.warn(contextPath.getPath() + ": " + terminGjelderFra, e);
       }
     }

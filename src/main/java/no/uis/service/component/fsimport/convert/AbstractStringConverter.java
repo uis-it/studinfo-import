@@ -16,8 +16,6 @@
 
 package no.uis.service.component.fsimport.convert;
 
-import org.apache.log4j.Logger;
-
 /**
  * Abstract strong-typed string converter.
  * Concrete string converters should sub-class this class. 
@@ -26,20 +24,13 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractStringConverter<T> implements StringConverter {
 
-  private static final Logger LOG = Logger.getLogger(AbstractStringConverter.class);
-
   @SuppressWarnings("unchecked")
   @Override
   public String convertToString(Object value) {
     if (value == null) {
       return null;
     }
-    try {
-      return convert((T)value);
-    } catch(Exception ex) {
-      LOG.warn(value, ex);
-    }
-    return null;
+    return convert((T)value);
   }
 
   protected abstract String convert(T value);
