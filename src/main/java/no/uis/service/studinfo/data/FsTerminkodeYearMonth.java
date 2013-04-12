@@ -65,6 +65,7 @@ public class FsTerminkodeYearMonth implements Serializable {
     if (v == null) {
       return null;
     }
+    // CHECKSTYLE:OFF
     if (v.length() < 6 || v.length() > 8) {
       throw new IllegalArgumentException(v);
     }
@@ -75,6 +76,7 @@ public class FsTerminkodeYearMonth implements Serializable {
     if (v.length() > 6) {
       code = v.substring(6);
     }
+    // CHECKSTYLE:ON
     
     return new FsTerminkodeYearMonth(year, month, code);
   }

@@ -49,21 +49,22 @@ public class FsYearSemester {
     return super.toString();
   }
 
-  public static FsYearSemester valueOf(String v) {
-    if (v == null) {
+  public static FsYearSemester valueOf(final String val) {
+    if (val == null) {
       return null;
     }
-    v = v.trim();
-    if (v.isEmpty()) {
+    String newVal = val.trim();
+    if (newVal.isEmpty()) {
       return null;
     }
     
-    if (v.length() != 5) {
-      throw new IllegalArgumentException(v);
+    // CHECKSTYLE:OFF
+    if (newVal.length() != 5) {
+      throw new IllegalArgumentException(newVal);
     }
-    int year = Integer.parseInt(v.substring(0, 4));
+    int year = Integer.parseInt(newVal.substring(0, 4));
     FsSemester semester = null;
-    switch (v.charAt(4)) {
+    switch (newVal.charAt(4)) {
       case 'H':
         semester = FsSemester.HOST;
         break;
@@ -71,9 +72,9 @@ public class FsYearSemester {
         semester = FsSemester.VAR;
         break;
       default:
-        throw new IllegalArgumentException(v);
-          
+        throw new IllegalArgumentException(newVal);
     }
+    // CHECKSTYLE:ON
     return new FsYearSemester(year, semester);
   }
 }

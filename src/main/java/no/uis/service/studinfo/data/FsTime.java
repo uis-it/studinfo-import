@@ -54,6 +54,7 @@ public class FsTime {
     if (v == null || v.isEmpty()) {
       return null;
     }
+    // CHECKSTYLE:OFF
     if (v.length() != 5) {
       throw new IllegalArgumentException(v);
     }
@@ -61,6 +62,7 @@ public class FsTime {
     if (tokens.length != 2) {
       throw new IllegalArgumentException(v);
     }
+    // CHECKSTYLE:ON
     int hh = Integer.parseInt(tokens[0]);
     int mm = Integer.parseInt(tokens[1]);
 

@@ -104,6 +104,7 @@ public class FsEksamensdato {
     Calendar innleveringDato = null;
     FsTime innleveringTid = null;
 
+    // CHECKSTYLE:OFF
     switch (nonZero) {
       case 2:
         // 01.08.2012
@@ -128,6 +129,7 @@ public class FsEksamensdato {
       default:
         break;
     }
+    // CHECKSTYLE:ON
 
     return new FsEksamensdato(dato, uttak, innleveringDato, innleveringTid, v);
   }
