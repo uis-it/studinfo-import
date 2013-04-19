@@ -5,14 +5,17 @@
 	name="FS-Import Client">
 
 	<poweredBy>
-		<logo name="UiS Forge" href="http://forge.uis.no" img="http://forge.uis.no/projects/image/logo_43.png"/>
+		<logo name="UiS Forge" href="http://forge.uis.no" img="http://forge.uis.no/themes/uis/images/logo_43.png"/>
 	</poweredBy>
 	
 	<body>
 		<links>
-			<item name="UiS Forge" href="http://forge.uis.no"/>
+			<item name="Apache" href="http://www.apache.org"/>
 		</links>
 
+        <menu name="Overview">
+          <item name="Configuration" href="config.html"/>
+        </menu>
 		<menu ref="reports"/>
 		
 	</body>

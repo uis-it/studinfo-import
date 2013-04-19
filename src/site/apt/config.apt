@@ -1,0 +1,19 @@
+Configuration
+
+  If you use the Spring context provided with this application (<<<classpath:fsimportContext.xml>>>), you need to provide the following 
+  configuration parameters:
+  
+*--------------------------+-----------------------------------------------+
+ <<Parameter Name>>       | <<Description>>                               
+*--------------------------+-----------------------------------------------+ 
+ fs.ws.studinfo.url       | The endpoint URL for the Studinfo webservice. 
+*--------------------------+-----------------------------------------------+ 
+ fs.ws.username           | The username for the webservice           
+*--------------------------+-----------------------------------------------+ 
+ fs.ws.password           | The password for the webservice           
+*--------------------------+-----------------------------------------------+ 
+ fs.ws.connection.timeout | The connection timeout in milliseconds    
+*--------------------------+-----------------------------------------------+ 
+ fs.ws.receive.timeout    | The receive timeout in milliseconds. This should be set reasonably high, as requests can take a long time. 
+*--------------------------+-----------------------------------------------+ 
+   
