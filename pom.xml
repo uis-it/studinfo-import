@@ -8,14 +8,14 @@
 	<name>component-fsimport</name>
 	<url>http://source01.uis.no/maven-site/${project.groupId}/${project.artifactId}/${project.version}</url>
 
-	<parent>
-		<groupId>no.uis.service</groupId>
-		<artifactId>parent-pom</artifactId>
-		<version>1.2.2</version>
-	</parent>
-
 	<inceptionYear>2010</inceptionYear>
 
+	<licenses>
+		<license>
+			<name>Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 	<scm>
 		<connection>scm:git:git://source01.uis.no/soa-component-fsimport.git</connection>
 		<developerConnection>scm:git:ssh://git@152.94.3.85/soa-component-fsimport.git</developerConnection>
@@ -26,7 +26,7 @@
 	<properties>
 		<cxf.version>2.6.2</cxf.version>
 		<uismodel.version>1.1.1</uismodel.version>
-		<fsws.version>1.2.0</fsws.version>
+		<fsws.version>1.2.1-SNAPSHOT</fsws.version>
 		<component.person.version>1.0.7</component.person.version>
 		<spring.version>3.0.7.RELEASE</spring.version>
 		<slf4j.version>1.6.1</slf4j.version>
@@ -224,6 +224,13 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.jvnet.jaxb2.maven2</groupId>
 				<artifactId>maven-jaxb2-plugin</artifactId>
