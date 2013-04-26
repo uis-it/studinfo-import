@@ -243,9 +243,38 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.1</version>
         </plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-enforcer-plugin</artifactId>
+			<version>1.2</version>
+		</plugin>
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+    		<execution>
+    			<id>enforce-versions</id>
+    			<goals>
+    				<goal>enforce</goal>
+    			</goals>
+    			<configuration>
+    				<failFast>true</failFast>
+    				<rules>
+    					<requireMavenVersion>
+    						<version>3.0.3</version>
+    					</requireMavenVersion>
+    					<requireJavaVersion>
+    						<version>1.7</version>
+    					</requireJavaVersion>
+    					<DependencyConvergence />
+    				</rules>
+    			</configuration>
+    		</execution>
+        </executions>
+      </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -300,4 +329,50 @@
       </plugin>
     </plugins>
   </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.8.1</version>
+        <configuration>
+          <show>private</show>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <linkJavadoc>true</linkJavadoc>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.6</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>index</report>
+              <report>summary</report>
+              <report>dependencies</report>
+              <report>dependency-convergence</report>
+              <report>dependency-info</report>
+              <report>project-team</report>
+              <report>cim</report>
+              <report>scm</report>
+              <!--report>javadoc</report-->
+              <!--report>jxr</report-->
+              <!-- report>surefire</report -->
+              <!-- report>mailing-list</report -->
+              <!-- report>issue-tracking</report -->
+              <report>license</report>
+              <report>plugins</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
