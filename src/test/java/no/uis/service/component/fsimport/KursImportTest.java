@@ -44,12 +44,12 @@ public class KursImportTest {
         
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         sb.append("<fs-studieinfo xmlns=\"http://fsws.usit.no/schemas/studinfo\">");
-        sb.append("  <kurs sprak=\"BOKMÅL\">");
+        sb.append("  <kurs sprak=\"BOKM\u00c5L\">");
         sb.append("    <kursid>");
         sb.append("      <kurskode>DIGIMATTE</kurskode>");
         sb.append("      <tidkode>2012-2013</tidkode>");
         sb.append("    </kursid>");
-        sb.append("    <kursnavn>Digitale verktøy og undersøkende arbeidsformer i matematikk</kursnavn>");
+        sb.append("    <kursnavn>Digitale verkt\u00f8y og unders\u00f8kende arbeidsformer i matematikk</kursnavn>");
         sb.append("    <sted type=\"fagansvarlig\">");
         sb.append("      <institusjonsnr>217</institusjonsnr>");
         sb.append("      <fakultetsnr>3</fakultetsnr>");
