@@ -22,7 +22,12 @@
     <developerConnection>scm:git:ssh://git@forge.uis.no/fs-ws/studinfo-import.git</developerConnection>
     <url>http://forge.uis.no/projects/studinfo-import/repository</url>
   </scm>
-
+  
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>http://build01.uis.no/jenkins/job/soa-component-fsimport/</url>
+  </ciManagement>
+  
   <developers>
     <developer>
       <name>Martin Goldhahn</name>
@@ -68,6 +73,20 @@
       <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       </properties>
+    </profile>
+    <profile>
+      <id>uis</id>
+      <distributionManagement>
+        <repository>
+          <id>internal</id>
+          <url>https://source01.uis.no/archiva/repository/internal/</url>
+        </repository>
+    
+        <snapshotRepository>
+          <id>snapshots</id>
+          <url>https://source01.uis.no/archiva/repository/snapshots/</url>
+        </snapshotRepository>
+      </distributionManagement>
     </profile>
   </profiles>
 

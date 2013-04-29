@@ -4,17 +4,14 @@
 	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd"
 	name="FS-Import Client">
 
-	<poweredBy>
-		<logo name="UiS Forge" href="http://forge.uis.no" img="http://forge.uis.no/themes/uis/images/logo_43.png"/>
-	</poweredBy>
-	
 	<body>
 		<links>
+            <item name="UiS Forge" href="http://forge.uis.no"/>
 			<item name="Apache" href="http://www.apache.org"/>
 		</links>
 
         <menu name="Overview">
-          <item name="Configuration" href="config.html"/>
+          <item name="Configuration" href="index.html"/>
         </menu>
 		<menu ref="reports"/>
 		
