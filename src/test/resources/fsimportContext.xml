@@ -17,7 +17,7 @@
 
   <context:annotation-config />
 
-  <bean id="fsStudInfoImport" class="no.uis.service.component.fsimport.impl.StudInfoImportImpl">
+  <bean id="fsStudInfoImport" class="no.uis.fsws.studinfo.impl.StudInfoImportImpl">
     <property name="fsServiceStudInfo">
       <ref bean="fsWsStudInfo" />
     </property>

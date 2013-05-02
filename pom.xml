@@ -316,7 +316,7 @@
             <configuration>
               <schemaDirectory>${basedir}/src/main/xsd</schemaDirectory>
               <bindingDirectory>${basedir}/src/main/xsd</bindingDirectory>
-              <generatePackage>no.uis.service.studinfo.data</generatePackage>
+              <generatePackage>no.uis.fsws.studinfo.data</generatePackage>
               <extension>true</extension>
               <verbose>true</verbose>
               <removeOldOutput>true</removeOldOutput>

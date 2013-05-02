@@ -1,7 +1,9 @@
 Configuration
 
-  If you use the Spring context provided with this application (<<<classpath:fsimportContext.xml>>>), you need to provide the following 
-  configuration parameters:
+  There is a {{{http://forge.uis.no/maven-site/fs-ws/studinfo-import/xref-test/no/uis/service/component/fsimport/TestClient.html}test case}} that demonstrates the use of the FS-WS client. To make it work you have to provide a properties file <<<fsimport-properties.xml>>> in XML format
+  and put it in <<<java.home>>>. 
+  
+  The following properties must be provided:
   
 *--------------------------+-----------------------------------------------+
  <<Parameter Name>>       | <<Description>>                               

@@ -10,17 +10,17 @@
 
 		<jaxb:globalBindings generateIsSetMethod="true" localScoping="toplevel" typesafeEnumMemberName="generateName">
 				<jaxb:serializable uid="1" />
-        <xjc:javaType name="no.uis.service.studinfo.data.FsSemester" xmlType="studinfo:FsSemester" adapter="no.uis.service.component.fsimport.util.FsSemesterAdapter"/>
-        <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsNullableDate" adapter="no.uis.service.component.fsimport.util.CalendarJDBCAdapter"/>
-        <xjc:javaType name="no.uis.service.studinfo.data.FsTerminkodeYearMonth" xmlType="studinfo:FsTerminkodeYearMonth" adapter="no.uis.service.component.fsimport.util.FsTerminkodeYMAdapter"/>
-        <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsDate" adapter="no.uis.service.component.fsimport.util.CalendarNorwegianAdapter"/>
-        <xjc:javaType name="no.uis.service.studinfo.data.FsTime" xmlType="studinfo:FsTime" adapter="no.uis.service.component.fsimport.util.FsTimeAdapter"/>
-        <xjc:javaType name="no.uis.service.studinfo.data.FsEksamensdato" xmlType="studinfo:FsEksamensdato" adapter="no.uis.service.component.fsimport.util.FsEksamensdatoAdapter"/>
-        <xjc:javaType name="no.uis.service.studinfo.data.FsVarighet" xmlType="studinfo:VarighetProgram" adapter="no.uis.service.component.fsimport.util.FsVarighetAdapter"/>
-        <xjc:javaType name="no.uis.service.studinfo.data.FsVarighet" xmlType="studinfo:VarighetEmne" adapter="no.uis.service.component.fsimport.util.FsVarighetAdapter"/>
-        <xjc:javaType name="java.lang.Boolean" xmlType="studinfo:YESNOType" adapter="no.uis.service.component.fsimport.util.YesNoTypeAdapter"/>
-        <xjc:javaType name="no.uis.service.studinfo.data.FsYearSemester" xmlType="studinfo:FsYearSemester" adapter="no.uis.service.component.fsimport.util.FsYearSemesterAdapter"/>
-        <xjc:superClass name="no.uis.service.studinfo.data.Extensible"/>
+        <xjc:javaType name="no.uis.fsws.studinfo.data.FsSemester" xmlType="studinfo:FsSemester" adapter="no.uis.fsws.studinfo.util.FsSemesterAdapter"/>
+        <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsNullableDate" adapter="no.uis.fsws.studinfo.util.CalendarJDBCAdapter"/>
+        <xjc:javaType name="no.uis.fsws.studinfo.data.FsTerminkodeYearMonth" xmlType="studinfo:FsTerminkodeYearMonth" adapter="no.uis.fsws.studinfo.util.FsTerminkodeYMAdapter"/>
+        <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsDate" adapter="no.uis.fsws.studinfo.util.CalendarNorwegianAdapter"/>
+        <xjc:javaType name="no.uis.fsws.studinfo.data.FsTime" xmlType="studinfo:FsTime" adapter="no.uis.fsws.studinfo.util.FsTimeAdapter"/>
+        <xjc:javaType name="no.uis.fsws.studinfo.data.FsEksamensdato" xmlType="studinfo:FsEksamensdato" adapter="no.uis.fsws.studinfo.util.FsEksamensdatoAdapter"/>
+        <xjc:javaType name="no.uis.fsws.studinfo.data.FsVarighet" xmlType="studinfo:VarighetProgram" adapter="no.uis.fsws.studinfo.util.FsVarighetAdapter"/>
+        <xjc:javaType name="no.uis.fsws.studinfo.data.FsVarighet" xmlType="studinfo:VarighetEmne" adapter="no.uis.fsws.studinfo.util.FsVarighetAdapter"/>
+        <xjc:javaType name="java.lang.Boolean" xmlType="studinfo:YESNOType" adapter="no.uis.fsws.studinfo.util.YesNoTypeAdapter"/>
+        <xjc:javaType name="no.uis.fsws.studinfo.data.FsYearSemester" xmlType="studinfo:FsYearSemester" adapter="no.uis.fsws.studinfo.util.FsYearSemesterAdapter"/>
+        <xjc:superClass name="no.uis.fsws.studinfo.data.Extensible"/>
 		</jaxb:globalBindings>
 
 		<jaxb:bindings node="/xs:schema" schemaLocation="studinfo.xsd" generateIsSetMethod="true">
