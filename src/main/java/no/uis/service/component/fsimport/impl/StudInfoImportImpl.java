@@ -19,7 +19,7 @@ package no.uis.service.component.fsimport.impl;
 import java.io.Reader;
 import java.io.StringReader;
 
-import no.usit.fsws.wsdl.studinfo.StudInfoService;
+import no.usit.fsws.studinfo.StudInfoService;
 
 /**
  * Implementation that fetches the data, transforms it (if a transformer is given) and de-serializes it to a Java object tree.

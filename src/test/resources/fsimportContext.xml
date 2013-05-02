@@ -13,6 +13,8 @@
     http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
 
+  <context:property-placeholder location="file:${user.home}/fsimport-properties.xml"/>
+
   <context:annotation-config />
 
   <bean id="fsStudInfoImport" class="no.uis.service.component.fsimport.impl.StudInfoImportImpl">
@@ -23,7 +25,7 @@
   </bean>
 
   <jaxws:client id="fsWsStudInfo"
-    serviceClass="no.usit.fsws.wsdl.studinfo.StudInfoService" address="${fs.ws.studinfo.url}"
+    serviceClass="no.usit.fsws.studinfo.StudInfoService" address="${fs.ws.studinfo.url}"
     username="${fs.ws.username}" password="${fs.ws.password}">
     <jaxws:properties>
       <entry key="mtom-enabled" value="true" />

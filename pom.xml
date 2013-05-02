@@ -2,11 +2,18 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>no.uis.service.component</groupId>
-  <artifactId>fs-import</artifactId>
+  <groupId>no.uis.fsws</groupId>
+  <artifactId>studinfo-import</artifactId>
   <version>2.0.0-SNAPSHOT</version>
+  
+  <parent>
+    <groupId>no.uis</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>2.0.3</version>
+  </parent>
+  
   <packaging>jar</packaging>
-  <name>component-fsimport</name>
+  <name>FS-WS Studinfo Import Library</name>
   <url>https://forge.uis.no/projects/studinfo-import</url>
 
   <inceptionYear>2010</inceptionYear>
@@ -41,7 +48,7 @@
   <properties>
     <cxf.version>2.6.2</cxf.version>
     <uismodel.version>1.1.1</uismodel.version>
-    <fsws.version>1.2.0</fsws.version>
+    <fsws.version>1.0.1</fsws.version>
     <component.person.version>1.0.7</component.person.version>
     <spring.version>3.0.7.RELEASE</spring.version>
     <slf4j.version>1.6.1</slf4j.version>
@@ -77,15 +84,10 @@
     <profile>
       <id>uis</id>
       <distributionManagement>
-        <repository>
-          <id>internal</id>
-          <url>https://source01.uis.no/archiva/repository/internal/</url>
-        </repository>
-    
-        <snapshotRepository>
-          <id>snapshots</id>
-          <url>https://source01.uis.no/archiva/repository/snapshots/</url>
-        </snapshotRepository>
+        <site>
+          <id>code01.uis.no</id>
+          <url>dav:https://code01.uis.no/maven-site/fs-ws/studinfo-import/</url>
+        </site>
       </distributionManagement>
     </profile>
   </profiles>
@@ -182,8 +184,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>no.uis.service.client</groupId>
-      <artifactId>fs-ws</artifactId>
+      <groupId>no.uis.fsws</groupId>
+      <artifactId>fsws-client</artifactId>
       <version>${fsws.version}</version>
     </dependency>
     <dependency>
