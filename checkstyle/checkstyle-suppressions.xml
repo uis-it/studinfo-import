@@ -3,17 +3,17 @@
 
 <suppressions>
   <suppress checks=".*"
-             files="src/test/.*"/>
+             files=".*/src/test/.*"/>
              
   <suppress checks=".*"
              files=".*\.(xml|xsl|properties)"/>
 
   <suppress checks=".*"
-             files="target/.*"/>
+             files=".*/target/.*"/>
 
   <suppress checks=".*"
              files=".*/META-INF/.*"/>
              
-  <suppress checks="RegexpHeaderCheck"
-             files="src/main/resources/\.*"/>
+  <suppress checks=".*"
+             files=".*/src/main/resources/.*"/>
 </suppressions>
