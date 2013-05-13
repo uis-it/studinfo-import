@@ -364,7 +364,7 @@
   <xs:complexType name="Hjelpemiddel">
     <xs:sequence>
       <xs:element name="hjelpemiddelnavn" type="xs:string"/>
-      <xs:element name="hjelpemiddelmerknad" type="xs:string"/>
+      <xs:element name="hjelpemiddelmerknad" minOccurs="0" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Datoperiode">
