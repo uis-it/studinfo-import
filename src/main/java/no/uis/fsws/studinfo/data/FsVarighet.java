@@ -104,6 +104,9 @@ public class FsVarighet {
         
         case "m\u00E5ned":
         case "m\u00E5neder":
+        case "m\u00E5ad":
+        case "m\u00E5ader":
+        case "m\u00E5adar":
         case "month":
         case "months":
           unit = Unit.MONTH;
@@ -111,6 +114,8 @@ public class FsVarighet {
           
         case "uke":
         case "uker":
+        case "veke":
+        case "veker":
         case "week":
         case "weeks":
           unit = Unit.WEEK;
@@ -118,6 +123,7 @@ public class FsVarighet {
           
         case "dag":
         case "dager":
+        case "dagar":
         case "day":
         case "days":
           unit = Unit.DAY;
@@ -125,12 +131,15 @@ public class FsVarighet {
           
         case "time":
         case "timer":
+        case "timar":
         case "hour":
         case "hours":
           unit = Unit.HOUR;
           break;
           
         case "minutter":
+        case "minuttar":
+        case "minutt":
         case "minutes":
           unit = Unit.MINUTE;
           break;
