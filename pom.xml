@@ -45,7 +45,7 @@
   </developers>
 
   <properties>
-    <cxf.version>2.6.2</cxf.version>
+    <cxf.version>2.7.0</cxf.version>
     <fsws.version>1.0.1</fsws.version>
     <spring.version>3.0.7.RELEASE</spring.version>
     <slf4j.version>1.6.1</slf4j.version>
