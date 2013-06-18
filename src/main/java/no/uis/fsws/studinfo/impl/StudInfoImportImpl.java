@@ -16,8 +16,14 @@
 
 package no.uis.fsws.studinfo.impl;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+
+import org.apache.cxf.helpers.IOUtils;
+import org.apache.log4j.Logger;
 
 import no.usit.fsws.studinfo.StudInfoService;
 
@@ -26,7 +32,10 @@ import no.usit.fsws.studinfo.StudInfoService;
  */
 public class StudInfoImportImpl extends AbstractStudinfoImport {
 
+  private static final Logger LOG = Logger.getLogger(StudInfoImportImpl.class);
+  
   private StudInfoService fsServiceStudInfo;
+  private boolean copyXML;
 
   public void setFsServiceStudInfo(StudInfoService fsServiceStudInfo) {
     this.fsServiceStudInfo = fsServiceStudInfo;
@@ -36,6 +45,10 @@ public class StudInfoImportImpl extends AbstractStudinfoImport {
     return this.fsServiceStudInfo;
   }
 
+  public void setCopyXML(boolean copy) {
+    this.copyXML = copy;
+  }
+  
   @Override
   protected Reader fsGetStudieprogram(int institution, int faculty, int year, String semester, boolean includeEP, String language)
   {
@@ -48,6 +61,10 @@ public class StudInfoImportImpl extends AbstractStudinfoImport {
     }
     String studieinfoXml = fsServiceStudInfo.getStudieprogramSI(year, semester, medUPinfo, null, institution, iFaculty,
       INTEGER_MINUS_1, null, language);
+    
+    if (copyXML) {
+      copyXML("studinfo-program", studieinfoXml);
+    }
     return new StringReader(studieinfoXml);
   }
 
@@ -61,12 +78,31 @@ public class StudInfoImportImpl extends AbstractStudinfoImport {
     }
     String studieinfoXml = fsServiceStudInfo.getEmneSI(institution, null, null, iFaculty, INTEGER_MINUS_1, null, year, semester,
       language);
+    
+    if (copyXML) {
+      copyXML("studinfo-emne", studieinfoXml);
+    }
     return new StringReader(studieinfoXml);
   }
 
   @Override
   protected Reader fsGetKurs(int institution, String language) {
     String studieinfoXml = fsServiceStudInfo.getKursSI(institution, INTEGER_MINUS_1, INTEGER_MINUS_1, INTEGER_MINUS_1, language);
+
+    if (copyXML) {
+      copyXML("studinfo-kurs", studieinfoXml);
+    }
     return new StringReader(studieinfoXml);
+  }
+
+  private void copyXML(String prefix, String xml) {
+    try {
+      File temp = File.createTempFile(prefix, ".xml");
+      LOG.info("Copy XML to " + temp.getAbsolutePath());
+      
+      IOUtils.copyAndCloseInput(new StringReader(xml), new FileWriter(temp));
+    } catch(IOException e) {
+      LOG.warn(null, e);
+    }
   }
 }
