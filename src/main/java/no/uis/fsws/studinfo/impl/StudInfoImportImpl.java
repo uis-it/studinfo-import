@@ -63,7 +63,7 @@ public class StudInfoImportImpl extends AbstractStudinfoImport {
       INTEGER_MINUS_1, null, language);
     
     if (copyXML) {
-      copyXML("studinfo-program", studieinfoXml);
+      copyXML("studinfo-program-", studieinfoXml);
     }
     return new StringReader(studieinfoXml);
   }
@@ -80,7 +80,7 @@ public class StudInfoImportImpl extends AbstractStudinfoImport {
       language);
     
     if (copyXML) {
-      copyXML("studinfo-emne", studieinfoXml);
+      copyXML("studinfo-emne-", studieinfoXml);
     }
     return new StringReader(studieinfoXml);
   }
@@ -90,7 +90,7 @@ public class StudInfoImportImpl extends AbstractStudinfoImport {
     String studieinfoXml = fsServiceStudInfo.getKursSI(institution, INTEGER_MINUS_1, INTEGER_MINUS_1, INTEGER_MINUS_1, language);
 
     if (copyXML) {
-      copyXML("studinfo-kurs", studieinfoXml);
+      copyXML("studinfo-kurs-", studieinfoXml);
     }
     return new StringReader(studieinfoXml);
   }
@@ -100,7 +100,9 @@ public class StudInfoImportImpl extends AbstractStudinfoImport {
       File temp = File.createTempFile(prefix, ".xml");
       LOG.info("Copy XML to " + temp.getAbsolutePath());
       
-      IOUtils.copyAndCloseInput(new StringReader(xml), new FileWriter(temp));
+      try (FileWriter output = new FileWriter(temp)) {
+        IOUtils.copyAndCloseInput(new StringReader(xml), output);
+      }
     } catch(IOException e) {
       LOG.warn(null, e);
     }

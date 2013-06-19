@@ -64,10 +64,10 @@
 		      <xs:element name="opptaksinformasjon" minOccurs="0" type="xs:string"/>
 		      <xs:element name="opptakskrav" minOccurs="0" type="xs:string"/>
 		      <xs:element name="p-formkrav" minOccurs="0" type="xs:string"/>
-          <xs:element name="p-innhold" minOccurs="0" type="xs:string"/>
-          <xs:element name="p-kortintr" minOccurs="0" type="xs:string"/>
-          <xs:element name="p-profkval" minOccurs="0" type="xs:string"/>
-          <xs:element name="p-studkval" minOccurs="0" type="xs:string"/>
+              <xs:element name="p-innhold" minOccurs="0" type="xs:string"/>
+              <xs:element name="p-kortintr" minOccurs="0" type="xs:string"/>
+              <xs:element name="p-profkval" minOccurs="0" type="xs:string"/>
+              <xs:element name="p-studkval" minOccurs="0" type="xs:string"/>
 		      <xs:element name="se-introd" minOccurs="0" type="xs:string"/>
 		      <xs:element name="rammeplan_tekst" minOccurs="0" maxOccurs="1" type="xs:string"/>
 		      <xs:element name="rammeplan_URL" minOccurs="0" type="xs:anyURI"/>
