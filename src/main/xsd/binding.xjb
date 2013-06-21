@@ -11,7 +11,7 @@
 		<jaxb:globalBindings generateIsSetMethod="true" localScoping="toplevel" typesafeEnumMemberName="generateName">
 				<jaxb:serializable uid="1" />
         <xjc:javaType name="no.uis.fsws.studinfo.data.FsSemester" xmlType="studinfo:FsSemester" adapter="no.uis.fsws.studinfo.util.FsSemesterAdapter"/>
-        <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsNullableDate" adapter="no.uis.fsws.studinfo.util.CalendarJDBCAdapter"/>
+        <!--xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsNullableDate" adapter="no.uis.fsws.studinfo.util.CalendarJDBCAdapter"/-->
         <xjc:javaType name="no.uis.fsws.studinfo.data.FsTerminkodeYearMonth" xmlType="studinfo:FsTerminkodeYearMonth" adapter="no.uis.fsws.studinfo.util.FsTerminkodeYMAdapter"/>
         <xjc:javaType name="java.util.Calendar" xmlType="studinfo:FsDate" adapter="no.uis.fsws.studinfo.util.CalendarNorwegianAdapter"/>
         <xjc:javaType name="no.uis.fsws.studinfo.data.FsTime" xmlType="studinfo:FsTime" adapter="no.uis.fsws.studinfo.util.FsTimeAdapter"/>
