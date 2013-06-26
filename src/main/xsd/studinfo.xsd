@@ -83,13 +83,7 @@
                 </xs:complexType>
               </xs:element>
 		      <xs:element name="fagkode" type="xs:string" nillable="true"/>
-		      <xs:element name="sprak-liste" nillable="true">
-		        <xs:complexType>
-		          <xs:sequence>
-		            <xs:element name="sprak" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sprak"/>
-		          </xs:sequence>
-		        </xs:complexType>
-		      </xs:element>
+		      <xs:element name="sprak-liste" nillable="true" type="studinfo:SprakListe"/>
 		      <xs:element name="utdanningsplan" type="studinfo:Utdanningsplan" nillable="true"/>
 		      <xs:element name="planforslag" type="studinfo:Planforslag" nillable="true"/>
 		      <xs:element name="termin-siste-opptak" type="studinfo:FsYearSemester" nillable="true"/>
@@ -98,6 +92,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  
+  <xs:complexType name="SprakListe">
+    <xs:sequence>
+      <xs:element name="sprak" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sprak"/>
+    </xs:sequence>
+  </xs:complexType>
+  
   <xs:complexType name="BasisEmne">
     <xs:complexContent>
       <xs:extension base="studinfo:FsType">
@@ -208,13 +209,7 @@
           </xs:element>
           <xs:element name="fagansvarlig" type="studinfo:Sted" nillable="true"/>
           <xs:element name="adminansvarlig" type="studinfo:Sted" nillable="true"/>
-          <xs:element name="sprak-liste" nillable="true">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="sprak" minOccurs="0" maxOccurs="unbounded" type="studinfo:Sprak"/>
-              </xs:sequence>
-            </xs:complexType>
-          </xs:element>
+          <xs:element name="sprak-liste" nillable="true" type="studinfo:SprakListe"/>
           <xs:element name="fagperson-liste" nillable="true">
             <xs:complexType>
               <xs:sequence>
@@ -621,19 +616,20 @@
       <xs:any minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
+  
+  <xs:complexType name="HjelpemiddelListe">
+    <xs:sequence>
+      <xs:element name="hjelpemiddel" minOccurs="0" maxOccurs="unbounded" type="studinfo:Hjelpemiddel"/>
+    </xs:sequence>
+  </xs:complexType>
+  
   <xs:complexType name="Eksamensordning">
     <xs:sequence>
       <xs:element name="eksamensordningid" type="xs:string"/>
       <xs:element name="eksamensordningnavn" type="xs:string"/>
       <xs:element name="default" type="studinfo:YESNOType" default="N"/>
       <xs:element name="meld_studentweb" type="studinfo:YESNOType" default="N"/>
-      <xs:element name="hjelpemiddel-liste" nillable="true">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="hjelpemiddel" minOccurs="0" maxOccurs="unbounded" type="studinfo:Hjelpemiddel"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="hjelpemiddel-liste" nillable="true" type="studinfo:HjelpemiddelListe"/>
       <xs:element name="karregel" type="xs:string" nillable="true"/>
       <xs:element name="dato-eksamen" type="xs:string" nillable="true"/>
       <xs:element name="eksamensdel-liste" nillable="true">
@@ -705,13 +701,7 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="hjelpemiddel-liste" nillable="true">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="hjelpemiddel" minOccurs="0" maxOccurs="unbounded" type="studinfo:Hjelpemiddel"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="hjelpemiddel-liste" nillable="true" type="studinfo:HjelpemiddelListe"/>
       <xs:element name="tid" type="studinfo:FsTerminkodeYearMonth" nillable="true"/>
       <xs:element name="tid-reell" type="studinfo:FsTerminkodeYearMonth" nillable="true"/>
       <xs:element name="vurdstatus" type="xs:string" nillable="true"/>
