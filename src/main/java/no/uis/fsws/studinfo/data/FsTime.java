@@ -16,28 +16,18 @@
 
 package no.uis.fsws.studinfo.data;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Value;
+
 /**
  * A time given as String 'HH:mm'.
  */
+@Value
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class FsTime {
-  private final int minutes;
-  private final int hours;
-  
-  public FsTime(int hours, int minutes) {
-    if (!isValidTime(hours, minutes)) {
-      throw new IllegalArgumentException();
-    }
-    this.hours = hours;
-    this.minutes = minutes;
-  }
-
-  public int getMinutes() {
-    return minutes;
-  }
-
-  public int getHours() {
-    return hours;
-  }
+  int minutes;
+  int hours;
   
   @Override
   public String toString() {
@@ -65,8 +55,12 @@ public class FsTime {
     // CHECKSTYLE:ON
     int hh = Integer.parseInt(tokens[0]);
     int mm = Integer.parseInt(tokens[1]);
-
-    return new FsTime(hh, mm);
+    
+    if (isValidTime(hh, mm)) { 
+      return new FsTime(hh, mm);
+    } else {
+      throw new IllegalArgumentException();
+    }
   }
   
   private static boolean isValidTime(int hh, int mm) {

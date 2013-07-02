@@ -20,6 +20,9 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Value;
+
 import no.uis.fsws.studinfo.util.CalendarAdapter;
 import no.uis.fsws.studinfo.util.CalendarNorwegianAdapter;
 import no.uis.fsws.studinfo.util.FsTimeAdapter;
@@ -28,7 +31,8 @@ import no.uis.fsws.studinfo.util.FsTimeAdapter;
  * Tries to represent a exam date.
  * @see #PATTERN
  */
-public class FsEksamensdato {
+@RequiredArgsConstructor
+@Value public class FsEksamensdato {
 
   // taken from the XSD restriction
   private static final Pattern PATTERN = 
@@ -40,43 +44,11 @@ public class FsEksamensdato {
   private static final CalendarAdapter DATE_ADAPTER = new CalendarNorwegianAdapter();
   private static final FsTimeAdapter TIME_ADAPTER = new FsTimeAdapter();
 
-  private final Calendar dato;
-  private final Calendar uttak;
-  private final Calendar innleveringDato;
-  private final FsTime innleveringTid;
-  private final String text;
-
-  public FsEksamensdato(Calendar dato, Calendar uttak, Calendar innleveringDato, FsTime innleveringTid, String text) {
-    this.dato = dato;
-    this.uttak = uttak;
-    this.innleveringDato = innleveringDato;
-    this.innleveringTid = innleveringTid;
-    this.text = text;
-  }
-
-  public FsEksamensdato() {
-    this.dato = null;
-    this.uttak = null;
-    this.innleveringDato = null;
-    this.innleveringTid = null;
-    this.text = null;
-  }
-
-  public Calendar getDato() {
-    return dato;
-  }
-
-  public Calendar getUttak() {
-    return uttak;
-  }
-
-  public Calendar getInnleveringDato() {
-    return innleveringDato;
-  }
-
-  public FsTime getInnleveringTid() {
-    return innleveringTid;
-  }
+  Calendar dato;
+  Calendar uttak;
+  Calendar innleveringDato;
+  FsTime innleveringTid;
+  String text;
 
   @Override
   public String toString() {

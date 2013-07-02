@@ -22,7 +22,8 @@ import java.util.Hashtable;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j;
+
 import org.apache.xerces.impl.Constants;
 import org.apache.xerces.impl.XMLEntityManager;
 import org.apache.xerces.impl.XMLEntityScanner;
@@ -31,29 +32,27 @@ import org.apache.xerces.impl.XMLEntityScanner;
  * Facilitates parsing of dirty XML. 
  * @see http://chickensilver.blogspot.no/2013/02/how-to-parse-dirty-xml.html
  */
+@Log4j
 public class EntityManager extends XMLEntityManager {
-  
-  private static final Logger LOG = Logger.getLogger(EntityManager.class);
   
   public EntityManager() {
     addInternalEntities();
   }
   
   private void addInternalEntities() {
-  
-      InputStream entitiesStream = EntityManager.class.getResourceAsStream("/entities.properties");
+
+    try (InputStream entitiesStream = EntityManager.class.getResourceAsStream("/entities.properties")) {
       if (entitiesStream == null) {
         return;
       }
       Properties entities = new Properties();
-      try {
-        entities.load(entitiesStream);
-        for (Entry<Object, Object> entity : entities.entrySet()) {
-          addDeclaredInternalEntity(entity.getKey().toString(), entity.getValue().toString());
-        }
-      } catch(IOException e) {
-        LOG.info("addInternalEntities", e);
+      entities.load(entitiesStream);
+      for (Entry<Object, Object> entity : entities.entrySet()) {
+        addDeclaredInternalEntity(entity.getKey().toString(), entity.getValue().toString());
       }
+    } catch(IOException e) {
+      log.info("addInternalEntities", e);
+    }
   }
 
   @Override
@@ -83,7 +82,7 @@ public class EntityManager extends XMLEntityManager {
       addInternalEntity(entityName, entityValue);
       addDeclaredInternalEntity(entityName, entityValue);
       declaredEntity = true;
-      LOG.warn("entity \""+entityName+"\" not defined");
+      log.warn("entity \""+entityName+"\" not defined");
     }
     return declaredEntity;
   }

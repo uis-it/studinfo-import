@@ -16,30 +16,18 @@
 
 package no.uis.fsws.studinfo.data;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Value;
+
 /**
  * Represents year and semester.
  */
-public class FsYearSemester {
+@RequiredArgsConstructor
+@Value public class FsYearSemester {
 
-  private final int year;
-  private final FsSemester semester;
-
-  public FsYearSemester(int year, FsSemester semester) {
-    
-    if (semester == null) {
-      throw new IllegalArgumentException();
-    }
-    this.year = year;
-    this.semester = semester; 
-  }
-  
-  public int getYear() {
-    return year;
-  }
-
-  public FsSemester getSemester() {
-    return semester;
-  }
+  int year;
+  @NonNull FsSemester semester;
 
   @Override
   public String toString() {

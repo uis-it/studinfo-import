@@ -24,18 +24,18 @@ import java.util.GregorianCalendar;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Marshal/unmarshal a Date given as {@link Calendar}. 
  *
  */
+@RequiredArgsConstructor
 public class CalendarAdapter extends XmlAdapter<String, Calendar> {
 
   private static final int DATE_START_YEAR = 1900;
-  private final DateFormat format;
-  
-  public CalendarAdapter(DateFormat df) {
-    this.format = df;
-  }
+  @NonNull private final DateFormat format;
   
   @SuppressWarnings("deprecation")
   @Override

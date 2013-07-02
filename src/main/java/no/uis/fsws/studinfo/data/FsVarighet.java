@@ -16,10 +16,17 @@
 
 package no.uis.fsws.studinfo.data;
 
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Value;
+
 /**
  * Represents a duration.
  * Consists of a number and a unit.  
  */
+@Value
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class FsVarighet {
 
   /**
@@ -64,16 +71,8 @@ public class FsVarighet {
     
   }
   
-  private float number;
-  private Unit unit;
-  
-  public FsVarighet(float number, Unit unit) {
-    if (unit == null) {
-      throw new IllegalArgumentException();
-    }
-    this.number = number;
-    this.unit = unit;
-  }
+  float number;
+  @NonNull Unit unit;
   
   /**
    * Parses a string to number and unit. 
@@ -164,14 +163,6 @@ public class FsVarighet {
       default:
         throw new UnsupportedOperationException("Cannot convert " + unit.toString());
     }
-  }
-
-  public float getNumber() {
-    return number;
-  }
-
-  public Unit getUnit() {
-    return unit;
   }
 
   @Override

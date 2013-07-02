@@ -79,6 +79,22 @@ public interface StudInfoImport {
       String language) throws Exception;
 
   /**
+   * @param studieprogramkode
+   *        - FS code for study program
+   * @param arstall
+   *        - 4-digit year
+   * @param terminkode
+   *        - V&Aring;R/V&Aring;T/VIT/SOM/H&Oslash;ST/H&Oslash;T
+   * @param medUPinfo
+   *        - include 'utdanningsplan'
+   * @param sprak
+   *        - single-letter language code: (B)okm&aring;l/(N)ynorsk/(E)nglish
+   * @return
+   */
+  FsStudieinfo fetchStudyProgram(String studieprogramkode, int arstall, String terminkode, boolean medUPinfo, 
+      String sprak) throws Exception;
+
+  /**
    * @param institution
    *        - FS code for institution
    * @param faculty
@@ -105,4 +121,5 @@ public interface StudInfoImport {
    * @throws Exception
    */
   FsStudieinfo fetchCourses(int institution, int year, String semester, String language) throws Exception;
+
 }

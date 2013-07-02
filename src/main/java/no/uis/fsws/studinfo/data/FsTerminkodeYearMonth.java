@@ -18,6 +18,10 @@ package no.uis.fsws.studinfo.data;
 
 import java.io.Serializable;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Value;
+
 /**
  * Represents a the string 'yyyyMMC'.
  * Used e.g. in 'Vurdkombinasjon/tid'. 
@@ -27,35 +31,16 @@ import java.io.Serializable;
  * MM - month<br/>
  * C - a code
  */
-public class FsTerminkodeYearMonth implements Serializable {
+
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Value public class FsTerminkodeYearMonth implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private final int year;
-  private final int month;
-  private final String code;
+  int year;
+  int month;
+  String code;
   
-  private FsTerminkodeYearMonth(int year, int month, String code) {
-    this.year = year;
-    this.month = month;
-    this.code = code;
-  }
-
-  public int getYear() {
-    return year;
-  }
-
-
-  public int getMonth() {
-    return month;
-  }
-
-
-  public String getCode() {
-    return code;
-  }
-
-
   @Override
   public String toString() {
     return String.format("%04d%02d%s", year, month, code);

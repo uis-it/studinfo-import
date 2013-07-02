@@ -22,33 +22,25 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.apache.cxf.helpers.IOUtils;
-import org.apache.log4j.Logger;
-
+import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 import no.usit.fsws.studinfo.StudInfoService;
+
+import org.apache.cxf.helpers.IOUtils;
 
 /**
  * Implementation that fetches the data, transforms it (if a transformer is given) and de-serializes it to a Java object tree.
  */
+@Log4j
 public class StudInfoImportImpl extends AbstractStudinfoImport {
 
-  private static final Logger LOG = Logger.getLogger(StudInfoImportImpl.class);
-  
-  private StudInfoService fsServiceStudInfo;
-  private boolean copyXML;
+  private static final String COPY_PREFIX_EMNE = "studinfo-emne-";
 
-  public void setFsServiceStudInfo(StudInfoService fsServiceStudInfo) {
-    this.fsServiceStudInfo = fsServiceStudInfo;
-  }
+  private static final String COPY_PREFIX_PROGRAM = "studinfo-program-";
 
-  public StudInfoService getFsServiceStudInfo() {
-    return this.fsServiceStudInfo;
-  }
+  @Setter private StudInfoService fsServiceStudInfo;
+  @Setter private boolean copyXML;
 
-  public void setCopyXML(boolean copy) {
-    this.copyXML = copy;
-  }
-  
   @Override
   protected Reader fsGetStudieprogram(int institution, int faculty, int year, String semester, boolean includeEP, String language)
   {
@@ -63,11 +55,22 @@ public class StudInfoImportImpl extends AbstractStudinfoImport {
       INTEGER_MINUS_1, null, language);
     
     if (copyXML) {
-      copyXML("studinfo-program-", studieinfoXml);
+      copyXML(COPY_PREFIX_PROGRAM, studieinfoXml);
     }
     return new StringReader(studieinfoXml);
   }
 
+  @Override
+  protected Reader fsGetStudieprogram(String studieprogramkode, int year, String semester, boolean includeEP, String language) {
+    Integer medUPinfo = includeEP ? INTEGER_1 : INTEGER_0;
+    String studieinfoXml = fsServiceStudInfo.getStudieprogramSI(year, semester, medUPinfo, studieprogramkode, 
+      INTEGER_MINUS_1, INTEGER_MINUS_1, INTEGER_MINUS_1, null, language);
+    if (copyXML) {
+      copyXML(COPY_PREFIX_PROGRAM, studieinfoXml);
+    }
+    return new StringReader(studieinfoXml);
+  }
+  
   @Override
   protected Reader fsGetEmne(int institution, int faculty, int year, String semester, String language) {
     Integer iFaculty;
@@ -80,7 +83,18 @@ public class StudInfoImportImpl extends AbstractStudinfoImport {
       language);
     
     if (copyXML) {
-      copyXML("studinfo-emne-", studieinfoXml);
+      copyXML(COPY_PREFIX_EMNE, studieinfoXml);
+    }
+    return new StringReader(studieinfoXml);
+  }
+
+  @Override
+  protected Reader fsGetEmne(int institution, String emnekode, String versjonskode, int year, String semester, String language) {
+    String studieinfoXml = fsServiceStudInfo.getEmneSI(institution, emnekode, versjonskode, INTEGER_MINUS_1, INTEGER_MINUS_1, 
+      null, year, semester, language);
+    
+    if (copyXML) {
+      copyXML(COPY_PREFIX_EMNE, studieinfoXml);
     }
     return new StringReader(studieinfoXml);
   }
@@ -98,13 +112,13 @@ public class StudInfoImportImpl extends AbstractStudinfoImport {
   private void copyXML(String prefix, String xml) {
     try {
       File temp = File.createTempFile(prefix, ".xml");
-      LOG.info("Copy XML to " + temp.getAbsolutePath());
+      log.info("Copy XML to " + temp.getAbsolutePath());
       
       try (FileWriter output = new FileWriter(temp)) {
         IOUtils.copyAndCloseInput(new StringReader(xml), output);
       }
     } catch(IOException e) {
-      LOG.warn(null, e);
+      log.warn(null, e);
     }
   }
 }

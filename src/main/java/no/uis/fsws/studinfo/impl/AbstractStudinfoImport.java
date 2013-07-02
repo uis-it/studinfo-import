@@ -32,43 +32,36 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 import net.sf.saxon.lib.FeatureKeys;
 import no.uis.fsws.studinfo.StudInfoImport;
 import no.uis.fsws.studinfo.data.FsStudieinfo;
 
 import org.apache.cxf.helpers.IOUtils;
-import org.apache.log4j.Logger;
 
 /**
  * Abstract class makes it easier to write test code.
  */
+@Log4j
 public abstract class AbstractStudinfoImport implements StudInfoImport {
 
-  private static final Logger LOG = Logger.getLogger(StudInfoImportImpl.class);
-  
-  private URL transformerUrl;
+  @Setter private URL transformerUrl;
 
-  private String xmlSourceParser;
-
-  public AbstractStudinfoImport() {
-    super();
-  }
+  @Setter private String xmlSourceParser;
 
   protected abstract Reader fsGetKurs(int institution, String language);
 
   protected abstract Reader fsGetEmne(int institution, int faculty, int year, String semester, String language);
 
+  protected abstract Reader fsGetEmne(int institution, String emnekode, String versjonskode, int year, String semester, String language);
+  
   protected abstract Reader fsGetStudieprogram(int institution, int faculty, int year, String semester, boolean includeEP,
       String language);
 
-  public void setTransformerUrl(URL transformerUrl) {
-    this.transformerUrl = transformerUrl;
-  }
+  protected abstract Reader fsGetStudieprogram(String studieprogramkode, int year, String semester, boolean includeEP, String language);
 
-  public void setXmlSourceParser(String xmlSourceParser) {
-    this.xmlSourceParser = xmlSourceParser;
-  }
-
+  @Override
   public FsStudieinfo fetchStudyPrograms(int institution, int faculty, int year, String semester, boolean includeEP,
       String language) throws Exception
   {
@@ -83,6 +76,22 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
     }
   }
 
+  @Override
+  public FsStudieinfo fetchStudyProgram(String studieprogramkode, int year, String semester, boolean includeEP,
+      String language) throws Exception
+  {
+
+    Reader studieinfoXml = fsGetStudieprogram(studieprogramkode, year, semester, includeEP, language);
+    try {
+      return unmarshalStudieinfo(studieinfoXml);
+    } finally {
+      if (studieinfoXml != null) {
+        studieinfoXml.close();
+      }
+    }
+  }
+
+  @Override
   public FsStudieinfo fetchSubjects(int institution, int faculty, int year, String semester, String language) throws Exception {
 
     Reader studieinfoXml = fsGetEmne(institution, faculty, year, semester, language);
@@ -149,7 +158,7 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
             try {
               tmpSource.close();
             } catch(IOException e) {
-              LOG.warn("closing stream", e);
+              log.warn("closing stream", e);
             }
           }
         });
@@ -169,5 +178,4 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
       }
     }
   }
-
 }
