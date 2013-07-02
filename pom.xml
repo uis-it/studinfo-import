@@ -24,9 +24,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:git://forge.uis.no/fs-ws/studinfo-import.git</connection>
-    <developerConnection>scm:git:ssh://git@forge.uis.no/fs-ws/studinfo-import.git</developerConnection>
-    <url>http://forge.uis.no/projects/studinfo-import/repository</url>
+    <connection>scm:git:git://github.com/uis-it/studinfo-import.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/uis-it/studinfo-import.git</developerConnection>
+    <url>https://github.com/uis-it/studinfo-import</url>
   </scm>
   
   <ciManagement>
@@ -293,4 +293,8 @@
       </plugin>
     </plugins>
   </build>
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/uis-it/studinfo-import/issues</url>
+  </issueManagement>
 </project>
