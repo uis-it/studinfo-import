@@ -110,6 +110,20 @@ public interface StudInfoImport {
   FsStudieinfo fetchSubjects(int institution, int faculty, int year, String semester, String language) throws Exception;
 
   /**
+   * Fetch single subject.
+   * 
+   * @param institusjonsnr
+   * @param emnekode
+   * @param versjonskode
+   * @param arstall
+   * @param terminkode
+   * @param sprak
+   * @return
+   * @throws Exception 
+   */
+  FsStudieinfo fetchSubject(int institusjonsnr, String emnekode, String versjonskode, int arstall, String terminkode, String sprak) throws Exception;
+  
+  /**
    * @param institution
    *        - 217 for UiS
    * @param year
@@ -121,5 +135,6 @@ public interface StudInfoImport {
    * @throws Exception
    */
   FsStudieinfo fetchCourses(int institution, int year, String semester, String language) throws Exception;
+
 
 }

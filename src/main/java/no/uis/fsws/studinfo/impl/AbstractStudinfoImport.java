@@ -32,6 +32,8 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import lombok.Cleanup;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import net.sf.saxon.lib.FeatureKeys;
@@ -66,14 +68,8 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
       String language) throws Exception
   {
 
-    Reader studieinfoXml = fsGetStudieprogram(institution, faculty, year, semester, includeEP, language);
-    try {
-      return unmarshalStudieinfo(studieinfoXml);
-    } finally {
-      if (studieinfoXml != null) {
-        studieinfoXml.close();
-      }
-    }
+    @Cleanup Reader studieinfoXml = fsGetStudieprogram(institution, faculty, year, semester, includeEP, language);
+    return unmarshalStudieinfo(studieinfoXml);
   }
 
   @Override
@@ -81,46 +77,38 @@ public abstract class AbstractStudinfoImport implements StudInfoImport {
       String language) throws Exception
   {
 
-    Reader studieinfoXml = fsGetStudieprogram(studieprogramkode, year, semester, includeEP, language);
-    try {
-      return unmarshalStudieinfo(studieinfoXml);
-    } finally {
-      if (studieinfoXml != null) {
-        studieinfoXml.close();
-      }
-    }
+    @Cleanup Reader studieinfoXml = fsGetStudieprogram(studieprogramkode, year, semester, includeEP, language);
+    return unmarshalStudieinfo(studieinfoXml);
   }
 
   @Override
   public FsStudieinfo fetchSubjects(int institution, int faculty, int year, String semester, String language) throws Exception {
 
-    Reader studieinfoXml = fsGetEmne(institution, faculty, year, semester, language);
-    try {
-      return unmarshalStudieinfo(studieinfoXml);
-    } finally {
-      studieinfoXml.close();
-    }
+    @Cleanup Reader studieinfoXml = fsGetEmne(institution, faculty, year, semester, language);
+    return unmarshalStudieinfo(studieinfoXml);
   }
 
   @Override
+  public FsStudieinfo fetchSubject(int institusjonsnr, String emnekode, String versjonskode, int arstall, String terminkode,
+      String sprak) throws Exception
+  {
+    @Cleanup Reader studieinfoXml = fsGetEmne(institusjonsnr, emnekode, versjonskode, arstall, terminkode, sprak);
+    return unmarshalStudieinfo(studieinfoXml);
+  }
+  
+  @Override
   public FsStudieinfo fetchCourses(int institution, int year, String semester, String language) throws Exception {
 
-    Reader studieinfoXml = fsGetKurs(institution, language);
-    try {
-      return unmarshalStudieinfo(studieinfoXml);
-    } finally {
-      studieinfoXml.close();
-    }
+    @Cleanup Reader studieinfoXml = fsGetKurs(institution, language);
+    return unmarshalStudieinfo(studieinfoXml);
   }
 
   /**
    * @param studieinfoXml
    *        the Reader is not closed in this method.
    */
-  protected FsStudieinfo unmarshalStudieinfo(Reader studieinfoXml) throws Exception {
-    if (studieinfoXml == null) {
-      return null;
-    }
+  protected FsStudieinfo unmarshalStudieinfo(@NonNull Reader studieinfoXml) throws Exception {
+
     Reader unmarshalSource = null;
     List<Runnable> cleanupTasks = new ArrayList<Runnable>(2);
 
