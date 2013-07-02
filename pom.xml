@@ -13,7 +13,7 @@
   
   <packaging>jar</packaging>
   <name>FS-WS Studinfo Import Library</name>
-  <url>https://forge.uis.no/projects/studinfo-import</url>
+  <url>https://github.com/uis-it/studinfo-import</url>
 
   <inceptionYear>2010</inceptionYear>
 
