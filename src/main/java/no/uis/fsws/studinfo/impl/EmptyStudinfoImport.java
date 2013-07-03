@@ -14,7 +14,7 @@
    limitations under the License.
  */
 
-package no.uis.fsws.studinfo;
+package no.uis.fsws.studinfo.impl;
 
 import java.io.Reader;
 
@@ -23,7 +23,6 @@ import javax.xml.bind.JAXBContext;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import no.uis.fsws.studinfo.data.FsStudieinfo;
-import no.uis.fsws.studinfo.impl.StudInfoImportImpl;
 
 /**
  * Dummy implementation for StudinfoImport. 

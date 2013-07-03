@@ -30,6 +30,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import no.uis.fsws.studinfo.StudInfoImport;
 import no.uis.fsws.studinfo.data.FsStudieinfo;
 import no.uis.fsws.studinfo.data.Kurs;
+import no.uis.fsws.studinfo.impl.EmptyStudinfoImport;
 
 import org.junit.Test;
 
