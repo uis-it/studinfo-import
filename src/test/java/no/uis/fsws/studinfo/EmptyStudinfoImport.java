@@ -18,12 +18,17 @@ package no.uis.fsws.studinfo;
 
 import java.io.Reader;
 
-import no.uis.fsws.studinfo.impl.AbstractStudinfoImport;
+import javax.xml.bind.JAXBContext;
+
+import lombok.NonNull;
+import lombok.SneakyThrows;
+import no.uis.fsws.studinfo.data.FsStudieinfo;
+import no.uis.fsws.studinfo.impl.StudInfoImportImpl;
 
 /**
  * Dummy implementation for StudinfoImport. 
  */
-public class EmptyStudinfoImport extends AbstractStudinfoImport {
+public class EmptyStudinfoImport extends StudInfoImportImpl {
 
   @Override
   protected Reader fsGetKurs(int institution, String language) {
@@ -53,4 +58,16 @@ public class EmptyStudinfoImport extends AbstractStudinfoImport {
     return null;
   }
 
+  /**
+   * This implementation assumes that the XML conforms to the studieinfo schema, i.e. doesn't need to be transformed.
+   */
+  @Override
+  @SneakyThrows
+  protected FsStudieinfo unmarshalStudieinfo(@NonNull Reader studieinfoXml) {
+
+    JAXBContext jc = JAXBContext.newInstance(FsStudieinfo.class);
+    FsStudieinfo sinfo = (FsStudieinfo)jc.createUnmarshaller().unmarshal(studieinfoXml);
+
+    return sinfo;
+  }
 }

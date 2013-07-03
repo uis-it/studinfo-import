@@ -51,22 +51,22 @@ public class KursImportTest {
         sb.append("      <tidkode>2012-2013</tidkode>");
         sb.append("    </kursid>");
         sb.append("    <kursnavn>Digitale verkt\u00f8y og unders\u00f8kende arbeidsformer i matematikk</kursnavn>");
-        sb.append("    <sted type=\"fagansvarlig\">");
+        sb.append("    <fagansvarlig>");
         sb.append("      <institusjonsnr>217</institusjonsnr>");
         sb.append("      <fakultetsnr>3</fakultetsnr>");
         sb.append("      <instituttnr>6</instituttnr>");
         sb.append("      <gruppenr>0</gruppenr>");
         sb.append("      <navn>UiS Pluss: Etter- og videreutdanning</navn>");
         sb.append("      <avdnavn>Ledelse og stab</avdnavn>");
-        sb.append("    </sted>");
-        sb.append("    <sted type=\"adminansvarlig\">");
+        sb.append("    </fagansvarlig>");
+        sb.append("    <adminansvarlig>");
         sb.append("      <institusjonsnr>217</institusjonsnr>");
         sb.append("      <fakultetsnr>3</fakultetsnr>");
         sb.append("      <instituttnr>6</instituttnr>");
         sb.append("      <gruppenr>0</gruppenr>");
         sb.append("      <navn>UiS Pluss: Etter- og videreutdanning</navn>");
         sb.append("      <avdnavn>Ledelse og stab</avdnavn>");
-        sb.append("    </sted>");
+        sb.append("    </adminansvarlig>");
         sb.append("    <dato-opptak-fra>2012-03-01</dato-opptak-fra>");
         sb.append("    <dato-opptak-til>2012-06-15</dato-opptak-til>");
         sb.append("    <dato-frist-soknad>2012-06-15</dato-frist-soknad>");
@@ -103,5 +103,7 @@ public class KursImportTest {
     // TODO should the date be of type java.util.Calendar?
     assertThat(kurs.getDatoOpptakFra(), is(instanceOf(XMLGregorianCalendar.class)));
     assertThat(kurs.getDatoOpptakFra().toXMLFormat(), is("2012-03-01"));
+    assertThat(kurs.getAdminansvarlig(), is(notNullValue()));
+    assertThat(kurs.getFagansvarlig(), is(notNullValue()));
   }
 }

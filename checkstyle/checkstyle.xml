@@ -19,7 +19,9 @@
     <module name="WhitespaceAfter">
       <property name="tokens" value="COMMA,SEMI"/>
     </module>
-    <module name="AnnotationUseStyle"/>
+    <module name="AnnotationUseStyle">
+      <property name="closingParens" value="ignore"/>
+    </module>
     <module name="MissingDeprecated"/>
     <module name="MissingOverride"/>
     <module name="PackageAnnotation">
