@@ -91,7 +91,7 @@ public class PropertyInfoUtils {
 
     List<PropertyInfo> plist = new LinkedList<PropertyInfo>();
     for (String propName : propNames) {
-      plist.add(new PropertyInfo(propName, setters.get(propName), getters.get(propName), isSetters.get(propName)));
+      plist.add(new PropertyInfo(propName, getters.get(propName), setters.get(propName), isSetters.get(propName)));
     }
     return plist;
   }
